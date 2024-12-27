@@ -135,8 +135,9 @@ dns:
     - https://120.53.53.53/dns-query 
     - https://223.5.5.5/dns-query
     "rule-set:geolocation-!cn":
-      - "https://dns.google/dns-query"
-      - "https://1.1.1.1/dns-query"
+    - "https://dns.google/dns-query"
+    - "https://1.1.1.1/dns-query"
+ 
  
    
 proxies:
@@ -144,38 +145,42 @@ proxies:
   type: direct
   udp: true
 
+- name: "🚫 拒绝"
+  type: reject
+  udp: true
+
   
 # 策略组
 proxy-groups:
   - {name: 🚀 节点选择, type: select, proxies: [♻️ 香港自动, ♻️ 新加坡自动, ♻️ 日本自动, ♻️ 台湾自动, ♻️ 美国自动, ♻️ 自动选择, 🇭🇰 香港节点, 🇸🇬 新加坡节点, 🇯🇵 日本节点, 🇹🇼 台湾节点, 🇺🇲 美国节点, 🌐 全部节点, ⭕ 自建节点, 🟢 直连]}
-  - {name: YouTube, <<: *pr, icon: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/icon/mini/youtube.png"}
-  - {name: Google, <<: *pr, icon: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/icon/mini/google.png"}
+  - {name: YouTube, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/YouTube.png"}
+  - {name: Google, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Google.png"}
   - {name: Meta, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Meta_1.png"}
-  - {name: AI, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/AI.png"}
-  - {name: GitHub, <<: *pr, icon: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/icon/mini/github.png"}
-  - {name: OneDrive, <<: *pr, icon: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/icon/mini/onedrive.png"}
-  - {name: Microsoft, <<: *pr, icon: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/icon/mini/microsoft.png"}
-  - {name: TikTok, <<: *pr, icon: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/icon/mini/tiktok.png"}
-  - {name: Telegram, <<: *pr, icon: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/icon/mini/telegram.png"}
-  - {name: NETFLIX, <<: *pr, icon: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/icon/mini/netflix.png"}
-  - {name: DisneyPlus, <<: *pr, icon: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/icon/mini/disneyplus.png"}
-  - {name: HBO, <<: *pr, icon: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/icon/mini/hbo.png"}
-  - {name: Primevideo, <<: *pr, icon: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/icon/mini/prime-video.png"}
-  - {name: AppleTV, <<: *pr, icon: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/icon/mini/apple.png"}
+  - {name: AI, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/AI_bot.png"}
+  - {name: GitHub, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/GitHub.png"}
+  - {name: OneDrive, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/OneDrive.png"}
+  - {name: Microsoft, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Microsoft.png"}
+  - {name: TikTok, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/TikTok.png"}
+  - {name: Telegram, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Telegram.png"}
+  - {name: NETFLIX, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Netflix.png"}
+  - {name: DisneyPlus, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Disney_plus.png"}
+  - {name: HBO, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/HBO_MAX.png"}
+  - {name: Primevideo, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Prime.png"}
+  - {name: AppleTV, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Apple_TV.png"}
   - {name: 🛒 国外电商, <<: *pr}
-  - {name: 哔哩哔哩, <<: *pr, icon: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/icon/mini/bilibili.png"}
-  - {name: 哔哩东南亚, <<: *pr, icon: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/icon/mini/bilibili.png"}
-  - {name: 巴哈姆特, type: select, proxies: [🇹🇼 台湾节点, ♻️ 台湾自动], icon: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/icon/mini/bahamut.png"}
-  - {name: Spotify, <<: *pr, icon: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/icon/mini/spotify.png"}
+  - {name: 哔哩哔哩, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Bilibili_Global.png"}
+  - {name: 哔哩东南亚, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Bilibili_blue.png"}
+  - {name: 巴哈姆特, type: select, proxies: [🇹🇼 台湾节点, ♻️ 台湾自动], icon: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/icon/color/bahamut.png"}
+  - {name: Spotify, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Spotify.png"}
   - {name: 🌏 国内媒体, <<: *pr}
   - {name: 🌎 国外媒体, <<: *pr}
-  - {name: STEAM, <<: *pr, icon: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/icon/mini/steam.png"}
-  - {name: 游戏平台, <<: *pr, icon: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/icon/mini/game.png"}
-  - {name: Speedtest, <<: *pr, icon: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/icon/mini/speedtest.png"}
-  - {name: PayPal, <<: *pr, icon: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/icon/mini/paypal.png"}
-  - {name: Apple, type: select, proxies: [🟢 直连, 🚀 节点选择], icon: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/icon/mini/apple.png"}
+  - {name: STEAM, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Steam.png"}
+  - {name: 游戏平台, <<: *pr, icon: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/icon/color/game.png"}
+  - {name: Speedtest, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/SpeedTest.png"}
+  - {name: PayPal, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/PayPal.png"}
+  - {name: Apple, type: select, proxies: [🟢 直连, 🚀 节点选择], icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Apple_black.png"}
   - {name: 🎯 全球直连, type: select, proxies: [🟢 直连, 🚀 节点选择]}
-  - {name: 🛑 隐私拦截, type: select, proxies: [🟢 直连, REJECT]}
+  - {name: 🛑 隐私拦截, type: select, proxies: [🟢 直连, 🚫 拒绝]}
   - {name: 🐟 漏网之鱼, <<: *pr}
   - {name: ⭕ 自建节点, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?i)自建|CF"}
   - {name: 🇭🇰 香港节点, type: select, include-all: true, filter: "(?i)港|hk|hongkong|hong kong"}
