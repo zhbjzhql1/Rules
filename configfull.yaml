@@ -211,6 +211,7 @@ rules:
   - RULE-SET,biliintl_domain,哔哩东南亚
   - RULE-SET,bilibili_domain,哔哩哔哩
   - RULE-SET,bahamut_domain,巴哈姆特
+  - RULE-SET,youtube_domain,YouTube
   - RULE-SET,googleplay,Google
   - RULE-SET,google_domain,Google
   - RULE-SET,google_ip,Google,no-resolve
@@ -240,7 +241,6 @@ rules:
   - RULE-SET,ai3,AI
   - RULE-SET,github_domain,GitHub
   - RULE-SET,gitbook,GitHub
-  - RULE-SET,youtube_domain,YouTube
   - RULE-SET,onedrive_domain,OneDrive
   - RULE-SET,microsoft_domain,Microsoft
   - RULE-SET,tiktok_domain,TikTok
