@@ -11,7 +11,7 @@ proxy-providers:
       url: https://www.gstatic.com/generate_204
       interval: 300
     proxy: 🟢 直连
-    url: "订阅链接"
+    url: "订阅连接填这里"
   Airport_02:
     type: http
     interval: 3600
@@ -20,7 +20,7 @@ proxy-providers:
       url: https://www.gstatic.com/generate_204
       interval: 300
     proxy: 🟢 直连
-    url: "订阅链接"
+    url: "订阅连接填这里"
     override:
       skip-cert-verify: true
       udp: true
@@ -59,7 +59,7 @@ geox-url:
 external-controller: 0.0.0.0:9090
 secret: ""
 external-ui: ui
-external-ui-url: "https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip"
+external-ui-url: "https://mirror.neverquit.us.kg/https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip"
 # 下载面板地址可更换：https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip
 
 # 匹配进程 always/strict/off
@@ -138,8 +138,6 @@ dns:
       - "https://dns.google/dns-query"
       - "https://security.cloudflare-dns.com/dns-query"
  
- 
- 
    
 proxies:
 - name: "🟢 直连"
@@ -207,6 +205,8 @@ rules:
   - RULE-SET,blockAd7,🛑 隐私拦截
   - RULE-SET,blockAd8,🛑 隐私拦截
   - RULE-SET,Installationcheck,🛑 隐私拦截
+#过滤缅甸ip按需开启
+#  - RULE-SET,mm_ip,🛑 隐私拦截,no-resolve
   - RULE-SET,speedtest_domain,Speedtest
   - RULE-SET,Cloudflare,🚀 节点选择
   - RULE-SET,biliintl_domain,哔哩东南亚
@@ -233,6 +233,7 @@ rules:
   - RULE-SET,Chinacompanyip,🟢 直连
   - RULE-SET,wangyiyu,🟢 直连
   - RULE-SET,direct5,🟢 直连
+  - RULE-SET,direct6,🟢 直连
   - RULE-SET,China'smedia,🌏 国内媒体
   - RULE-SET,appleTV,AppleTV
   - RULE-SET,apple_domain,Apple
@@ -253,6 +254,7 @@ rules:
   - RULE-SET,facebook,Meta
   - RULE-SET,whatsapp,Meta
   - RULE-SET,instagram,Meta
+  - RULE-SET,threads,Meta
   - RULE-SET,Globalmedia,🌎 国外媒体
   - RULE-SET,steam,STEAM
   - RULE-SET,Epic,游戏平台
@@ -348,10 +350,14 @@ rule-providers:
   direct5: { <<: *class, url: "https://raw.githubusercontent.com/Lanlan13-14/Openclash-/refs/heads/main/direct.list" }
   facebook: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Facebook/Facebook.list" }
   whatsapp: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Whatsapp/Whatsapp.list" }
-  instagram: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Instagram/Instagram.list" }
+  instagram: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Instagram/Instagram.list" }       
+  threads: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Threads/Threads.list" }
+  direct6: { <<: *class, url: "https://raw.githubusercontent.com/Lanlan13-14/-/refs/heads/master/Direct.list" }
 
   Chinacompanyip: { <<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/refs/heads/master/Clash/ChinaCompanyIp.list" }
   cn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs" }
+#过滤缅甸ip按需开启
+#  mm_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/mm.mrs" }
   google_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs" }
   telegram_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs" }
   netflix_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/netflix.mrs" }
