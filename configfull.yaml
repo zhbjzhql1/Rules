@@ -218,6 +218,8 @@ rules:
   - RULE-SET,google_ip,Google,no-resolve
   - RULE-SET,google_ip2,Google,no-resolve
   - RULE-SET,fcm,Google
+  - RULE-SET,onedrive_domain,OneDrive
+  - RULE-SET,microsoft_domain,Microsoft
   - RULE-SET,proxylite,🚀 节点选择
   - RULE-SET,telegram_domain,Telegram
   - RULE-SET,telegram_ip,Telegram,no-resolve
@@ -243,8 +245,6 @@ rules:
   - RULE-SET,ai3,AI
   - RULE-SET,github_domain,GitHub
   - RULE-SET,gitbook,GitHub
-  - RULE-SET,onedrive_domain,OneDrive
-  - RULE-SET,microsoft_domain,Microsoft
   - RULE-SET,tiktok_domain,TikTok
   - RULE-SET,netflix_domain,NETFLIX
   - RULE-SET,disney,DisneyPlus
