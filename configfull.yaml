@@ -11,7 +11,7 @@ proxy-providers:
       url: https://www.gstatic.com/generate_204
       interval: 300
     proxy: 🟢 直连
-    url: "订阅链接填这里"
+    url: "订阅链接写这里"
   Airport_02:
     type: http
     interval: 3600
@@ -20,7 +20,7 @@ proxy-providers:
       url: https://www.gstatic.com/generate_204
       interval: 300
     proxy: 🟢 直连
-    url: "订阅链接填这里"
+    url: "订阅链接写这里"
     override:
       skip-cert-verify: true
       udp: true
@@ -109,8 +109,8 @@ dns:
   enable: true
   listen: 0.0.0.0:1053
   ipv6: true
-  respect-rules: true
   prefer-h3: true # 是否开启 DoH 支持 HTTP/3，将并发尝试
+  respect-rules: true
   # 模式切换 redir-host / fake-ip
   enhanced-mode: fake-ip
   fake-ip-range: 28.0.0.1/8
@@ -196,6 +196,13 @@ proxy-groups:
   - {name: ♻️ 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "^((?!(直连)).)*$"}
   - {name: 🌐 全部节点, type: select, include-all: true}
 rules:
+# >屏蔽QUIC
+  - AND,((DST-PORT,443),(NETWORK,UDP)),REJECT-DROP
+  # 常用必备
+  - DST-PORT,123,🟢 直连
+  - IP-CIDR,95.161.76.100/31,REJECT-DROP,no-resolve
+  # 防御
+  - RULE-SET,category-public-tracker,REJECT-DROP
   - RULE-SET,blockAd0,🛑 隐私拦截
   - RULE-SET,blockAd1,🛑 隐私拦截
   - RULE-SET,blockAd2,🛑 隐私拦截
@@ -206,8 +213,7 @@ rules:
   - RULE-SET,blockAd7,🛑 隐私拦截
   - RULE-SET,blockAd8,🛑 隐私拦截
   - RULE-SET,Installationcheck,🛑 隐私拦截
-#过滤缅甸ip按需开启
-#  - RULE-SET,mm_ip,🛑 隐私拦截,no-resolve
+  - RULE-SET,mm_ip,🛑 隐私拦截,no-resolve
   - RULE-SET,speedtest_domain,Speedtest
   - RULE-SET,Cloudflare,🚀 节点选择
   - RULE-SET,biliintl_domain,哔哩东南亚
@@ -244,6 +250,7 @@ rules:
   - RULE-SET,ai1,AI
   - RULE-SET,ai2,AI
   - RULE-SET,ai3,AI
+  - RULE-SET,category-ai-chat-!cn,AI
   - RULE-SET,github_domain,GitHub
   - RULE-SET,gitbook,GitHub
   - RULE-SET,tiktok_domain,TikTok
@@ -256,6 +263,7 @@ rules:
   - RULE-SET,whatsapp,Meta
   - RULE-SET,instagram,Meta
   - RULE-SET,threads,Meta
+  - RULE-SET,facebook_ip,Meta,no-resolve
   - RULE-SET,Globalmedia,🌎 国外媒体
   - RULE-SET,steam,STEAM
   - RULE-SET,Epic,游戏平台
@@ -273,6 +281,7 @@ rules:
   - RULE-SET,geolocation-!cn,🚀 节点选择
   - RULE-SET,cn_domain,🎯 全球直连
   - RULE-SET,netflix_ip,NETFLIX,no-resolve
+  - RULE-SET,twitter_ip,🚀 节点选择,no-resolve
   - RULE-SET,cn_ip,🎯 全球直连,no-resolve
   - MATCH,🐟 漏网之鱼
 rule-anchor:
@@ -354,12 +363,15 @@ rule-providers:
   instagram: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Instagram/Instagram.list" }       
   threads: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Threads/Threads.list" }
   direct6: { <<: *class, url: "https://raw.githubusercontent.com/Lanlan13-14/-/refs/heads/master/Direct.list" }
+  category-ai-chat-!cn: { <<: *domain, url: "https://github.com/666OS/YYDS/raw/main/mihomo/rules/category-ai-chat-!cn.mrs" }
+  category-public-tracker: { <<: *domain, url: "https://github.com/666OS/YYDS/raw/main/mihomo/rules/category-public-tracker.mrs" }
 
   Chinacompanyip: { <<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/refs/heads/master/Clash/ChinaCompanyIp.list" }
   cn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs" }
-#过滤缅甸ip按需开启
-#  mm_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/mm.mrs" }
+  mm_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/mm.mrs" }
   google_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs" }
   telegram_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs" }
   netflix_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/netflix.mrs" }
   Amazon_ip: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/AmazonIP/AmazonIP.list" }
+  facebook_ip: { <<: *ip, url: "https://github.com/666OS/YYDS/raw/main/mihomo/rules/facebook_ip.mrs" }
+  twitter_ip: { <<: *ip, url: "https://github.com/666OS/YYDS/raw/main/mihomo/rules/twitter_ip.mrs" }
