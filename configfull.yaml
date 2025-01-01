@@ -196,7 +196,6 @@ proxy-groups:
   - {name: ♻️ 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "^((?!(直连)).)*$"}
   - {name: 🌐 全部节点, type: select, include-all: true}
 rules:
-  - IN-PORT,5656,🟢 直连#若路由器上搭建了节点可开启是得节点端口走直连而非代理优化回家速度
   - RULE-SET,blockAd0,🛑 隐私拦截
   - RULE-SET,blockAd1,🛑 隐私拦截
   - RULE-SET,blockAd2,🛑 隐私拦截
