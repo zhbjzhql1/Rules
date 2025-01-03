@@ -148,7 +148,6 @@ proxies:
 - name: "🚫 拒绝"
   type: reject
   udp: true
-
   
 # 策略组
 proxy-groups:
@@ -195,11 +194,11 @@ proxy-groups:
   - {name: ♻️ 美国自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(美|US|(?i)States|America))^((?!(港|台|日|韩|新|0.3X|3X|Wcloud)).)*$"}
   - {name: ♻️ 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "^((?!(直连)).)*$"}
   - {name: 🌐 全部节点, type: select, include-all: true}
-rules:
-# >屏蔽QUIC
+rules: 
+  # >屏蔽QUIC
   - AND,((DST-PORT,443),(NETWORK,UDP)),REJECT-DROP
   # 常用必备
-  - DST-PORT,123,🟢 直连
+  - DST-PORT,123,🎯 全球直连
   - IP-CIDR,95.161.76.100/31,REJECT-DROP,no-resolve
   # 防御
   - RULE-SET,category-public-tracker,REJECT-DROP
@@ -230,19 +229,19 @@ rules:
   - RULE-SET,proxylite,🚀 节点选择
   - RULE-SET,telegram_domain,Telegram
   - RULE-SET,telegram_ip,Telegram,no-resolve
-  - RULE-SET,private_domain,🟢 直连
-  - RULE-SET,direct1,🟢 直连
-  - RULE-SET,xiaomi,🟢 直连
-  - RULE-SET,direct2,🟢 直连
-  - RULE-SET,direct3,🟢 直连
-  - RULE-SET,direct4,🟢 直连
-  - RULE-SET,steamcn,🟢 直连
-  - RULE-SET,steamcdn,🟢 直连
-  - RULE-SET,btdownload,🟢 直连
-  - RULE-SET,Chinacompanyip,🟢 直连
-  - RULE-SET,wangyiyu,🟢 直连
-  - RULE-SET,direct5,🟢 直连
-  - RULE-SET,direct6,🟢 直连
+  - RULE-SET,private_domain,🎯 全球直连
+  - RULE-SET,direct1,🎯 全球直连
+  - RULE-SET,xiaomi,🎯 全球直连
+  - RULE-SET,direct2,🎯 全球直连
+  - RULE-SET,direct3,🎯 全球直连
+  - RULE-SET,direct4,🎯 全球直连
+  - RULE-SET,steamcn,🎯 全球直连
+  - RULE-SET,steamcdn,🎯 全球直连
+  - RULE-SET,btdownload,🎯 全球直连
+  - RULE-SET,Chinacompany_ip,🎯 全球直连,no-resolve
+  - RULE-SET,wangyiyu,🎯 全球直连
+  - RULE-SET,direct5,🎯 全球直连
+  - RULE-SET,direct6,🎯 全球直连
   - RULE-SET,China'smedia,🌏 国内媒体
   - RULE-SET,appleTV,AppleTV
   - RULE-SET,apple_domain,Apple
@@ -366,7 +365,7 @@ rule-providers:
   category-ai-chat-!cn: { <<: *domain, url: "https://github.com/666OS/YYDS/raw/main/mihomo/rules/category-ai-chat-!cn.mrs" }
   category-public-tracker: { <<: *domain, url: "https://github.com/666OS/YYDS/raw/main/mihomo/rules/category-public-tracker.mrs" }
 
-  Chinacompanyip: { <<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/refs/heads/master/Clash/ChinaCompanyIp.list" }
+  Chinacompany_ip: { <<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/refs/heads/master/Clash/ChinaCompanyIp.list" }
   cn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs" }
   mm_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/mm.mrs" }
   google_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs" }
