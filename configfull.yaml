@@ -11,7 +11,7 @@ proxy-providers:
       url: https://www.gstatic.com/generate_204
       interval: 300
     proxy: 🟢 直连
-    url: "订阅链接写这里"
+    url: "订阅链接写在这里"
   Airport_02:
     type: http
     interval: 3600
@@ -20,7 +20,7 @@ proxy-providers:
       url: https://www.gstatic.com/generate_204
       interval: 300
     proxy: 🟢 直连
-    url: "订阅链接写这里"
+    url: "订阅链接写在这里"
     override:
       skip-cert-verify: true
       udp: true
@@ -166,6 +166,7 @@ proxy-groups:
   - {name: HBO, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/HBO_MAX.png"}
   - {name: Primevideo, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Prime.png"}
   - {name: AppleTV, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Apple_TV.png"}
+  - {name: Emby, <<: *pr, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Emby.png}
   - {name: 🛒 国外电商, <<: *pr}
   - {name: 哔哩哔哩, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Bilibili_Global.png"}
   - {name: 哔哩东南亚, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Bilibili_blue.png"}
@@ -257,6 +258,7 @@ rules:
   - RULE-SET,disney,DisneyPlus
   - RULE-SET,hbo,HBO
   - RULE-SET,primevideo,Primevideo
+  - RULE-SET,emby,Emby
   - RULE-SET,spotify_domain,Spotify
   - RULE-SET,facebook,Meta
   - RULE-SET,whatsapp,Meta
@@ -364,6 +366,7 @@ rule-providers:
   direct6: { <<: *class, url: "https://raw.githubusercontent.com/Lanlan13-14/-/refs/heads/master/Direct.list" }
   category-ai-chat-!cn: { <<: *domain, url: "https://github.com/666OS/YYDS/raw/main/mihomo/rules/category-ai-chat-!cn.mrs" }
   category-public-tracker: { <<: *domain, url: "https://github.com/666OS/YYDS/raw/main/mihomo/rules/category-public-tracker.mrs" }
+  emby: { <<: *class, url: "https://raw.githubusercontent.com/666OS/YYDS/main/mihomo/rules/emby.list" }
 
   Chinacompany_ip: { <<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/refs/heads/master/Clash/ChinaCompanyIp.list" }
   cn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs" }
