@@ -189,7 +189,7 @@ proxy-groups:
   - {name: PayPal, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/PayPal.png"}
   - {name: Apple, type: select, proxies: [🎯 全球直连, 🚀 节点选择], icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Apple_black.png"}
   - {name: 🎯 全球直连, type: select, proxies: [🟢 直连, 🚀 节点选择]}
-  - {name: 🛑 隐私拦截, type: select, proxies: [🎯 全球直连, 🚫 拒绝]}
+  - {name: 🛑 隐私拦截, type: select, proxies: [🚫 拒绝, 🟢 直连]}
   - {name: 🐟 漏网之鱼, type: select, <<: *pr, include-all: true}
   - {name: ⭕ 自建节点, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?i)自建|CF"}
   - {name: 🇭🇰 香港节点, type: select, include-all: true, filter: "(?i)港|hk|hongkong|hong kong"}
@@ -208,20 +208,19 @@ rules:
   # >屏蔽QUIC
   - AND,((DST-PORT,443),(NETWORK,UDP)),REJECT-DROP
   # 常用必备
-  - DST-PORT,123,🎯 全球直连
+#  - DST-PORT,123,🎯 全球直连
   - IP-CIDR,95.161.76.100/31,REJECT-DROP,no-resolve
   # 防御
   - RULE-SET,category-public-tracker,REJECT-DROP
-  - RULE-SET,blockAd0,🛑 隐私拦截
+  - RULE-SET,blockAd0,🛑 隐私拦截,no-resolve
   - RULE-SET,blockAd1,🛑 隐私拦截
   - RULE-SET,blockAd2,🛑 隐私拦截
   - RULE-SET,blockAd3,🛑 隐私拦截
   - RULE-SET,blockAd4,🛑 隐私拦截
   - RULE-SET,blockAd5,🛑 隐私拦截
-  - RULE-SET,blockAd6,🛑 隐私拦截
-  - RULE-SET,blockAd7,🛑 隐私拦截
-  - RULE-SET,blockAd8,🛑 隐私拦截
-  - RULE-SET,Installationcheck,🛑 隐私拦截
+  - RULE-SET,blockAd6,🛑 隐私拦截,no-resolve
+  - RULE-SET,blockAd7,🛑 隐私拦截,no-resolve
+  - RULE-SET,blockAd8,🛑 隐私拦截,no-resolve
   - RULE-SET,mm_ip,🛑 隐私拦截,no-resolve
   - RULE-SET,speedtest_domain,Speedtest
   - RULE-SET,Cloudflare,🚀 节点选择
@@ -250,8 +249,6 @@ rules:
   - RULE-SET,btdownload,🎯 全球直连
   - RULE-SET,Chinacompany_ip,🎯 全球直连,no-resolve
   - RULE-SET,wangyiyu,🎯 全球直连
-  - RULE-SET,direct5,🎯 全球直连
-  - RULE-SET,direct6,🎯 全球直连
   - RULE-SET,China'smedia,🌏 国内媒体
   - RULE-SET,appleTV,AppleTV
   - RULE-SET,apple_domain,Apple
@@ -300,7 +297,6 @@ rule-anchor:
   qcy: &qcy {type: http, interval: 86400, behavior: domain, format: text}
   class: &class {type: http, interval: 86400, behavior: classical, format: text}
 rule-providers: 
-  Installationcheck: { <<: *class, url: "https://raw.githubusercontent.com/Lanlan13-14/Openclash-/refs/heads/main/Installationcheck.list" }
   blockAd0: { <<: *class, url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/refs/heads/main/Filters/AWAvenue-Ads-Rule-Clash.yaml" }
   blockAd1: { <<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanAD.list" }
   blockAd2: { <<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanProgramAD.list" }
@@ -367,12 +363,10 @@ rule-providers:
   UBI: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/UBI/UBI.list" }
   Snoy: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Sony/Sony.list" }
   Nintendo: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Nintendo/Nintendo.list" }
-  direct5: { <<: *class, url: "https://raw.githubusercontent.com/Lanlan13-14/Openclash-/refs/heads/main/direct.list" }
   facebook: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Facebook/Facebook.list" }
   whatsapp: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Whatsapp/Whatsapp.list" }
   instagram: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Instagram/Instagram.list" }       
   threads: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Threads/Threads.list" }
-  direct6: { <<: *class, url: "https://raw.githubusercontent.com/Lanlan13-14/-/refs/heads/master/Direct.list" }
   category-ai-chat-!cn: { <<: *domain, url: "https://github.com/666OS/YYDS/raw/main/mihomo/rules/category-ai-chat-!cn.mrs" }
   category-public-tracker: { <<: *domain, url: "https://github.com/666OS/YYDS/raw/main/mihomo/rules/category-public-tracker.mrs" }
   emby: { <<: *class, url: "https://raw.githubusercontent.com/666OS/YYDS/main/mihomo/rules/emby.list" }
