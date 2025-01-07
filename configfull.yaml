@@ -284,7 +284,7 @@ rules:
   - RULE-SET,Nintendo,游戏平台
   - RULE-SET,paypal_domain,PayPal
   - RULE-SET,Amazon,🛒 国外电商
-  - RULE-SET,Amazon_ip,🛒 国外电商
+  - RULE-SET,Amazon_ip,🛒 国外电商,no-resolve
   - RULE-SET,Shopee,🛒 国外电商
   - RULE-SET,Shopify,🛒 国外电商
   - RULE-SET,GFW,🚀 节点选择
