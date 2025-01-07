@@ -1,5 +1,5 @@
 # 锚点
-pr: &pr {type: select, proxies: [🚀 节点选择, ♻️ 香港自动, ♻️ 新加坡自动, ♻️ 日本自动, ♻️ 台湾自动, ♻️ 美国自动, ♻️ 自动选择, 🇭🇰 香港节点, 🇸🇬 新加坡节点, 🇯🇵 日本节点, 🇹🇼 台湾节点, 🇺🇲 美国节点, 🌐 全部节点, ⭕ 自建节点, 🟢 直连]}
+pr: &pr {type: select, proxies: [🚀 节点选择, ♻️ 香港自动, ♻️ 新加坡自动, ♻️ 日本自动, ♻️ 台湾自动, ♻️ 美国自动, ♻️ 自动选择, 🇭🇰 香港节点, 🇸🇬 新加坡节点, 🇯🇵 日本节点, 🇹🇼 台湾节点, 🇺🇲 美国节点, 🌐 全部节点, ⭕ 自建节点, 🎯 全球直连]}
 
 # 机场订阅，名称不能重复
 proxy-providers:
@@ -187,9 +187,9 @@ proxy-groups:
   - {name: 游戏平台, <<: *pr, icon: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/icon/color/game.png"}
   - {name: Speedtest,type: select, <<: *pr, include-all: true, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/SpeedTest.png"}
   - {name: PayPal, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/PayPal.png"}
-  - {name: Apple, type: select, proxies: [🟢 直连, 🚀 节点选择], icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Apple_black.png"}
+  - {name: Apple, type: select, proxies: [🎯 全球直连, 🚀 节点选择], icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Apple_black.png"}
   - {name: 🎯 全球直连, type: select, proxies: [🟢 直连, 🚀 节点选择]}
-  - {name: 🛑 隐私拦截, type: select, proxies: [🟢 直连, 🚫 拒绝]}
+  - {name: 🛑 隐私拦截, type: select, proxies: [🎯 全球直连, 🚫 拒绝]}
   - {name: 🐟 漏网之鱼, type: select, <<: *pr, include-all: true}
   - {name: ⭕ 自建节点, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?i)自建|CF"}
   - {name: 🇭🇰 香港节点, type: select, include-all: true, filter: "(?i)港|hk|hongkong|hong kong"}
