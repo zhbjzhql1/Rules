@@ -11,7 +11,7 @@ proxy-providers:
       url: https://www.gstatic.com/generate_204
       interval: 300
     proxy: 🟢 直连
-    url: "订阅链接写这里"
+    url: "订阅链接写在这里"
   Airport_02:
     type: http
     interval: 86400
@@ -20,7 +20,7 @@ proxy-providers:
       url: https://www.gstatic.com/generate_204
       interval: 300
     proxy: 🟢 直连
-    url: "订阅链接写这里"
+    url: "订阅链接写在这里"
   Airport_03:
     type: http
     interval: 43200
@@ -29,7 +29,7 @@ proxy-providers:
       url: https://www.gstatic.com/generate_204
       interval: 300
     proxy: 🟢 直连
-    url: "订阅链接写这里"
+    url: "订阅链接写在这里"
     override:
       skip-cert-verify: true
       udp: true
@@ -118,7 +118,7 @@ dns:
   enable: true
   listen: 0.0.0.0:1053
   ipv6: true
-  prefer-h3: true # 是否开启 DoH 支持 HTTP/3，将并发尝试
+  prefer-h3: false # 是否开启 DoH 支持 HTTP/3，将并发尝试
   respect-rules: true
   # 模式切换 redir-host / fake-ip
   enhanced-mode: fake-ip
@@ -129,6 +129,8 @@ dns:
   fake-ip-filter:
     - "+.lan"
     - "+.local"
+    - "+.store.neverquit.us.kg"
+    - "+.home.neverquit.us.kg"
     - geosite:private
     - geosite:cn
   default-nameserver:
@@ -145,8 +147,9 @@ dns:
     - https://1.12.12.12/dns-query 
     - https://223.5.5.5/dns-query
     "rule-set:geolocation-!cn":
-      - "https://dns.google/dns-query"
-      - "https://security.cloudflare-dns.com/dns-query"
+    - "https://dns.google/dns-query"
+    - "https://security.cloudflare-dns.com/dns-query"
+ 
  
    
 proxies:
@@ -168,8 +171,10 @@ proxy-groups:
   - {name: GitHub, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/GitHub.png"}
   - {name: OneDrive, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/OneDrive.png"}
   - {name: Microsoft, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Microsoft.png"}
-  - {name: TikTok, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/TikTok.png"}
   - {name: Telegram, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Telegram.png"}
+  - {name: Talkatone, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/talkatone.png"}
+  - {name: LINE, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/line.png"}
+  - {name: TikTok, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/TikTok.png"}
   - {name: NETFLIX, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Netflix.png"}
   - {name: DisneyPlus, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Disney_plus.png"}
   - {name: HBO, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/HBO_MAX.png"}
@@ -187,6 +192,7 @@ proxy-groups:
   - {name: 游戏平台, <<: *pr, icon: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/icon/color/game.png"}
   - {name: Speedtest,type: select, <<: *pr, include-all: true, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/SpeedTest.png"}
   - {name: PayPal, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/PayPal.png"}
+  - {name: Wise, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/wise.png"}
   - {name: Apple, type: select, proxies: [🎯 全球直连, 🚀 节点选择], icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Apple_black.png"}
   - {name: 🎯 全球直连, type: select, proxies: [🟢 直连, 🚀 节点选择]}
   - {name: 🛑 隐私拦截, type: select, proxies: [🚫 拒绝, 🟢 直连]}
@@ -212,23 +218,28 @@ rules:
   - IP-CIDR,95.161.76.100/31,REJECT-DROP,no-resolve
   # 防御
   - RULE-SET,category-public-tracker,REJECT-DROP
-  - RULE-SET,blockAd0,🛑 隐私拦截,no-resolve
+  - RULE-SET,blockAd0,🛑 隐私拦截
   - RULE-SET,blockAd1,🛑 隐私拦截
   - RULE-SET,blockAd2,🛑 隐私拦截
   - RULE-SET,blockAd3,🛑 隐私拦截
   - RULE-SET,blockAd4,🛑 隐私拦截
   - RULE-SET,blockAd5,🛑 隐私拦截
-  - RULE-SET,blockAd6,🛑 隐私拦截,no-resolve
-  - RULE-SET,blockAd7,🛑 隐私拦截,no-resolve
-  - RULE-SET,blockAd8,🛑 隐私拦截,no-resolve
+  - RULE-SET,blockAd6,🛑 隐私拦截
+  - RULE-SET,blockAd7,🛑 隐私拦截
+  - RULE-SET,blockAd8,🛑 隐私拦截
   - RULE-SET,mm_ip,🛑 隐私拦截,no-resolve
   - RULE-SET,speedtest_domain,Speedtest
   - RULE-SET,Cloudflare,🚀 节点选择
+  - RULE-SET,ai,AI
+  - RULE-SET,ai1,AI
+  - RULE-SET,ai2,AI
+  - RULE-SET,ai3,AI
+  - RULE-SET,category-ai-chat-!cn,AI
   - RULE-SET,biliintl_domain,哔哩东南亚
   - RULE-SET,bilibili_domain,哔哩哔哩
   - RULE-SET,bahamut_domain,巴哈姆特
   - RULE-SET,youtube_domain,YouTube
-  - RULE-SET,googleplay,Google
+  - RULE-SET,google_play,Google
   - RULE-SET,google_domain,Google
   - RULE-SET,google_ip,Google,no-resolve
   - RULE-SET,google_ip2,Google,no-resolve
@@ -238,6 +249,8 @@ rules:
   - RULE-SET,proxylite,🚀 节点选择
   - RULE-SET,telegram_domain,Telegram
   - RULE-SET,telegram_ip,Telegram,no-resolve
+  - RULE-SET,line_domain,LINE,no-resolve
+  - RULE-SET,talkatone,Talkatone
   - RULE-SET,private_domain,🎯 全球直连
   - RULE-SET,direct1,🎯 全球直连
   - RULE-SET,xiaomi,🎯 全球直连
@@ -252,11 +265,6 @@ rules:
   - RULE-SET,China'smedia,🌏 国内媒体
   - RULE-SET,appleTV,AppleTV
   - RULE-SET,apple_domain,Apple
-  - RULE-SET,ai,AI
-  - RULE-SET,ai1,AI
-  - RULE-SET,ai2,AI
-  - RULE-SET,ai3,AI
-  - RULE-SET,category-ai-chat-!cn,AI
   - RULE-SET,github_domain,GitHub
   - RULE-SET,gitbook,GitHub
   - RULE-SET,tiktok_domain,TikTok
@@ -279,7 +287,9 @@ rules:
   - RULE-SET,UBI,游戏平台
   - RULE-SET,Snoy,游戏平台
   - RULE-SET,Nintendo,游戏平台
+  - RULE-SET,Wise_domain,Wise
   - RULE-SET,paypal_domain,PayPal
+  - RULE-SET,ifast_domain,🎯 全球直连
   - RULE-SET,Amazon,🛒 国外电商
   - RULE-SET,Amazon_ip,🛒 国外电商,no-resolve
   - RULE-SET,Shopee,🛒 国外电商
@@ -294,7 +304,6 @@ rules:
 rule-anchor:
   ip: &ip {type: http, interval: 86400, behavior: ipcidr, format: mrs}
   domain: &domain {type: http, interval: 86400, behavior: domain, format: mrs}
-  qcy: &qcy {type: http, interval: 86400, behavior: domain, format: text}
   class: &class {type: http, interval: 86400, behavior: classical, format: text}
 rule-providers: 
   blockAd0: { <<: *class, url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/refs/heads/main/Filters/AWAvenue-Ads-Rule-Clash.yaml" }
@@ -324,8 +333,8 @@ rule-providers:
   ai2: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Copilot/Copilot.list" }
   ai3: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Claude/Claude.list" }
   proxylite: { <<: *class, url: "https://raw.githubusercontent.com/qichiyuhub/rule/refs/heads/master/ProxyLite.list" }
-  ai: { <<: *qcy, url: "https://raw.githubusercontent.com/qcyhub/rule/master/AI.list" }
-  free: { <<: *qcy, url: "https://raw.githubusercontent.com/qcyhub/rule/master/Free.list" }
+  ai: { <<: *class, url: "https://raw.githubusercontent.com/qichiyuhub/rule/master/AI.list" }
+  free: { <<: *class, url: "https://raw.githubusercontent.com/qcyhub/rule/master/Free.list" }
   youtube_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs" }
   google_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs" }
   github_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs" }
@@ -341,7 +350,7 @@ rule-providers:
   geolocation-!cn: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs" }
   cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs" }
   blockAd8: { <<: *class, url: "https://raw.githubusercontent.com/8680/GOODBYEADS/refs/heads/master/data/rules/qx.list" }
-  googleplay: { <<: *class, url: "https://raw.githubusercontent.com/Lanlan13-14/qichiyu/refs/heads/master/Googleproxy.list" }
+  google_play: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/google-play.mrs" }
   China'smedia: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaMedia/ChinaMedia.list" }
   Globalmedia: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia.list" }
   Cloudflare: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Cloudflare/Cloudflare.list" }
@@ -370,6 +379,10 @@ rule-providers:
   category-ai-chat-!cn: { <<: *domain, url: "https://github.com/666OS/YYDS/raw/main/mihomo/rules/category-ai-chat-!cn.mrs" }
   category-public-tracker: { <<: *domain, url: "https://github.com/666OS/YYDS/raw/main/mihomo/rules/category-public-tracker.mrs" }
   emby: { <<: *class, url: "https://raw.githubusercontent.com/666OS/YYDS/main/mihomo/rules/emby.list" }
+  Wise_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/wise.mrs" }
+  ifast_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/ifast.mrs" }
+  line_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/line.mrs" }
+  talkatone: { <<: *class, url: "https://raw.githubusercontent.com/mottzz87/crules/main/rule/talkatone.list" }
 
   Chinacompany_ip: { <<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/refs/heads/master/Clash/ChinaCompanyIp.list" }
   cn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs" }
