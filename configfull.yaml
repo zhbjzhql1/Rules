@@ -186,7 +186,7 @@ proxy-groups:
   - {name: 哔哩东南亚, type: select, proxies: [🚀 节点选择, ♻️ 新加坡自动, 🇸🇬 新加坡节点, 🌐 全部节点, ⭕ 自建节点, 🎯 全球直连], icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Bilibili_blue.png"}
   - {name: 巴哈姆特, type: select, proxies: [🇹🇼 台湾节点, ♻️ 台湾自动], icon: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/icon/color/bahamut.png"}
   - {name: Spotify, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Spotify.png"}
-  - {name: 🌏 国内媒体, <<: *pr}
+  - {name: 🌏 国内媒体, type: select, proxies: [🎯 全球直连,  ♻️ 香港自动, ♻️ 新加坡自动, ♻️ 日本自动, ♻️ 台湾自动, ♻️ 美国自动, ♻️ 自动选择, 🇭🇰 香港节点, 🇸🇬 新加坡节点, 🇯🇵 日本节点, 🇹🇼 台湾节点, 🇺🇲 美国节点, 🌐 全部节点, ⭕ 自建节点, 🚀 节点选择]}
   - {name: 🌎 国外媒体,type: select, <<: *pr, include-all: true, }
   - {name: STEAM,type: select, <<: *pr, include-all: true, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Steam.png"}
   - {name: 游戏平台, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/game.png"}
