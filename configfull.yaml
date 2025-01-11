@@ -249,8 +249,8 @@ rules:
   - RULE-SET,proxylite,🚀 节点选择
   - RULE-SET,telegram_domain,Telegram
   - RULE-SET,telegram_ip,Telegram,no-resolve
-  - RULE-SET,line_domain,LINE,no-resolve
-  - RULE-SET,talkatone,Talkatone
+  - RULE-SET,line_domain,LINE
+  - RULE-SET,talkatone,Talkatone,no-resolve
   - RULE-SET,private_domain,🎯 全球直连
   - RULE-SET,direct1,🎯 全球直连
   - RULE-SET,xiaomi,🎯 全球直连
