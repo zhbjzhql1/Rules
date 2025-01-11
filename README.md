@@ -25,6 +25,8 @@
 
 •[666OS/YYDS](https://github.com/666OS/YYDS)
 
+•[MetaCubeX/meta-rules-dat](https://github.com/MetaCubeX/meta-rules-dat)
+
 
 -------------------------------------------------
 tips:生活是条双行道，
