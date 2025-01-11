@@ -191,10 +191,10 @@ proxy-groups:
   - {name: 🌎 国外媒体,type: select, <<: *pr, include-all: true, }
   - {name: STEAM,type: select, <<: *pr, include-all: true, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/steam.png"}
   - {name: 游戏平台, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/game.png"}
-  - {name: Speedtest,type: select, <<: *pr, include-all: true, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/SpeedTest.png"}
-  - {name: PayPal, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/PayPal.png"}
+  - {name: Speedtest,type: select, <<: *pr, include-all: true, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/speedtest.png"}
+  - {name: PayPal, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/paypal.png"}
   - {name: Wise, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/wise.png"}
-  - {name: Apple, type: select, proxies: [🎯 全球直连, 🚀 节点选择], icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/refs/heads/main/Icon/Color/Apple_black.png"}
+  - {name: Apple, type: select, proxies: [🎯 全球直连, 🚀 节点选择], icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/apple.png"}
   - {name: 🎯 全球直连, type: select, proxies: [🟢 直连, 🚀 节点选择]}
   - {name: 🛑 隐私拦截, type: select, proxies: [🚫 拒绝, 🟢 直连]}
   - {name: 🐟 漏网之鱼, type: select, <<: *pr, include-all: true}
