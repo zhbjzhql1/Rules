@@ -2,7 +2,7 @@
 # AUTHOR: Lanlan13-14
 # REPO: https://github.com/Lanlan13-14/rule
 # UPDATED: 2025-01-15 23:58:51
-+.openwrt.ai
-+.dl.openwrt.ai
-+.istore.istoreos.com
-+.wkdaily.cpolar.top
+DOMAIN-SUFFIX,openwrt.ai
+DOMAIN-SUFFIX,dl.openwrt.ai
+DOMAIN-SUFFIX,istore.istoreos.com
+DOMAIN-SUFFIX,wkdaily.cpolar.top
