@@ -255,6 +255,7 @@ rules:
   - RULE-SET,line_domain,LINE
   - RULE-SET,talkatone,Talkatone,no-resolve
   - RULE-SET,signal_domain,Signal
+  - RULE-SET,iptv,全球直连
   - RULE-SET,xiaomi,全球直连
   - RULE-SET,direct1,全球直连
   - RULE-SET,direct4,全球直连
@@ -385,6 +386,7 @@ rule-providers:
   signal_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/signal.mrs" }
   google_vpn: { <<: *class, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/googlevpn.list" }
   wechat: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/WeChat/WeChat.list" }
+  iptv: { <<: *class, url: "https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/refs/heads/main/rule/IPTVMainland_Domain.list" }
 
   Chinacompany_ip: { <<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/refs/heads/master/Clash/ChinaCompanyIp.list" }
   cn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs" }
