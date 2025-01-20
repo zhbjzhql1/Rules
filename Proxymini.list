@@ -1,7 +1,7 @@
 # 代理补充列表,解决部分网站访问问题
 # AUTHOR: Lanlan13-14
 # REPO: https://github.com/Lanlan13-14/rule
-# UPDATED: 2025-01-120 20:58:51
+# UPDATED: 2025-01-20 20:58:51
 DOMAIN-SUFFIX,modsfire.com
 DOMAIN-SUFFIX,ify.ac
 DOMAIN-SUFFIX,nic.eu.org
