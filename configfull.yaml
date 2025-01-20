@@ -50,8 +50,9 @@ allow-lan: true
 unified-delay: true
 tcp-concurrent: true
 # interface-name: eth0  （路由器下根据情况指定出站接口）
+# 下方为账号密码设置项，默认建议加#号注释该行以避免手机端使用出现bug
 authentication:
-#  - name:passwd
+  - name:passwd
   
 geodata-mode: false
 # GEO 文件加载模式（standard：标准加载器/memconservative：专为内存受限 (小内存) 设备优化的加载器 (默认值)）
@@ -248,6 +249,8 @@ rules:
   - RULE-SET,google_ip,Google,no-resolve
   - RULE-SET,google_ip2,Google,no-resolve
   - RULE-SET,fcm,Google
+  - RULE-SET,github_domain,GitHub
+  - RULE-SET,gitbook,GitHub
   - RULE-SET,onedrive_domain,OneDrive
   - RULE-SET,microsoft_domain,Microsoft
   - RULE-SET,proxylite,节点选择
@@ -269,8 +272,6 @@ rules:
   - RULE-SET,China'smedia,🌏 国内媒体
   - RULE-SET,appleTV,AppleTV
   - RULE-SET,apple_domain,Apple
-  - RULE-SET,github_domain,GitHub
-  - RULE-SET,gitbook,GitHub
   - RULE-SET,tiktok_domain,TikTok
   - RULE-SET,netflix_domain,NETFLIX
   - RULE-SET,disney,DisneyPlus
@@ -289,7 +290,7 @@ rules:
   - RULE-SET,EA,游戏平台
   - RULE-SET,Blizzard,游戏平台
   - RULE-SET,UBI,游戏平台
-  - RULE-SET,Snoy,游戏平台
+  - RULE-SET,Sony,游戏平台
   - RULE-SET,Nintendo,游戏平台
   - RULE-SET,Wise_domain,Wise
   - RULE-SET,paypal_domain,PayPal
@@ -370,7 +371,7 @@ rule-providers:
   EA: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/EA/EA.list" }
   Blizzard: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Blizzard/Blizzard.list" }
   UBI: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/UBI/UBI.list" }
-  Snoy: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Sony/Sony.list" }
+  Sony: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Sony/Sony.list" }
   Nintendo: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Nintendo/Nintendo.list" }
   facebook: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Facebook/Facebook.list" }
   whatsapp: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Whatsapp/Whatsapp.list" }
