@@ -1,5 +1,5 @@
 # 锚点
-pr: &pr {type: select, proxies: [节点选择, 香港自动, 新加坡自动, 日本自动, 台湾自动, 美国自动, 自动选择, 🇭🇰 香港节点, 🇸🇬 新加坡节点, 🇯🇵 日本节点, 🇹🇼 台湾节点, 🇺🇲 美国节点, 全部节点, ⭕ 自建节点, 全球直连]}
+pr: &pr {type: select, proxies: [节点选择, 香港自动, 新加坡自动, 日本自动, 台湾自动, 美国自动, 自动选择, 香港节点, 新加坡节点, 日本节点, 台湾节点, 美国节点, 全部节点, 自建节点, 全球直连]}
 
 # 机场订阅，名称不能重复
 proxy-providers:
@@ -11,7 +11,7 @@ proxy-providers:
       url: https://www.gstatic.com/generate_204
       interval: 300
     proxy: 🟢 直连
-    url: "订阅链接"
+    url: "订阅链接写在这里"
   Airport_02:
     type: http
     interval: 86400
@@ -20,7 +20,7 @@ proxy-providers:
       url: https://www.gstatic.com/generate_204
       interval: 300
     proxy: 🟢 直连
-    url: "订阅链接"
+    url: "订阅链接写在这里"
   Airport_03:
     type: http
     interval: 43200
@@ -29,7 +29,7 @@ proxy-providers:
       url: https://www.gstatic.com/generate_204
       interval: 300
     proxy: 🟢 直连
-    url: "订阅链接"
+    url: "订阅链接写在这里"
     override:
       skip-cert-verify: true
       udp: true
@@ -68,7 +68,7 @@ geox-url:
 external-controller: 0.0.0.0:9090
 secret: ""
 external-ui: ui
-external-ui-url: "https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip"
+external-ui-url: "https://mirror.neverquit.us.kg/https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip"
 # 下载面板地址可更换：https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip
 
 # 匹配进程 always/strict/off
@@ -163,7 +163,7 @@ proxies:
   
 # 策略组
 proxy-groups:
-  - {name: 节点选择, type: select, proxies: [香港自动, 新加坡自动, 日本自动, 台湾自动, 美国自动, 自动选择, 🇭🇰 香港节点, 🇸🇬 新加坡节点, 🇯🇵 日本节点, 🇹🇼 台湾节点, 🇺🇲 美国节点, 全部节点, ⭕ 自建节点, 🟢 直连], icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/select.png"}
+  - {name: 节点选择, type: select, proxies: [香港自动, 新加坡自动, 日本自动, 台湾自动, 美国自动, 自动选择, 香港节点, 新加坡节点, 日本节点, 台湾节点, 美国节点, 全部节点, 自建节点, 🟢 直连], icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/select.png"}
   - {name: YouTube, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/youtube.png"}
   - {name: GoogleVPN, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/googlevpn.png"}
   - {name: Google, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/google.png"}
@@ -184,12 +184,12 @@ proxy-groups:
   - {name: AppleTV, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/appletv.png"}
   - {name: Emby,type: select, <<: *pr, include-all: true, filter: "^((?!(直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author)).)*$", icon: https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/emby.png}
   - {name: 国外电商, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/shopping.png"}
-  - {name: 哔哩哔哩, type: select, proxies: [全球直连,  香港自动, 新加坡自动, 日本自动, 台湾自动, 美国自动, 自动选择, 🇭🇰 香港节点, 🇸🇬 新加坡节点, 🇯🇵 日本节点, 🇹🇼 台湾节点, 🇺🇲 美国节点, 全部节点, ⭕ 自建节点, 节点选择], icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/bilibili.png"}
-  - {name: 哔哩东南亚, type: select, proxies: [节点选择, 新加坡自动, 🇸🇬 新加坡节点, 全部节点, ⭕ 自建节点, 全球直连], icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/bilibilit.png"}
-  - {name: 巴哈姆特, type: select, proxies: [🇹🇼 台湾节点, 台湾自动], icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/bahamut.png"}
+  - {name: 哔哩哔哩, type: select, proxies: [全球直连,  香港自动, 新加坡自动, 日本自动, 台湾自动, 美国自动, 自动选择, 香港节点, 新加坡节点, 日本节点, 台湾节点, 美国节点, 全部节点, 自建节点, 节点选择], icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/bilibili.png"}
+  - {name: 哔哩东南亚, type: select, proxies: [节点选择, 新加坡自动, 新加坡节点, 全部节点, 自建节点, 全球直连], icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/bilibilit.png"}
+  - {name: 巴哈姆特, type: select, proxies: [台湾节点, 台湾自动], icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/bahamut.png"}
   - {name: Spotify, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/spotify.png"}
-  - {name: 🌏 国内媒体, type: select, proxies: [全球直连,  香港自动, 新加坡自动, 日本自动, 台湾自动, 美国自动, 自动选择, 🇭🇰 香港节点, 🇸🇬 新加坡节点, 🇯🇵 日本节点, 🇹🇼 台湾节点, 🇺🇲 美国节点, 全部节点, ⭕ 自建节点, 节点选择]}
-  - {name: 🌎 国外媒体,type: select, <<: *pr, include-all: true, filter: "^((?!(直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author)).)*$"}
+  - {name: 国内媒体, type: select, proxies: [全球直连,  香港自动, 新加坡自动, 日本自动, 台湾自动, 美国自动, 自动选择, 香港节点, 新加坡节点, 日本节点, 台湾节点, 美国节点, 全部节点, 自建节点, 节点选择], icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/Chinese_media.png"}
+  - {name: 国外媒体,type: select, <<: *pr, include-all: true, filter: "^((?!(直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author)).)*$", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/global_media.png"}
   - {name: STEAM,type: select, <<: *pr, include-all: true, filter: "^((?!(直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author)).)*$", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/steam.png"}
   - {name: 游戏平台, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/game.png"}
   - {name: Speedtest,type: select, <<: *pr, include-all: true, filter: "^((?!(直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author)).)*$", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/speedtest.png"}
@@ -199,12 +199,12 @@ proxy-groups:
   - {name: 全球直连, type: select, proxies: [🟢 直连, 节点选择], icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/direct.png"}
   - {name: 隐私拦截, type: select, proxies: [🚫 拒绝, 🟢 直连], icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/block.png"}
   - {name: 漏网之鱼, type: select, <<: *pr, include-all: true, filter: "^((?!(直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author)).)*$", icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png"}
-  - {name: ⭕ 自建节点, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?i)自建|CF"}
-  - {name: 🇭🇰 香港节点, type: select, include-all: true, filter: "(?i)港|🇭🇰|hk|hongkong|hong kong"}
-  - {name: 🇸🇬 新加坡节点, type: select, include-all: true, filter: "(?=.*(新|🇸🇬|SG|(?i)Singapore))^((?!(台|日|韩|港|深|美|直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author)).)*$"}
-  - {name: 🇯🇵 日本节点, type: select, include-all: true, filter: "(?i)日|🇯🇵|jp|japan"}
-  - {name: 🇹🇼 台湾节点, type: select, include-all: true, filter: "(?i)台|🇹🇼|TW|Taiwan"}
-  - {name: 🇺🇲 美国节点, type: select, include-all: true, filter: "(?=.*(美|🇺🇲|US|(?i)States|America))^((?!(港|台|日|韩|新|Russia)).)*$"}
+  - {name: 自建节点, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?i)自建|CF", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/private_node.png"}
+  - {name: 香港节点, type: select, include-all: true, filter: "(?i)港|🇭🇰|hk|hongkong|hong kong", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/Hongkong.png"}
+  - {name: 新加坡节点, type: select, include-all: true, filter: "(?=.*(新|🇸🇬|SG|(?i)Singapore))^((?!(台|日|韩|港|深|美|直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author)).)*$", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/Singapore.png"}
+  - {name: 日本节点, type: select, include-all: true, filter: "(?i)日|🇯🇵|jp|japan", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/Japan.png"}
+  - {name: 台湾节点, type: select, include-all: true, filter: "(?i)台|🇹🇼|TW|Taiwan", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/Taiwan_China.png"}
+  - {name: 美国节点, type: select, include-all: true, filter: "(?=.*(美|🇺🇲|US|(?i)States|America))^((?!(港|台|日|韩|新|Russia)).)*$", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/America.png"}
   - {name: 香港自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(港|🇭🇰|HK|(?i)Hong))^((?!(台|日|韩|新|深|美|0|0.1|0.01|0.3|3|Wcloud)).)*$", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/automation2.png"}
   - {name: 新加坡自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(新|🇸🇬|SG|(?i)Singapore))^((?!(台|日|韩|港|深|美|0|0.1|0.01|0.3|3|Wcloud|直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author)).)*$", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/automation2.png"}
   - {name: 日本自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(日|🇯🇵|JP|(?i)Japan))^((?!(港|台|韩|新|美|0|0.1|0.01|0.3|3|Wcloud)).)*$", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/automation2.png"}
@@ -269,7 +269,7 @@ rules:
   - RULE-SET,btdownload,全球直连
   - RULE-SET,Chinacompany_ip,全球直连,no-resolve
   - RULE-SET,wangyiyu,全球直连
-  - RULE-SET,China'smedia,🌏 国内媒体
+  - RULE-SET,China'smedia,国内媒体
   - RULE-SET,appleTV,AppleTV
   - RULE-SET,apple_domain,Apple
   - RULE-SET,tiktok_domain,TikTok
@@ -284,7 +284,7 @@ rules:
   - RULE-SET,instagram,Meta
   - RULE-SET,threads,Meta
   - RULE-SET,facebook_ip,Meta,no-resolve
-  - RULE-SET,Globalmedia,🌎 国外媒体
+  - RULE-SET,Globalmedia,国外媒体
   - RULE-SET,steam,STEAM
   - RULE-SET,Epic,游戏平台
   - RULE-SET,EA,游戏平台
