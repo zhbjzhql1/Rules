@@ -1,16 +1,20 @@
 # Openclash-
 本项目的订阅转换模板/yaml文件是参考 ACL4SSR，Aethersailor，qichiyu等规则修改而来，基于作者个人理解做出的修改，另外我的更新不固定建议每2-3周下载一次配置文件替换，以获得最佳体验，也感谢各位的大力支持
+
 -------------------------------------------------
 
 客户端推荐
 Windows/MacOS/Linux
-Mihomo-Party(https://github.com/pompurin404/mihomo-party)
+Mihomo-Party
+(https://github.com/pompurin404/mihomo-party)
 Android 
-Clash(https://github.com/chen08209/FlClash)
+Clash
+(https://github.com/chen08209/FlClash)
 Openwrt
-MihomoTproxy(https://github.com/morytyann/OpenWrt-mihomo)
+MihomoTproxy
+(https://github.com/morytyann/OpenWrt-mihomo)
 iOS
-Stash(
+(暂无）
 
 -------------------------------------------------
 感谢
