@@ -129,8 +129,6 @@ dns:
   fake-ip-filter:
     - "+.lan"
     - "+.local"
-    - "+.store.neverquit.us.kg"
-    - "+.home.neverquit.us.kg"
     - geosite:private
     - geosite:cn
   default-nameserver:
