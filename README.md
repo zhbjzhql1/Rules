@@ -17,7 +17,8 @@ MihomoTproxy
 (https://github.com/morytyann/OpenWrt-mihomo)
 
 iOS
-(暂无）
+Stash
+(https://github.com/STASH-NETWORKS-LIMITED）
 
 -------------------------------------------------
 感谢
