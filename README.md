@@ -7,12 +7,15 @@
 Windows/MacOS/Linux
 Mihomo-Party
 (https://github.com/pompurin404/mihomo-party)
+
 Android 
-Clash
+FlClash
 (https://github.com/chen08209/FlClash)
+
 Openwrt
 MihomoTproxy
 (https://github.com/morytyann/OpenWrt-mihomo)
+
 iOS
 (暂无）
 
