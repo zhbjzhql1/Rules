@@ -16,7 +16,7 @@ Openwrt
 MihomoTproxy
 (https://github.com/morytyann/OpenWrt-mihomo)
 
-iOS
+iOS（注意该平台客户端暂不可直接用该配置文件，该平台配置文件须修改后使用）
 Stash
 (https://github.com/STASH-NETWORKS-LIMITED）
 
