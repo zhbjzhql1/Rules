@@ -10,7 +10,7 @@
 [configfull_stash.yaml](https://github.com/Lanlan13-14/Rules/blob/main/configfull_stash.yaml)
 
 
-客户端推荐
+# 客户端推荐
 Windows/MacOS/Linux
 Mihomo-Party
 (https://github.com/pompurin404/mihomo-party)
@@ -27,8 +27,7 @@ iOS
 Stash
 (https://github.com/STASH-NETWORKS-LIMITED ）
 
-感谢
-以下排名不分先后
+# 感谢,以下排名不分先后
 
 •[vernesong/OpenClash](https://github.com/vernesong/OpenClash)
 
