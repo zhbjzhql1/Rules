@@ -52,7 +52,7 @@ Stash
 •[MetaCubeX/meta-rules-dat](https://github.com/MetaCubeX/meta-rules-dat)
 
 
-## Tip
+# Tip
 生活是条双行道，
 这是一个简单而深刻，且不可否认的事实。如遇问题或建议欢迎指出，同时确保你的帖子包含对他人来说有用的细节和信息。通过Github社区分享你的发现。同样地分享你遇到的问题
 也感谢每一位为该项目做出贡献的开发者，是他们为该项目添砖加瓦
