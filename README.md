@@ -18,7 +18,7 @@ MihomoTproxy
 
 iOS
 Stash
-(https://github.com/STASH-NETWORKS-LIMITED）
+(https://github.com/STASH-NETWORKS-LIMITED ）
 
 -------------------------------------------------
 感谢
