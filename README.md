@@ -18,7 +18,7 @@
 
 2️⃣Stash请用
 
-[configfull_NoAd_Stash.yaml](https://github.com/Lanlan13-14/Rules/blob/main/configfull_NoAd_Stash.yaml)
+[configfull_NoAd_stash.yaml](https://github.com/Lanlan13-14/Rules/blob/main/configfull_NoAd_stash.yaml)
 
 
 
