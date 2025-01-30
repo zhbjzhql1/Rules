@@ -2,6 +2,9 @@
 本项目的订阅转换模板/yaml文件是参考 ACL4SSR，Aethersailor，qichiyu等规则修改而来，基于作者个人理解做出的修改，另外我的更新不固定建议每2-3周下载一次配置文件替换，以获得最佳体验，也感谢各位的大力支持
 ### 标准版
 [configfull.yaml](https://github.com/Lanlan13-14/Rules/blob/main/configfull.yaml)
+Stash专用
+[configfull_Stash.yaml](https://github.com/Lanlan13-14/Rules/blob/main/configfull_Stash.yaml)
+
 ### 无去广告版
 [configfull_NoAd.yaml](https://github.com/Lanlan13-14/Rules/blob/main/configfull_NoAd.yaml)
 
