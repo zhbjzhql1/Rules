@@ -100,6 +100,14 @@ sniffer:
     - "dlg.io.mi.com"
     - "+.push.apple.com"
     - "+.apple.com"
+    - '+.wechat.com'
+    - '+.qpic.cn'
+    - '+.qq.com'
+    - '+.wechatapp.com'
+    - '+.vivox.com'
+    # 向日葵服务
+    - '+.oray.com'
+    - '+.sunlogin.net'
     
 # 代理模式
 tun:
@@ -165,8 +173,12 @@ dns:
     - https://1.12.12.12/dns-query 
     - https://223.5.5.5/dns-query
   nameserver-policy:
-    geosite:cn,private: https://223.5.5.5/dns-query
-    geosite:geolocation-!cn: https://1.1.1.1/dns-query
+    "rule-set:private_domain,cn_domain":
+      - "https://1.12.12.12/dns-query"
+      - "https://223.5.5.5/dns-query"
+    "rule-set:geolocation-!cn":
+      - "https://dns.cloudflare.com/dns-query"
+      - "https://dns.google/dns-query"
 proxies: 
   - name: "🟢 直连"
     type: direct
@@ -239,11 +251,14 @@ rules:
   # 防御
   - RULE-SET,category-public-tracker,REJECT-DROP
   - RULE-SET,banAd_xiaomi,隐私拦截
+  - RULE-SET,banAd_baidu,隐私拦截
   - RULE-SET,banAd_spotify,隐私拦截
   - RULE-SET,banAd_whatsapp,隐私拦截
   - RULE-SET,banAd_facebook,隐私拦截
   - RULE-SET,banAd_instagram,隐私拦截
   - RULE-SET,banAd_amazon,隐私拦截
+  - RULE-SET,banAd_apple,隐私拦截
+  - RULE-SET,banAd_media_cn,隐私拦截
   - RULE-SET,banAd_ip,隐私拦截,no-resolve
   - RULE-SET,banAd,隐私拦截
   - RULE-SET,mm_ip,隐私拦截,no-resolve
@@ -251,25 +266,24 @@ rules:
   - RULE-SET,speedtest_domain,Speedtest
   - RULE-SET,Cloudflare,节点选择
   - RULE-SET,proxymini,节点选择
-  - RULE-SET,ai,AI
-  - RULE-SET,ai1,AI
-  - RULE-SET,ai2,AI
-  - RULE-SET,ai3,AI
+  - RULE-SET,ai!cn_domain,AI
+  - RULE-SET,openai_domain,AI
   - RULE-SET,category-ai-chat-!cn,AI
   - RULE-SET,ai_ip,AI,no-resolve
   - RULE-SET,biliintl_domain,哔哩东南亚
   - RULE-SET,bilibili_domain,哔哩哔哩
   - RULE-SET,bahamut_domain,巴哈姆特
+  - RULE-SET,bank_cn_domain,全球直连
   - RULE-SET,private_domain,全球直连
   - RULE-SET,direct2,全球直连
   - RULE-SET,direct3,全球直连
+  - RULE-SET,cn_domain,全球直连
   - RULE-SET,google_vpn,GoogleVPN
   - RULE-SET,youtube_domain,YouTube
   - RULE-SET,google_play,Google
   - RULE-SET,google_domain,Google
   - RULE-SET,google_ip,Google,no-resolve
-  - RULE-SET,google_ip2,Google,no-resolve
-  - RULE-SET,fcm_domain,Google
+  - RULE-SET,fcm,Google
   - RULE-SET,github_domain,GitHub
   - RULE-SET,gitbook_domain,GitHub
   - RULE-SET,onedrive_domain,OneDrive
@@ -282,14 +296,13 @@ rules:
   - RULE-SET,signal_domain,Signal
   - RULE-SET,xiaomi_domain,全球直连
   - RULE-SET,iptv,全球直连
-  - RULE-SET,direct1,全球直连
   - RULE-SET,direct4,全球直连
   - RULE-SET,steamcn,全球直连
   - RULE-SET,steamcdn,全球直连
   - RULE-SET,btdownload,全球直连
   - RULE-SET,Chinacompany_ip,全球直连,no-resolve
   - RULE-SET,NetEaseMusic,全球直连
-  - RULE-SET,China'smedia,国内媒体
+  - RULE-SET,media_cn_domain,国内媒体
   - RULE-SET,appleTV,AppleTV
   - RULE-SET,apple_domain,Apple
   - RULE-SET,tiktok_domain,TikTok
@@ -302,10 +315,11 @@ rules:
   - RULE-SET,facebook_domain,Meta
   - RULE-SET,whatsapp_domain,Meta
   - RULE-SET,instagram_domain,Meta
-  - RULE-SET,threads,Meta
+  - RULE-SET,threads_domain,Meta
+  - RULE-SET,meta_domain,Meta
   - RULE-SET,facebook_ip,Meta,no-resolve
-  - RULE-SET,Globalmedia,国外媒体
-  - RULE-SET,steam,STEAM
+  - RULE-SET,media!cn_domain,国外媒体
+  - RULE-SET,steam_domain,STEAM
   - RULE-SET,Epic,游戏平台
   - RULE-SET,EA,游戏平台
   - RULE-SET,Blizzard,游戏平台
@@ -322,7 +336,6 @@ rules:
   - RULE-SET,ebay_domain,国外电商
   - RULE-SET,GFW,节点选择
   - RULE-SET,geolocation-!cn,节点选择
-  - RULE-SET,cn_domain,全球直连
   - RULE-SET,netflix_ip,NETFLIX,no-resolve
   - RULE-SET,twitter_ip,节点选择,no-resolve
   - RULE-SET,cn_ip,全球直连,no-resolve
@@ -334,13 +347,16 @@ rule-anchor:
 rule-providers: 
   banAd: { <<: *class, url: "https://raw.githubusercontent.com/8680/GOODBYEADS/refs/heads/master/data/rules/qx.list" }
   banAd_xiaomi: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/xiaomi-ads.mrs" }
+  banAd_baidu: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/baidu-ads.mrs" }
   banAd_spotify: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/spotify-ads.mrs" }
   banAd_whatsapp: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/whatsapp-ads.mrs" }
   banAd_facebook: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/facebook-ads.mrs" }
   banAd_instagram: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/instagram-ads.mrs" }
   banAd_amazon: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/amazon-ads.mrs" }  
+  banAd_apple: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/apple-ads.mrs" }
+  banAd_media_cn: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-media-cn%40ads.mrs" }
   private_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs" }
-  direct1: { <<: *class, url: "https://raw.githubusercontent.com/qichiyuhub/rule/master/Direct.list" }
+  bank_cn_domain: { <<: *class, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-bank-cn.mrs" }
   direct2: { <<: *class, url: "https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/main/rule/Custom_Direct.list" }
   direct3: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Direct/Direct.list" }
   direct4: { <<: *class, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/direct.list" }
@@ -353,12 +369,10 @@ rule-providers:
   steamcdn: { <<: *class, url: "https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/main/rule/Steam_CDN.list" }
   btdownload: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PrivateTracker/PrivateTracker.list" }
   download: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Download/Download.list" }
-  steam: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Steam/Steam.list" }
-  ai1: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.list" }
-  ai2: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Copilot/Copilot.list" }
-  ai3: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Claude/Claude.list" }
+  steam_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/steam.mrs" }
   proxylite: { <<: *class, url: "https://raw.githubusercontent.com/qichiyuhub/rule/refs/heads/master/ProxyLite.list" }
-  ai: { <<: *class, url: "https://raw.githubusercontent.com/qichiyuhub/rule/master/AI.list" }
+  ai!cn_domain: { <<: *domain, url: "    url: https://git.mihomos.us.kg/https://github.com/666OS/YYDS/raw/main/mihomo/rules/category-ai-chat-!cn.mrs" }
+  openai_domain: { <<: *domain, url: "    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/openai.mrs" }
   youtube_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs" }
   google_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs" }
   github_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs" }
@@ -374,12 +388,11 @@ rule-providers:
   geolocation-!cn: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs" }
   cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs" }
   google_play: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/google-play.mrs" }
-  China'smedia: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaMedia/ChinaMedia.list" }
-  Globalmedia: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia.list" }
+  media_cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-media-cn.mrs" }
+  media!cn_domain: { <<: *domain, url: "    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-social-media-!cn.list" }
   Cloudflare: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/cloudflare.mrs" }
   gitbook_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/gitbook.mrs" }
-  fcm_domain: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GoogleFCM/GoogleFCM.list" }
-  google_ip2: { <<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleCNProxyIP.list" }
+  fcm: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GoogleFCM/GoogleFCM.list" }
   disney_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/disney.mrs" }
   hbo_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/hbo.mrs" }
   primevideo_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/primevideo.mrs" }
@@ -390,15 +403,16 @@ rule-providers:
   GFW: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/gfw.mrs" }
   appleTV: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/AppleTV/AppleTV.list" }
   Epic: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Epic/Epic.list" }
-  EA: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/EA/EA.list" }
-  Blizzard: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Blizzard/Blizzard.list" }
+  EA: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/ea.mrs" }
+  Blizzard: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/blizzard.mrs" }
   UBI: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/UBI/UBI.list" }
-  Sony: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Sony/Sony.list" }
-  Nintendo: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Nintendo/Nintendo.list" }
+  Sony: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/sony.mrs" }
+  Nintendo: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/nintendo.list" }
   facebook_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/facebook.mrs" }
   whatsapp_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/whatsapp.mrs" }
   instagram_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/instagram.mrs" }       
-  threads: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Threads/Threads.list" }
+  threads_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/threads.mrs" }
+  meta_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/meta.mrs" }
   category-ai-chat-!cn: { <<: *domain, url: "https://github.com/666OS/YYDS/raw/main/mihomo/rules/category-ai-chat-!cn.mrs" }
   category-public-tracker: { <<: *domain, url: "https://github.com/666OS/YYDS/raw/main/mihomo/rules/category-public-tracker.mrs" }
   emby: { <<: *class, url: "https://raw.githubusercontent.com/666OS/YYDS/main/mihomo/rules/emby.list" }
