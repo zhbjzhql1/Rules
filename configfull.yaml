@@ -276,11 +276,11 @@ rules:
   - RULE-SET,bank_cn_domain,全球直连
   - RULE-SET,direct_supplement,全球直连
   - RULE-SET,private_domain,全球直连
-  - RULE-SET,cn_domain,全球直连
   - RULE-SET,google_vpn,GoogleVPN
   - RULE-SET,youtube_domain,YouTube
   - RULE-SET,google_play,Google
   - RULE-SET,google_domain,Google
+  - RULE-SET,google_asn_cn,Google
   - RULE-SET,google_ip,Google,no-resolve
   - RULE-SET,fcm,Google
   - RULE-SET,github_domain,GitHub
@@ -308,6 +308,7 @@ rules:
   - RULE-SET,apple_domain,Apple
   - RULE-SET,tiktok_domain,TikTok
   - RULE-SET,netflix_domain,NETFLIX
+  - RULE-SET,netflix_ip,NETFLIX,no-resolve
   - RULE-SET,disney_domain,DisneyPlus
   - RULE-SET,hbo_domain,HBO
   - RULE-SET,primevideo_domain,Primevideo
@@ -320,6 +321,7 @@ rules:
   - RULE-SET,meta_domain,Meta
   - RULE-SET,facebook_ip,Meta,no-resolve
   - RULE-SET,media!cn_domain,国外媒体
+  - RULE-SET,twitter_ip,节点选择,no-resolve
   - RULE-SET,steam_domain,STEAM
   - RULE-SET,Epic,游戏平台
   - RULE-SET,EA,游戏平台
@@ -337,8 +339,7 @@ rules:
   - RULE-SET,ebay_domain,国外电商
   - RULE-SET,GFW,节点选择
   - RULE-SET,geolocation-!cn,节点选择
-  - RULE-SET,netflix_ip,NETFLIX,no-resolve
-  - RULE-SET,twitter_ip,节点选择,no-resolve
+  - RULE-SET,cn_domain,全球直连
   - RULE-SET,cn_ip,全球直连,no-resolve
   - MATCH,漏网之鱼
 rule-anchor:
@@ -440,3 +441,5 @@ rule-providers:
   Amazon_ip: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/AmazonIP/AmazonIP.list" }
   facebook_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/facebook.mrs" }
   twitter_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/twitter.mrs" }
+
+  google_asn_cn: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/asn/AS24424.mrs" }
