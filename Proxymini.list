@@ -9,3 +9,7 @@ DOMAIN-SUFFIX,pexels.com
 DOMAIN-SUFFIX,dl.google.com
 DOMAIN-SUFFIX,nevergiveup.us.kg
 DOMAIN-SUFFIX,random.ouonet.org
+# 以下为talktone相关
+DOMAIN-SUFFIX,tktn.at
+DOMAIN-SUFFIX,tktn.be
+DOMAIN-SUFFIX,vm.talkatone.com
