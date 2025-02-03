@@ -260,7 +260,7 @@ rules:
   - RULE-SET,banAd_instagram,隐私拦截
   - RULE-SET,banAd_amazon,隐私拦截
   - RULE-SET,banAd_apple,隐私拦截
-  - RULE-SET,banAd_talktone,隐私拦截
+  - RULE-SET,banAd_talkatone,隐私拦截
   - RULE-SET,banAd_media_cn,隐私拦截
   - RULE-SET,banAd_ip,隐私拦截,no-resolve
   - RULE-SET,banAd,隐私拦截
@@ -298,7 +298,7 @@ rules:
   - RULE-SET,telegram_ip,Telegram,no-resolve
   - RULE-SET,line_domain,LINE
   - RULE-SET,talkatone,Talkatone,no-resolve
-  - RULE-SET,talktone_asn,Talkatone,no-resolve
+  - RULE-SET,talkatone_asn,Talkatone,no-resolve
   - RULE-SET,discord_domain,Discord
   - RULE-SET,discord_asn,Discord,no-resolve
   - RULE-SET,signal_domain,Signal
@@ -364,7 +364,7 @@ rule-providers:
   banAd_instagram: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/instagram-ads.mrs" }
   banAd_amazon: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/amazon-ads.mrs" }  
   banAd_apple: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/apple-ads.mrs" }
-  banAd_talktone: { <<: *class, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/banAd_talktone.list" }
+  banAd_talkatone: { <<: *class, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/banAd_talkatone.list" }
   banAd_media_cn: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-media-cn%40ads.mrs" }
   private_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs" }
   bank_cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-bank-cn.mrs" }
@@ -429,7 +429,7 @@ rule-providers:
   Wise_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/wise.mrs" }
   ifast_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/ifast.mrs" }
   line_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/line.mrs" }
-  talkatone: { <<: *class, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/talktone.list" }
+  talkatone: { <<: *class, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/talkatone.list" }
   Shopify_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/shopify.mrs" }
   signal_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/signal.mrs" }
   google_vpn: { <<: *class, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/googlevpn.list" }
@@ -454,5 +454,5 @@ rule-providers:
   twitter_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/twitter.mrs" }
 
   google_asn_cn: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/asn/AS24424.mrs" }
-  talktone_asn: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/asn/AS27357.mrs" }
+  talkatone_asn: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/asn/AS27357.mrs" }
   discord_asn: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/asn/AS49544.mrs" }
