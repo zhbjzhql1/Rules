@@ -286,7 +286,6 @@ rules:
   - RULE-SET,github_domain,GitHub
   - RULE-SET,gitbook_domain,GitHub
   - RULE-SET,onedrive_domain,OneDrive
-  - RULE-SET,microsoft_cn_domain,全球直连
   - RULE-SET,microsoft_domain,Microsoft
   - RULE-SET,proxylite,节点选择
   - RULE-SET,telegram_domain,Telegram
@@ -431,7 +430,6 @@ rule-providers:
   iptv: { <<: *class, url: "https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/refs/heads/main/rule/IPTVMainland_Domain.list" }
   proxymini: { <<: *class, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/Proxymini.list" }
   apple_cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/apple%40cn.mrs" }
-  microsoft_cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/microsoft%40cn.mrs" }
   alibaba_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/alibaba.mrs" }
   ai_cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-ai-cn.mrs" }
   discord_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/discord.mrs" }
