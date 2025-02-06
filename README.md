@@ -14,8 +14,8 @@ Stash专用➡️
 
 ## 客户端推荐
 Windows/MacOS/Linux
-Mihomo-Party
-(https://github.com/pompurin404/mihomo-party)
+Clash-verge-rev
+(https://github.com/clash-verge-rev/clash-verge-rev)
 
 Android 
 FlClash
