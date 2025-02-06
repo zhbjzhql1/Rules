@@ -246,18 +246,7 @@ rules:
   - IP-CIDR,95.161.76.100/31,REJECT-DROP,no-resolve
   # 防御
   - RULE-SET,category-public-tracker,REJECT-DROP
-  - RULE-SET,banAd_xiaomi,隐私拦截
-  - RULE-SET,banAd_baidu,隐私拦截
-  - RULE-SET,banAd_alibaba,隐私拦截
-  - RULE-SET,banAd_spotify,隐私拦截
-  - RULE-SET,banAd_whatsapp,隐私拦截
-  - RULE-SET,banAd_facebook,隐私拦截
-  - RULE-SET,banAd_instagram,隐私拦截
-  - RULE-SET,banAd_amazon,隐私拦截
-  - RULE-SET,banAd_apple,隐私拦截
   - RULE-SET,banAd_talkatone,隐私拦截
-  - RULE-SET,banAd_media_cn,隐私拦截
-  - RULE-SET,banAd_ip,隐私拦截,no-resolve
   - RULE-SET,banAd,隐私拦截
   - RULE-SET,mm_ip,隐私拦截,no-resolve
   - RULE-SET,wechat,全球直连
@@ -348,17 +337,7 @@ rule-anchor:
   class: &class {type: http, interval: 86400, behavior: classical, format: text}
 rule-providers: 
   banAd: { <<: *class, url: "https://raw.githubusercontent.com/8680/GOODBYEADS/refs/heads/master/data/rules/qx.list" }
-  banAd_xiaomi: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/xiaomi-ads.mrs" }
-  banAd_baidu: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/baidu-ads.mrs" }
-  banAd_alibaba: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/alibaba-ads.mrs" }
-  banAd_spotify: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/spotify-ads.mrs" }
-  banAd_whatsapp: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/whatsapp-ads.mrs" }
-  banAd_facebook: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/facebook-ads.mrs" }
-  banAd_instagram: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/instagram-ads.mrs" }
-  banAd_amazon: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/amazon-ads.mrs" }  
-  banAd_apple: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/apple-ads.mrs" }
   banAd_talktone: { <<: *class, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/banAd_talktone.list" }
-  banAd_media_cn: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-media-cn%40ads.mrs" }
   private_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs" }
   bank_cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-bank-cn.mrs" }
   direct_blackmatrix7: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Direct/Direct.list" }
