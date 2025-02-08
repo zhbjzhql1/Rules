@@ -16,6 +16,7 @@ Stash专用➡️
 Windows/MacOS/Linux
 Clash-verge-rev
 (https://github.com/clash-verge-rev/clash-verge-rev)
+
 Mihomo-Party 
 (https://github.com/mihomo-party-org/mihomo-party)
 
