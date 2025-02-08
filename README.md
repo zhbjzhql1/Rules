@@ -13,22 +13,23 @@ Stash专用➡️
 
 
 ## 客户端推荐
-Windows/MacOS/Linux
+•Windows/MacOS/Linux
+
 Clash-verge-rev
 (https://github.com/clash-verge-rev/clash-verge-rev)
 
 Mihomo-Party 
 (https://github.com/mihomo-party-org/mihomo-party)
 
-Android 
+•Android 
 FlClash
 (https://github.com/chen08209/FlClash)
 
-Openwrt
+•Openwrt
 MihomoTproxy
 (https://github.com/morytyann/OpenWrt-mihomo)
 
-iOS
+•iOS
 Stash
 (https://github.com/STASH-NETWORKS-LIMITED ）
 
