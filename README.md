@@ -19,7 +19,7 @@ Clash-verge-rev
 (https://github.com/clash-verge-rev/clash-verge-rev)
 
 Mihomo-Party 
-(https://github.com/mihomo-party-org/mihomo-party)
+(https://github.com/xishang0128/mihomo-party)
 
 •Android 
 FlClash
