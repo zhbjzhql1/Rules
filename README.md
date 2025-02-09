@@ -26,8 +26,8 @@ FlClash
 (https://github.com/chen08209/FlClash)
 
 •Openwrt
-MihomoTproxy
-(https://github.com/morytyann/OpenWrt-mihomo)
+Nikki
+(https://github.com/nikkinikki-org/OpenWrt-nikki)
 
 •iOS
 Stash
