@@ -2,6 +2,7 @@
 pr: &pr {type: select, proxies: [节点选择, 香港自动, 新加坡自动, 日本自动, 台湾自动, 美国自动, 自动选择, 香港节点, 新加坡节点, 日本节点, 台湾节点, 美国节点, 全部节点, 自建节点, 全球直连]}
 
 # 机场订阅，名称不能重复
+
 proxy-providers:
   Airport_01:
     type: http
@@ -157,9 +158,11 @@ dns:
     - ntp5.*.com
     - ntp6.*.com
     - ntp7.*.com
+    - '*.neverquit.us.kg'
     - '*.time.edu.cn'
     - '*.ntp.org.cn'
     - '+.pool.ntp.org'
+    - 5ddd.com
     - time1.cloud.tencent.com
     - geosite:private
     - geosite:cn
@@ -244,11 +247,6 @@ proxy-groups:
   - {name: 自动选择, type: url-test, include-all-providers: true, tolerance: 20, interval: 300, exclude-filter: "(?i)(直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/automation2.png"}
   - {name: 全部节点, type: select, include-all-providers: true, tolerance: 20, interval: 300, exclude-filter: "(?i)(直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/all.png"}
 rules: 
-  # >屏蔽QUIC
-  - AND,((DST-PORT,443),(NETWORK,UDP)),REJECT-DROP
-  # 常用必备
-  - DST-PORT,123,全球直连
-  - IP-CIDR,95.161.76.100/31,REJECT-DROP
   - RULE-SET,banAd_talkatone,隐私拦截
   - RULE-SET,banAd,隐私拦截
   - RULE-SET,mm_ip,隐私拦截,no-resolve
@@ -266,7 +264,6 @@ rules:
   - RULE-SET,bank_cn_domain,全球直连
   - RULE-SET,ai_cn_domain,全球直连
   - RULE-SET,direct_supplement,全球直连
-  - RULE-SET,private_domain,全球直连
   - RULE-SET,alibaba_domain,全球直连
   - RULE-SET,google_vpn,GoogleVPN
   - RULE-SET,youtube_domain,YouTube
@@ -287,6 +284,7 @@ rules:
   - RULE-SET,discord_domain,Discord
   - RULE-SET,discord_asn,Discord,no-resolve
   - RULE-SET,signal_domain,Signal
+  - RULE-SET,private_domain,全球直连
   - RULE-SET,xiaomi_domain,全球直连
   - RULE-SET,iptv,全球直连
   - RULE-SET,direct_blackmatrix7,全球直连
