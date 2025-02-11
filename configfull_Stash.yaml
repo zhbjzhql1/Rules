@@ -2,6 +2,7 @@
 pr: &pr {type: select, proxies: [节点选择, 香港自动, 新加坡自动, 日本自动, 台湾自动, 美国自动, 自动选择, 香港节点, 新加坡节点, 日本节点, 台湾节点, 美国节点, 全部节点, 自建节点, 全球直连]}
 
 # 机场订阅，名称不能重复
+
 proxy-providers:
   Airport_01:
     type: http
@@ -157,9 +158,11 @@ dns:
     - ntp5.*.com
     - ntp6.*.com
     - ntp7.*.com
+    - '*.neverquit.us.kg'
     - '*.time.edu.cn'
     - '*.ntp.org.cn'
     - '+.pool.ntp.org'
+    - 5ddd.com
     - time1.cloud.tencent.com
     - geosite:private
     - geosite:cn
@@ -180,7 +183,7 @@ dns:
 proxies: 
   - name: "🟢 直连"
     type: direct
-    udp: true        
+    udp: true     
 
 
 
@@ -223,7 +226,7 @@ proxy-groups:
   - {name: Wise, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/wise.png"}
   - {name: Apple, type: select, proxies: [全球直连, 节点选择], icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/apple.png"}
   - {name: 全球直连, type: select, proxies: [🟢 直连, 节点选择], icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/direct.png"}
-  - {name: 隐私拦截, type: select, proxies: [REJECT, DIRECT], icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/block.png"}
+  - {name: 隐私拦截, type: select, proxies: [REJECT-DROP, DIRECT], icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/block.png"}
   - {name: 漏网之鱼, type: select, <<: *pr, include-all: true, exclude-filter: "(?i)(🟢 直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author)", icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png"}
   - {name: 自建节点, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?i)(自建|CF)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/private_node.png"}
   - {name: 香港节点, type: select, include-all: true, filter: "(?i)(香港|hk|hongkong|Hong Kong)" ,exclude-filter: "(?i)(直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/Hongkong.png"}
@@ -239,13 +242,6 @@ proxy-groups:
   - {name: 自动选择, type: url-test, include-all-providers: true, tolerance: 20, interval: 300, exclude-filter: "(?i)(直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/automation2.png"}
   - {name: 全部节点, type: select, include-all-providers: true, tolerance: 20, interval: 300, exclude-filter: "(?i)(直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/all.png"}
 rules: 
-  # >屏蔽QUIC
-  - AND,((DST-PORT,443),(NETWORK,UDP)),REJECT-DROP
-  # 常用必备
-  - DST-PORT,123,全球直连
-  - IP-CIDR,95.161.76.100/31,REJECT-DROP,no-resolve
-  # 防御
-  - RULE-SET,category-public-tracker,REJECT-DROP
   - RULE-SET,banAd_talkatone,隐私拦截
   - RULE-SET,banAd,隐私拦截
   - RULE-SET,mm_ip,隐私拦截,no-resolve
@@ -263,7 +259,6 @@ rules:
   - RULE-SET,bank_cn_domain,全球直连
   - RULE-SET,ai_cn_domain,全球直连
   - RULE-SET,direct_supplement,全球直连
-  - RULE-SET,private_domain,全球直连
   - RULE-SET,alibaba_domain,全球直连
   - RULE-SET,google_vpn,GoogleVPN
   - RULE-SET,youtube_domain,YouTube
@@ -280,10 +275,11 @@ rules:
   - RULE-SET,telegram_domain,Telegram
   - RULE-SET,telegram_ip,Telegram,no-resolve
   - RULE-SET,line_domain,LINE
+  - RULE-SET,talkatone,Talkatone,no-resolve
   - RULE-SET,discord_domain,Discord
   - RULE-SET,discord_asn,Discord,no-resolve
-  - RULE-SET,talkatone,Talkatone,no-resolve
   - RULE-SET,signal_domain,Signal
+  - RULE-SET,private_domain,全球直连
   - RULE-SET,xiaomi_domain,全球直连
   - RULE-SET,iptv,全球直连
   - RULE-SET,direct_blackmatrix7,全球直连
@@ -336,8 +332,8 @@ rule-anchor:
   domain: &domain {type: http, interval: 86400, behavior: domain, format: mrs}
   class: &class {type: http, interval: 86400, behavior: classical, format: text}
 rule-providers: 
+  banAd_talkatone: { <<: *class, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/banAd_talkatone.list" }
   banAd: { <<: *class, url: "https://raw.githubusercontent.com/8680/GOODBYEADS/refs/heads/master/data/rules/qx.list" }
-  banAd_talktone: { <<: *class, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/banAd_talktone.list" }
   private_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs" }
   bank_cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-bank-cn.mrs" }
   direct_blackmatrix7: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Direct/Direct.list" }
@@ -413,8 +409,6 @@ rule-providers:
   ai_cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-ai-cn.mrs" }
   discord_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/discord.mrs" }
 
-
-  banAd_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/ad.mrs" }
   ai_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/ai.mrs" }
   cn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs" }
   mm_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/mm.mrs" }
