@@ -177,17 +177,12 @@ dns:
     - https://223.5.5.5/dns-query
   nameserver-policy:
     "rule-set:private_domain,cn_domain":
-      - "https://1.12.12.12/dns-query"
       - "https://223.5.5.5/dns-query"
     "rule-set:geolocation-!cn":
       - "https://dns.cloudflare.com/dns-query"
-      - "https://dns.google/dns-query"
 proxies: 
   - name: "🟢 直连"
     type: direct
-    udp: true
-  - name: "🚫 拒绝"
-    type: reject
     udp: true        
 
 
