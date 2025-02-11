@@ -2,6 +2,7 @@
 pr: &pr {type: select, proxies: [节点选择, 香港自动, 新加坡自动, 日本自动, 台湾自动, 美国自动, 自动选择, 香港节点, 新加坡节点, 日本节点, 台湾节点, 美国节点, 全部节点, 自建节点, 全球直连]}
 
 # 机场订阅，名称不能重复
+
 proxy-providers:
   Airport_01:
     type: http
@@ -157,9 +158,11 @@ dns:
     - ntp5.*.com
     - ntp6.*.com
     - ntp7.*.com
+    - '*.neverquit.us.kg'
     - '*.time.edu.cn'
     - '*.ntp.org.cn'
     - '+.pool.ntp.org'
+    - 5ddd.com
     - time1.cloud.tencent.com
     - geosite:private
     - geosite:cn
@@ -174,12 +177,17 @@ dns:
     - https://223.5.5.5/dns-query
   nameserver-policy:
     "rule-set:private_domain,cn_domain":
+      - "https://1.12.12.12/dns-query"
       - "https://223.5.5.5/dns-query"
     "rule-set:geolocation-!cn":
       - "https://dns.cloudflare.com/dns-query"
+      - "https://dns.google/dns-query"
 proxies: 
   - name: "🟢 直连"
     type: direct
+    udp: true
+  - name: "🚫 拒绝"
+    type: reject
     udp: true        
 
 
@@ -238,14 +246,7 @@ proxy-groups:
   - {name: 自动选择, type: url-test, include-all-providers: true, tolerance: 20, interval: 300, exclude-filter: "(?i)(直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/automation2.png"}
   - {name: 全部节点, type: select, include-all-providers: true, tolerance: 20, interval: 300, exclude-filter: "(?i)(直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/all.png"}
 rules: 
-  # >屏蔽QUIC
-  - AND,((DST-PORT,443),(NETWORK,UDP)),REJECT-DROP
-  # 常用必备
-  - DST-PORT,123,全球直连
-  - IP-CIDR,95.161.76.100/31,REJECT-DROP,no-resolve
-  # 防御
-  - RULE-SET,category-public-tracker,REJECT-DROP
-  - RULE-SET,mm_ip,REJECT,no-resolve
+  - RULE-SET,mm_ip,REJECT-DROP,no-resolve
   - RULE-SET,wechat,全球直连
   - RULE-SET,speedtest_domain,Speedtest
   - RULE-SET,Cloudflare,节点选择
@@ -260,7 +261,6 @@ rules:
   - RULE-SET,bank_cn_domain,全球直连
   - RULE-SET,ai_cn_domain,全球直连
   - RULE-SET,direct_supplement,全球直连
-  - RULE-SET,private_domain,全球直连
   - RULE-SET,alibaba_domain,全球直连
   - RULE-SET,google_vpn,GoogleVPN
   - RULE-SET,youtube_domain,YouTube
@@ -277,10 +277,11 @@ rules:
   - RULE-SET,telegram_domain,Telegram
   - RULE-SET,telegram_ip,Telegram,no-resolve
   - RULE-SET,line_domain,LINE
+  - RULE-SET,talkatone,Talkatone,no-resolve
   - RULE-SET,discord_domain,Discord
   - RULE-SET,discord_asn,Discord,no-resolve
-  - RULE-SET,talkatone,Talkatone,no-resolve
   - RULE-SET,signal_domain,Signal
+  - RULE-SET,private_domain,全球直连
   - RULE-SET,xiaomi_domain,全球直连
   - RULE-SET,iptv,全球直连
   - RULE-SET,direct_blackmatrix7,全球直连
@@ -398,7 +399,6 @@ rule-providers:
   line_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/line.mrs" }
   talkatone: { <<: *class, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/talkatone.list" }
   Shopify_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/shopify.mrs" }
-  discord_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/discord.mrs" }
   signal_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/signal.mrs" }
   google_vpn: { <<: *class, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/googlevpn.list" }
   wechat: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/WeChat/WeChat.list" }
@@ -407,8 +407,8 @@ rule-providers:
   apple_cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/apple%40cn.mrs" }
   alibaba_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/alibaba.mrs" }
   ai_cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-ai-cn.mrs" }
+  discord_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/discord.mrs" }
 
-  banAd_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/ad.mrs" }
   ai_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/ai.mrs" }
   cn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs" }
   mm_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/mm.mrs" }
