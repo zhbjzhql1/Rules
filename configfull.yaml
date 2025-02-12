@@ -13,6 +13,8 @@ proxy-providers:
       interval: 300
     proxy: 🟢 直连
     url: "订阅链接"
+    override:
+      additional-prefix: "[机场名称1]"
   Airport_02:
     type: http
     interval: 86400
@@ -22,6 +24,8 @@ proxy-providers:
       interval: 300
     proxy: 🟢 直连
     url: "订阅链接"
+    override:
+      additional-prefix: "[机场名称2]"
   Airport_03:
     type: http
     interval: 43200
@@ -31,6 +35,8 @@ proxy-providers:
       interval: 300
     proxy: 🟢 直连
     url: "订阅链接"
+    override:
+      additional-prefix: "[机场名称3]"
     override:
       skip-cert-verify: true
       udp: true
