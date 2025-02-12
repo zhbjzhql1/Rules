@@ -9,3 +9,7 @@ DOMAIN-SUFFIX,pexels.com
 DOMAIN-SUFFIX,dl.google.com
 DOMAIN-SUFFIX,nevergiveup.us.kg
 DOMAIN-SUFFIX,random.ouonet.org
+# docker rules 
+DOMAIN-SUFFIX,compose-spec.io
+DOMAIN-SUFFIX,docker.com
+DOMAIN-SUFFIX,docker.io
