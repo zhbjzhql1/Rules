@@ -165,9 +165,6 @@ dns:
     - '+.pool.ntp.org'
     - 5ddd.com
     - time1.cloud.tencent.com
-    - "rule-set:private_domain,cn_domain,bank_cn_domain,wechat,ai_cn_domain,fcm_domain,alibaba_domain,direct_supplement,fcm_domain,iptv,direct_blackmatrix7,NetEaseMusic,media_cn_domain,xiaomi_domain,steam_cn_domain,pt_cn_domain,public-tracker_domain"
-    - "+.services.googleapis.cn"
-    - "+.xn--ngstr-lra8j.com"
   default-nameserver:
     - 223.5.5.5
     - 119.29.29.29
