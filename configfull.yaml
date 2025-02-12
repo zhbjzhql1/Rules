@@ -266,7 +266,7 @@ rules:
   - RULE-SET,youtube_domain,YouTube
   - RULE-SET,google_play,Google
   - RULE-SET,google_domain,Google
-  - RULE-SET,google_asn_cn,Google
+  - RULE-SET,google_asn_cn,Google,no-resolve
   - RULE-SET,google_ip,Google,no-resolve
   - RULE-SET,github_domain,GitHub
   - RULE-SET,gitbook_domain,GitHub
