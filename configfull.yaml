@@ -37,11 +37,6 @@ proxy-providers:
     url: "订阅链接"
     override:
       additional-prefix: "[机场名称3]"
-    override:
-      skip-cert-verify: true
-      udp: true
-      down: "1200 Mbps"
-      up: "60 Mbps"
       
 # 用于下载订阅时指定UA
 global-ua: clash.meta
