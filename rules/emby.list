@@ -1,3 +1,5 @@
 DOMAIN-SUFFIX,emby.aikan.la
 DOMAIN-SUFFIX,cavps.eu.org
 IP-CIDR,45.196.236.212/32,no-resolve
+IP-CIDR,104.21.67.217,no-resolve
+IP-CIDR,172.67.181.101,no-resolve
