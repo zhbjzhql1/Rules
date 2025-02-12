@@ -1,7 +1,7 @@
 # 锚点
 pr: &pr {type: select, proxies: [节点选择, 香港自动, 新加坡自动, 日本自动, 台湾自动, 美国自动, 自动选择, 香港节点, 新加坡节点, 日本节点, 台湾节点, 美国节点, 全部节点, 自建节点, 全球直连]}
 
-# 机场订阅，名称不能重复
+# 机场订阅，Airport_01/02/03名称不能重复,但可修改为自己喜欢的
 
 proxy-providers:
   Airport_01:
@@ -14,7 +14,7 @@ proxy-providers:
     proxy: 🟢 直连
     url: "订阅链接"
     override:
-      additional-prefix: "[机场名称1]"
+      additional-prefix: "[机场名称]"
   Airport_02:
     type: http
     interval: 86400
@@ -25,7 +25,7 @@ proxy-providers:
     proxy: 🟢 直连
     url: "订阅链接"
     override:
-      additional-prefix: "[机场名称2]"
+      additional-prefix: "[机场名称]"
   Airport_03:
     type: http
     interval: 43200
@@ -36,7 +36,7 @@ proxy-providers:
     proxy: 🟢 直连
     url: "订阅链接"
     override:
-      additional-prefix: "[机场名称3]"
+      additional-prefix: "[机场名称]"
 
 # 用于下载订阅时指定UA
 global-ua: clash.meta
@@ -82,7 +82,7 @@ keep-alive-interval: 30
 # 策略组选择和fakeip缓存
 profile:
   store-selected: true
-  store-fake-ip: true
+  store-fake-ip: false
 
 # 流量嗅探
 sniffer:
@@ -165,8 +165,9 @@ dns:
     - '+.pool.ntp.org'
     - 5ddd.com
     - time1.cloud.tencent.com
-    - geosite:private
-    - geosite:cn
+    - "rule-set:private_domain,cn_domain,bank_cn_domain,wechat,ai_cn_domain,fcm_domain,alibaba_domain,direct_supplement,fcm_domain,iptv,direct_blackmatrix7,NetEaseMusic,media_cn_domain,xiaomi_domain,steam_cn_domain,pt_cn_domain,public-tracker_domain"
+    - "+.services.googleapis.cn"
+    - "+.xn--ngstr-lra8j.com"
   default-nameserver:
     - 223.5.5.5
     - 119.29.29.29
@@ -281,6 +282,8 @@ rules:
   - RULE-SET,steamcdn,全球直连
   - RULE-SET,btdownload,全球直连
   - RULE-SET,NetEaseMusic,全球直连
+  - RULE-SET,pt_cn_domain,全球直连
+  - RULE-SET,public-tracker_domain,全球直连
   - RULE-SET,media_cn_domain,国内媒体
   - RULE-SET,appleTV,AppleTV
   - RULE-SET,apple_cn_domain,全球直连
@@ -362,7 +365,7 @@ rule-providers:
   media_cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-media-cn.mrs" }
   media!cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-social-media-!cn.mrs" }
   Cloudflare: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/cloudflare.mrs" }
-  gitbook_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/gitbook.mrs" } you 
+  gitbook_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/gitbook.mrs" }
   disney_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/disney.mrs" }
   hbo_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/hbo.mrs" }
   primevideo_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/primevideo.mrs" }
@@ -402,6 +405,8 @@ rule-providers:
   discord_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/discord.mrs" }
   fcm_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/googlefcm.mrs" }
   emby2: { <<: *class, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/emby.list" }
+  pt_cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-pt.mrs" }
+  public-tracker_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-public-tracker.list" }
 
   ai_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/ai.mrs" }
   cn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs" }
