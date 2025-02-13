@@ -260,6 +260,8 @@ rules:
   - RULE-SET,bank_cn_domain,全球直连
   - RULE-SET,ai_cn_domain,全球直连
   - RULE-SET,direct_supplement,全球直连
+  - RULE-SET,115_domain,全球直连
+  - RULE-SET,aliyun_domain,全球直连
   - RULE-SET,alibaba_domain,全球直连
   - RULE-SET,fcm_domain,FCM
   - RULE-SET,google_vpn,GoogleVPN
