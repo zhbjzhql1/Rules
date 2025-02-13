@@ -171,7 +171,7 @@ dns:
     - '+.pool.ntp.org'
     - 5ddd.com
     - time1.cloud.tencent.com
-    - "rule-set:private_domain,cn_domain,bank_cn_domain,wechat,ai_cn_domain,fcm_domain,alibaba_domain,direct_supplement,fcm_domain,iptv,direct_blackmatrix7,NetEaseMusic,media_cn_domain,xiaomi_domain,steam_cn_domain,pt_cn_domain,public-tracker_domain"
+    - "rule-set:private_domain,cn_domain,bank_cn_domain,wechat,ai_cn_domain,fcm_domain,alibaba_domain,direct_supplement,fcm_domain,iptv,direct_blackmatrix7,NetEaseMusic,media_cn_domain,xiaomi_domain,steam_cn_domain,pt_cn_domain,public-tracker_domain,115_domain"
     - "+.services.googleapis.cn"
     - "+.xn--ngstr-lra8j.com"
   default-nameserver:
@@ -267,6 +267,7 @@ rules:
   - RULE-SET,ai_cn_domain,全球直连
   - RULE-SET,direct_supplement,全球直连
   - RULE-SET,alibaba_domain,全球直连
+  - RULE-SET,115_domain,全球直连
   - RULE-SET,fcm_domain,FCM
   - RULE-SET,google_vpn,GoogleVPN
   - RULE-SET,youtube_domain,YouTube
@@ -421,6 +422,7 @@ rule-providers:
   emby2: { <<: *class, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/emby.list" }
   pt_cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-pt.mrs" }
   public-tracker_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-public-tracker.list" }
+  115_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/115.list" }
 
   ai_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/ai.mrs" }
   cn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs" }
