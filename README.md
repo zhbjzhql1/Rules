@@ -33,7 +33,7 @@ Nikki
 Stash
 (https://github.com/STASH-NETWORKS-LIMITED ）
 
-## 感谢,以下排名不分先后
+## 鸣谢,以下排名不分先后
 
 •[vernesong/OpenClash](https://github.com/vernesong/OpenClash)
 
