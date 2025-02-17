@@ -184,7 +184,7 @@ dns:
     - https://223.5.5.5/dns-query
     - https://1.12.12.12/dns-query 
   nameserver-policy:   
- "rule-set:private_domain,cn_domain,bank_cn_domain,wechat,ai_cn_domain,fcm_domain,alibaba_domain,direct_supplement,fcm_domain,iptv,direct_blackmatrix7,NetEaseMusic,media_cn_domain,xiaomi_domain,steam_cn_domain,pt_cn_domain,public-tracker_domain,115_domain,aliyun_domain": 
+    'rule-set:private_domain,cn_domain,bank_cn_domain,wechat,ai_cn_domain,fcm_domain,alibaba_domain,direct_supplement,fcm_domain,iptv,direct_blackmatrix7,NetEaseMusic,media_cn_domain,xiaomi_domain,steam_cn_domain,pt_cn_domain,public-tracker_domain,115_domain,aliyun_domain':
       - "https://223.5.5.5/dns-query"
       - "https://1.12.12.12/dns-query"
     "geosite:geolocation-!cn": 
