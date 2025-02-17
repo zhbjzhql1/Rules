@@ -29,6 +29,9 @@ FlClash
 Nikki
 (https://github.com/nikkinikki-org/OpenWrt-nikki)
 
+Openclash(若连接数大于1w推荐使用)
+(https://github.com/vernesong/OpenClash)
+
 •iOS
 Stash
 (https://github.com/STASH-NETWORKS-LIMITED ）
