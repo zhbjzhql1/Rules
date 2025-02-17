@@ -165,6 +165,7 @@ dns:
     - ntp5.*.com
     - ntp6.*.com
     - ntp7.*.com
+    - "rule-set:private_domain,cn_domain,bank_cn_domain,wechat,ai_cn_domain,fcm_domain,alibaba_domain,direct_supplement,fcm_domain,iptv,direct_blackmatrix7,NetEaseMusic,media_cn_domain,xiaomi_domain,steam_cn_domain,pt_cn_domain,public-tracker_domain,115_domain,aliyun_domain"
     - '*.neverquit.us.kg'
     - '*.time.edu.cn'
     - '*.ntp.org.cn'
