@@ -1,6 +1,5 @@
 # Some rules for emby
 # Power by Lanlan13-14
-DOMAIN-SUFFIX,emby.aikan.la
 DOMAIN-SUFFIX,cavps.eu.org
 DOMAIN-REGEX,(?i)emby|tsukimi
 IP-CIDR,45.196.236.212/32,no-resolve
