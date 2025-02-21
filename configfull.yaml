@@ -245,7 +245,7 @@ proxy-groups:
   - {name: STEAM,type: select, <<: *pr, include-all: true, exclude-filter: "(?i)(🟢 直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/steam.png"}
   - {name: 全球直连, type: select, proxies: [🟢 直连, 节点选择], icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/direct.png"}
   - {name: 隐私拦截, type: select, proxies: [🚫 拒绝, 🟢 直连], icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/block.png"}
-  - {name: 漏网之鱼, type: select, <<: *pr, include-all: true, exclude-filter: "(?i)(🟢 直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author)", icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png"}
+  - {name: Final, type: select, <<: *pr, include-all: true, exclude-filter: "(?i)(🟢 直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author)", icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png"}
   - {name: 自建节点, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?i)(自建|CF)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/private_node.png"}
   - {name: 香港节点, type: select, include-all: true, filter: "(?i)(香港|hk|hongkong|Hong Kong)" ,exclude-filter: "(?i)(直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/Hongkong.png"}
   - {name: 新加坡节点, type: select, include-all: true, filter: "(?i)（新|🇸🇬|SG|singapore）" ,exclude-filter: "(?i)（直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author）", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/Singapore.png"}
@@ -262,7 +262,6 @@ proxy-groups:
 rules: 
   - RULE-SET,banAd_talkatone,隐私拦截
   - RULE-SET,banAd,隐私拦截
-  - RULE-SET,mm_ip,隐私拦截,no-resolve
   - RULE-SET,wechat,全球直连
   - RULE-SET,speedtest_domain,Speedtest
   - RULE-SET,Cloudflare,节点选择
@@ -351,7 +350,7 @@ rules:
   - RULE-SET,geolocation-!cn,节点选择
   - RULE-SET,cn_domain,全球直连
   - RULE-SET,cn_ip,全球直连,no-resolve
-  - MATCH,漏网之鱼
+  - MATCH,Final
 rule-anchor:
   ip: &ip {type: http, interval: 86400, behavior: ipcidr, format: mrs}
   domain: &domain {type: http, interval: 86400, behavior: domain, format: mrs}
@@ -442,7 +441,6 @@ rule-providers:
 
   ai_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/ai.mrs" }
   cn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs" }
-  mm_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/mm.mrs" }
   google_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs" }
   telegram_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs" }
   netflix_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/netflix.mrs" }
