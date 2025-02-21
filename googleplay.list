@@ -1,5 +1,0 @@
-# 谷歌商店下载相关规则
-DOMAIN-SUFFIX,services.googleapis.cn  
-DOMAIN-SUFFIX,googleapis.cn  
-DOMAIN-SUFFIX,xn--ngstr-lra8j.com  
-DOMAIN-SUFFIX,gstatic.com
