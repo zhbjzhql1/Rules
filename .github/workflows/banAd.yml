@@ -31,13 +31,14 @@ jobs:
 
     - name: Fetch GOODBYEADS qx.list rules
       run: |
-        curl -sL "https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/qx.list" -o rules/domain/qx.list
+        mkdir -p rules/Domain  # 确保目录存在，注意大小写
+        curl -v -sL "https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/qx.list" -o rules/Domain/qx.list
 
     - name: Convert qx.list to banAd.mrs
       run: |
         echo "Converting qx.list to banAd.mrs..."
-        mihomo convert-ruleset domain qx rules/domain/qx.list rules/domain/banAd.mrs
-        rm -f rules/domain/qx.list  # 删除原始 qx.list 文件，保留转换后的 banAd.mrs
+        mihomo convert-ruleset domain qx rules/Domain/qx.list rules/Domain/banAd.mrs
+        rm -f rules/Domain/qx.list  # 删除原始 qx.list 文件，保留转换后的 banAd.mrs
 
     - name: Commit and Push Changes
       run: |
