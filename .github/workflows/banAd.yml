@@ -53,8 +53,4 @@ jobs:
     - name: Commit and Push Changes
       run: |
         git add .
-        if git diff-index --quiet HEAD --; then
-          echo "No changes to commit"
-        else
-          git commit -m "Updated GOODBYEADS rules (qx.list -> banAd.mrs)"
-          git push
+        git diff-index --quiet HEAD -- || (git commit -m "Updated GOODBYEADS rules (qx.list -> banAd.mrs)" && git push)
