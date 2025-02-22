@@ -1,0 +1,58 @@
+name: Sync and Compile Amazon IP Rules
+
+on:
+  schedule:
+    - cron: '0 18 * * *'  # 北京时间 02:00 执行
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  amazon_ip_rules:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Set up Git user
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Install mihomo
+      run: |
+        version=$(curl -sL https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/version.txt)
+        curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/mihomo-linux-amd64-${version}.gz" | \
+          gunzip -c > /usr/local/bin/mihomo && chmod +x /usr/local/bin/mihomo
+
+    - name: Fetch Amazon IP Rule
+      run: |
+        mkdir -p rules/IP  # 确保目录存在
+
+        # 下载 Amazon IP 规则文件
+        curl -sL "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/AmazonIP/AmazonIP.list" -o rules/IP/amazon-ip.list
+
+    - name: Convert Amazon IP Rules to MRS
+      run: |
+        # 将 Amazon IP 规则转换为 YAML 格式
+        echo "payload:" > rules/IP/amazon-ip_combined.yaml
+        while IFS=, read -r type value; do
+          if [[ -n "$type" && -n "$value" ]]; then
+            echo "  - $type,$value" >> rules/IP/amazon-ip_combined.yaml
+          fi
+        done < rules/IP/amazon-ip.list
+
+        # 使用 mihomo 转换为 MRS 格式
+        mihomo convert-ruleset ipcidr yaml rules/IP/amazon-ip_combined.yaml rules/IP/amazon-ip.mrs
+
+        # 清理临时文件
+        rm -f rules/IP/amazon-ip.list rules/IP/amazon-ip_combined.yaml
+
+    - name: Commit and Push Changes
+      run: |
+        git add .
+        git diff-index --quiet HEAD -- || (git commit -m "Updated Amazon IP rules -> amazon-ip.mrs" && git push)
