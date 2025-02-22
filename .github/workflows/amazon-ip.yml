@@ -40,10 +40,10 @@ jobs:
       run: |
         # 将 IP 规则文件转换为 YAML 格式
         echo "payload:" > rules/IP/amazon-ip_combined.yaml
-        while IFS= read -r line; do
+        while IFS=, read -r type ip cidr; do
           # 过滤空行和注释行
-          if [[ -n "$line" && ! "$line" =~ ^# ]]; then
-            echo "  - $line" >> rules/IP/amazon-ip_combined.yaml
+          if [[ -n "$ip" && ! "$ip" =~ ^# && "$type" == "IP-CIDR" ]]; then
+            echo "  - $ip" >> rules/IP/amazon-ip_combined.yaml
           fi
         done < rules/IP/amazon-ip.list
 
