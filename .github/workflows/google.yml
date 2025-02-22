@@ -2,7 +2,7 @@ name: Sync and Compile Google Rules
 
 on:
   schedule:
-    - cron: '0 16 * * *'  # 每天执行（北京时间00:00）
+    - cron: '0 18 * * *'  # 例如每天18点触发
   workflow_dispatch:
 
 permissions:
@@ -29,38 +29,34 @@ jobs:
         curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/mihomo-linux-amd64-${version}.gz" | \
           gunzip -c > /usr/local/bin/mihomo && chmod +x /usr/local/bin/mihomo
 
-    - name: Fetch Google Rules
+    - name: Download Google Rules
       run: |
         mkdir -p rules/Domain  # 确保目录存在
-
-        # 下载 Google 规则文件（两个 list 文件）
         curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/google-play.list" -o rules/Domain/google-play.list
         curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.list" -o rules/Domain/google.list
 
-    - name: Merge and Remove Duplicates
+    - name: Merge and Deduplicate Google List Files
       run: |
-        # 合并并去重两个 .list 文件
-        cat rules/Domain/google-play.list rules/Domain/google.list | grep -v '^\s*$' | sort -u > rules/Domain/google-merged.list
-        
-        # 打印合并后的文件内容以进行调试
-        cat rules/Domain/google-merged.list
+        # 合并并去重
+        cat rules/Domain/google-play.list rules/Domain/google.list | grep -v '^#' | sort -u > rules/Domain/google-merged.list
+        echo "Merged and deduplicated Google list."
 
-    - name: Convert Merged Google Rules to YAML
+    - name: Convert Merged Google List to YAML
       run: |
-        # 将合并后的 .list 文件转换为 .yaml 格式
         echo "payload:" > rules/Domain/google-merged.yaml
         while IFS= read -r line; do
-          if [[ -n "$line" && ! "$line" =~ ^# ]]; then
+          if [[ -n "$line" ]]; then
             echo "  - '$line'" >> rules/Domain/google-merged.yaml
           fi
         done < rules/Domain/google-merged.list
+        echo "Converted merged Google list to YAML."
 
-    - name: Convert Merged Google Rules to MRS
+    - name: Convert Google Rules to MRS
       run: |
-        # 转换合并后的 .yaml 文件为 .mrs 文件
         mihomo convert-ruleset domain yaml rules/Domain/google-merged.yaml rules/Domain/google.mrs
+        echo "Converted Google YAML to MRS."
 
     - name: Commit and Push Changes
       run: |
         git add .
-        git diff-index --quiet HEAD -- || (git commit -m "Updated Google rules (merged google.list -> google.mrs)" && git push)
+        git diff-index --quiet HEAD -- || (git commit -m "Updated Google rules" && git push)
