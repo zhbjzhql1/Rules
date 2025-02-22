@@ -41,7 +41,7 @@ jobs:
         # 提取域名规则并保存为 NetEaseMusic-domain.list
         grep -v ',no-resolve' rules/Domain/NetEaseMusic.list | grep -v '/' > rules/Domain/NetEaseMusic-domain.list
 
-        # 提取IP规则并保存为 NetEaseMusic-ip.list
+        # 提取IP规则并保存为 NetEaseMusic-ip.list，去掉 no-resolve
         grep -v ',no-resolve' rules/Domain/NetEaseMusic.list | grep '/' > rules/IP/NetEaseMusic-ip.list
 
     - name: Convert NetEaseMusic Domain Rules to YAML
@@ -56,9 +56,9 @@ jobs:
     - name: Convert NetEaseMusic IP Rules to YAML
       run: |
         echo "payload:" > rules/IP/NetEaseMusic-ip.yaml
-        while IFS=, read -r type value; do
-          if [[ -n "$type" && -n "$value" ]]; then
-            echo "  - $value" >> rules/IP/NetEaseMusic-ip.yaml
+        while IFS=, read -r type value cidr; do
+          if [[ -n "$cidr" && ! "$cidr" =~ ^# ]]; then
+            echo "  - $cidr" >> rules/IP/NetEaseMusic-ip.yaml
           fi
         done < rules/IP/NetEaseMusic-ip.list
 
