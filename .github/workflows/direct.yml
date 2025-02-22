@@ -45,8 +45,8 @@ jobs:
       run: |
         echo "payload:" > rules/Domain/direct_combined.yaml
         while IFS=, read -r type value; do
-          if [[ -n "$type" && -n "$value" ]]; then
-            echo "  - $type,$value" >> rules/Domain/direct_combined.yaml
+          if [[ -n "$value" ]]; then
+            echo "  - $value" >> rules/Domain/direct_combined.yaml
           fi
         done < rules/Domain/merged_direct.list
 
