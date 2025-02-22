@@ -53,7 +53,7 @@ jobs:
           fi
         done < rules/Domain/NetEaseMusic-domain.list
 
-    - name: Convert NetEaseMusic IP Rules to YAML
+    - name: Convert NetEaseMusic IP Rules to YAML (as domain)
       run: |
         echo "payload:" > rules/IP/NetEaseMusic-ip.yaml
         while IFS=, read -r type value; do
@@ -67,9 +67,9 @@ jobs:
         mihomo convert-ruleset domain yaml rules/Domain/NetEaseMusic-domain.yaml rules/Domain/NetEaseMusic-domain.mrs
         rm -f rules/Domain/NetEaseMusic-domain.yaml rules/Domain/NetEaseMusic-domain.list
 
-    - name: Convert NetEaseMusic IP Rules to MRS
+    - name: Convert NetEaseMusic IP Rules to MRS (as domain)
       run: |
-        mihomo convert-ruleset ip yaml rules/IP/NetEaseMusic-ip.yaml rules/IP/NetEaseMusic-ip.mrs
+        mihomo convert-ruleset domain yaml rules/IP/NetEaseMusic-ip.yaml rules/IP/NetEaseMusic-ip.mrs
         rm -f rules/IP/NetEaseMusic-ip.yaml rules/IP/NetEaseMusic-ip.list
 
     - name: Commit and Push Changes
