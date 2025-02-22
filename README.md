@@ -25,6 +25,10 @@ Mihomo-Party
 FlClash
 (https://github.com/chen08209/FlClash)
 
+•iOS
+Stash
+(https://apps.apple.com/app/stash/id1596063349?platform=iphone&l=zh-CN）
+
 •Openwrt
 
 Nikki
@@ -32,10 +36,6 @@ Nikki
 
 Openclash(若连接数大于1w推荐使用)
 (https://github.com/vernesong/OpenClash)
-
-•iOS
-Stash
-(https://github.com/STASH-NETWORKS-LIMITED ）
 
 ## 鸣谢,以下排名不分先后
 
