@@ -32,33 +32,30 @@ jobs:
     - name: Fetch Ad Blocking Rules
       run: |
         mkdir -p rules/Domain  # 确保目录存在
-
-        # 下载广告拦截规则文件
         curl -sL "https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/qx.list" -o rules/qx.list
 
-    - name: Extract DOMAIN rules
+    - name: Extract DOMAIN rules and remove ",reject"
       run: |
-        # 提取 DOMAIN 和 DOMAIN-SUFFIX 规则
-        grep -E 'DOMAIN|DOMAIN-SUFFIX' rules/qx.list > rules/Domain/banAd.list
+        # 只提取 DOMAIN 和 DOMAIN-SUFFIX 规则，并去掉 ",reject"
+        grep -E 'DOMAIN|DOMAIN-SUFFIX' rules/qx.list | sed 's/,reject//' > rules/Domain/banAd.list
 
     - name: Convert DOMAIN rules to YAML
       run: |
-        # 将 DOMAIN 和 DOMAIN-SUFFIX 规则转换为 YAML 格式
+        # 生成 YAML 格式的规则
         echo "payload:" > rules/Domain/banAd.yaml
         while IFS=, read -r type domain; do
           if [[ -n "$domain" && ! "$domain" =~ ^# ]]; then
-            echo "  - $domain" >> rules/Domain/banAd.yaml
+            echo "  - $type,$domain" >> rules/Domain/banAd.yaml
           fi
         done < rules/Domain/banAd.list
 
     - name: Convert DOMAIN rules to MRS
       run: |
-        # 使用 mihomo 转换为 MRS 格式，并命名为 banAd.mrs
+        # 使用 mihomo 转换为 MRS 格式
         mihomo convert-ruleset domain yaml rules/Domain/banAd.yaml rules/Domain/banAd.mrs
 
     - name: Clean up temporary files
       run: |
-        # 删除临时文件
         rm -f rules/qx.list rules/Domain/banAd.list rules/Domain/banAd.yaml
 
     - name: Commit and Push Changes
