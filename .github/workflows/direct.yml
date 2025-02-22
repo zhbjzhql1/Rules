@@ -38,15 +38,17 @@ jobs:
         curl -sL "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/Domain/direct.list" -o rules/Domain/direct2.list
         curl -sL "https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/refs/heads/main/rule/IPTVMainland_Domain.list" -o rules/Domain/direct3.list
 
-        # 合并所有规则
-        cat rules/Domain/direct1.list rules/Domain/direct2.list rules/Domain/direct3.list > rules/Domain/merged_direct.list
+    - name: Merge Direct Rules
+      run: |
+        # 合并所有下载的规则文件
+        cat rules/Domain/direct1.list rules/Domain/direct2.list rules/Domain/direct3.list | grep -v '^#' > rules/Domain/merged_direct.list
 
-    - name: Convert merged Direct rules to YAML
+    - name: Convert Direct Rules to YAML
       run: |
         echo "payload:" > rules/Domain/direct_combined.yaml
-        while IFS=, read -r type domain extra; do
-          if [[ -n "$domain" && ( "$type" == "DOMAIN" || "$type" == "DOMAIN-SUFFIX" ) ]]; then
-            echo "  - $domain" >> rules/Domain/direct_combined.yaml
+        while IFS=, read -r type value; do
+          if [[ -n "$type" && -n "$value" ]]; then
+            echo "  - $value" >> rules/Domain/direct_combined.yaml
           fi
         done < rules/Domain/merged_direct.list
 
