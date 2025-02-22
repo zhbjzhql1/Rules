@@ -297,9 +297,9 @@ rules:
   - RULE-SET,xiaomi_domain,全球直连
   - RULE-SET,steam_cn_domain,全球直连
   - RULE-SET,steamcdn_domain,全球直连
-  - RULE-SET,steamcdn_ip,全球直连
+  - RULE-SET,steamcdn_ip,全球直连,no-resolve
   - RULE-SET,NetEaseMusic_domain,全球直连
-  - RULE-SET,NetEaseMusic_ip,全球直连
+  - RULE-SET,NetEaseMusic_ip,全球直连,no-resolve
   - RULE-SET,pt_cn_domain,全球直连
   - RULE-SET,public-tracker_domain,全球直连
   - RULE-SET,media_cn_domain,国内媒体
