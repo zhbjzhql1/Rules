@@ -58,4 +58,4 @@ jobs:
     - name: Commit and Push Changes
       run: |
         git add .
-        git diff-index --quiet HEAD -- || (git commit -m "Updated direct rules (merged -> direct.mrs)" && git push)
+        git diff-index --quiet HEAD -- || (git commit -m "Updated direct rules (merged direct.list -> direct.mrs)" && git push)
