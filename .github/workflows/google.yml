@@ -29,30 +29,37 @@ jobs:
         curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/mihomo-linux-amd64-${version}.gz" | \
           gunzip -c > /usr/local/bin/mihomo && chmod +x /usr/local/bin/mihomo
 
-    - name: Fetch and Merge Google Rules
+    - name: Fetch Google Rules
       run: |
         mkdir -p rules/Domain  # 确保目录存在
 
-        # 下载 Google 规则文件
+        # 下载 Google 规则文件（两个 list 文件）
         curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/google-play.list" -o rules/Domain/google-play.list
         curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.list" -o rules/Domain/google.list
 
-        # 合并去重
-        cat rules/Domain/google.play.list rules/Domain/google.list | grep -v '^#' | sort -u > rules/Domain/merged_google.list
-
-    - name: Convert merged google rules to YAML
+    - name: Convert Google Rules to YAML
       run: |
-        echo "payload:" > rules/Domain/google_combined.yaml
-        while IFS=, read -r type value; do
-          if [[ -n "$type" && -n "$value" ]]; then
-            echo "  - $type,$value" >> rules/Domain/google_combined.yaml
-          fi
-        done < rules/Domain/merged_google.list
+        # 将 .list 文件转换为 .yaml 格式
+        echo "Converting google-play.list to google-play.yaml"
+        mihomo convert-ruleset domain list rules/Domain/google-play.list rules/Domain/google-play.yaml
 
-    - name: Convert Google Rules to MRS
+        echo "Converting google.list to google.yaml"
+        mihomo convert-ruleset domain list rules/Domain/google.list rules/Domain/google.yaml
+
+    - name: Merge and Remove Duplicates
       run: |
-        mihomo convert-ruleset domain yaml rules/Domain/google_combined.yaml rules/Domain/google.mrs
-        rm -f rules/Domain/google-play.list rules/Domain/google.list rules/Domain/merged_google.list rules/Domain/google_combined.yaml
+        # 合并并去重
+        cat rules/Domain/google.yaml rules/Domain/google-play.yaml | \
+        grep -v '^\s*$' | \
+        sort -u > rules/Domain/google-merged.yaml
+        
+        # 打印合并后的文件内容以进行调试
+        cat rules/Domain/google-merged.yaml
+
+    - name: Convert Merged Google Rules to MRS
+      run: |
+        # 转换合并后的 .yaml 文件为 .mrs 文件
+        mihomo convert-ruleset domain yaml rules/Domain/google-merged.yaml rules/Domain/google.mrs
 
     - name: Commit and Push Changes
       run: |
