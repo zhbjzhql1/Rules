@@ -1,4 +1,4 @@
-name: Sync and Compile Direct Rules to MRS
+name: Sync and Compile Direct Rules
 
 on:
   schedule:
