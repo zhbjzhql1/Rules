@@ -1,7 +1,7 @@
 # Precautions
 本项目的订阅转换模板/yaml文件是参考 ACL4SSR，Aethersailor，qichiyu等规则修改而来，基于作者个人理解做出的修改，另外我的更新不固定建议每2-3周下载一次配置文件替换，以获得最佳体验/也可配合Substore一同使用达到如同使用订阅链接的效果(每次更新订阅即会自动拉取配置文件更新，无需手动下载上传)，同时感谢各位的大力支持
 #### Substore部署使用教程
-[Others/Substore.md](https://github.com/Lanlan13-14/Rules/blob/main/Others/Substore.md)
+[Substore.md](https://github.com/Lanlan13-14/Rules/blob/main/Others/Substore.md)
 
 ### 标准版
 
