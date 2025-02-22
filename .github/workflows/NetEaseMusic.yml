@@ -36,12 +36,13 @@ jobs:
         # 下载 NetEaseMusic 规则文件
         curl -sL "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/NetEaseMusic/NetEaseMusic.list" -o rules/Domain/NetEaseMusic.list
 
-    - name: Separate Domains and IPs
+    - name: Split Domain and IP Rules
       run: |
-        # 提取域名规则
-        grep -E '^[^,]+$' rules/Domain/NetEaseMusic.list > rules/Domain/NetEaseMusic-domain.list
-        # 提取IP规则，并去掉 no-resolve
-        grep -E ',[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' rules/Domain/NetEaseMusic.list | sed 's/,no-resolve//g' > rules/IP/NetEaseMusic-ip.list
+        # 提取域名规则并保存为 NetEaseMusic-domain.list
+        grep -v ',no-resolve' rules/Domain/NetEaseMusic.list | grep -v '/' > rules/Domain/NetEaseMusic-domain.list
+
+        # 提取IP规则并保存为 NetEaseMusic-ip.list
+        grep -v ',no-resolve' rules/Domain/NetEaseMusic.list | grep '/' > rules/IP/NetEaseMusic-ip.list
 
     - name: Convert NetEaseMusic Domain Rules to YAML
       run: |
@@ -64,12 +65,12 @@ jobs:
     - name: Convert NetEaseMusic Domain Rules to MRS
       run: |
         mihomo convert-ruleset domain yaml rules/Domain/NetEaseMusic-domain.yaml rules/Domain/NetEaseMusic-domain.mrs
-        rm -f rules/Domain/NetEaseMusic-domain.list rules/Domain/NetEaseMusic-domain.yaml
+        rm -f rules/Domain/NetEaseMusic-domain.yaml rules/Domain/NetEaseMusic-domain.list
 
     - name: Convert NetEaseMusic IP Rules to MRS
       run: |
         mihomo convert-ruleset ip yaml rules/IP/NetEaseMusic-ip.yaml rules/IP/NetEaseMusic-ip.mrs
-        rm -f rules/IP/NetEaseMusic-ip.list rules/IP/NetEaseMusic-ip.yaml
+        rm -f rules/IP/NetEaseMusic-ip.yaml rules/IP/NetEaseMusic-ip.list
 
     - name: Commit and Push Changes
       run: |
