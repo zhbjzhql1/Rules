@@ -1,0 +1,50 @@
+name: Sync and Compile UBI Domain Rules
+
+on:
+  schedule:
+    - cron: '0 18 * * *'  # 每天晚上 02:00 执行
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  ubi_domain_rules:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Set up Git user
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Install mihomo
+      run: |
+        version=$(curl -sL https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/version.txt)
+        curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/mihomo-linux-amd64-${version}.gz" | \
+          gunzip -c > /usr/local/bin/mihomo && chmod +x /usr/local/bin/mihomo
+
+    - name: Fetch UBI Domain Rule
+      run: |
+        mkdir -p rules/Domain  # 确保目标目录存在
+
+        # 下载 UBI 规则文件
+        curl -sL "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/UBI/UBI.list" -o rules/Domain/ubi.list
+
+    - name: Convert UBI Domain Rules to MRS
+      run: |
+        # 使用 mihomo 转换为 MRS 格式
+        mihomo convert-ruleset domain rules/Domain/ubi.list rules/Domain/ubi.mrs
+
+        # 清理临时文件
+        rm -f rules/Domain/ubi.list
+
+    - name: Commit and Push Changes
+      run: |
+        git add .
+        git diff-index --quiet HEAD -- || (git commit -m "Updated UBI domain rules -> ubi.mrs" && git push)
