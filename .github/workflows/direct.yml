@@ -2,7 +2,7 @@ name: Sync and Compile Direct Rules
 
 on:
   schedule:
-    - cron: '0 18 * * *'  # 北京时间 02:00 执行
+    - cron: '0 18 * * *'  # 每天北京时间02:00执行
   workflow_dispatch:
 
 permissions:
@@ -29,7 +29,7 @@ jobs:
         curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/mihomo-linux-amd64-${version}.gz" | \
           gunzip -c > /usr/local/bin/mihomo && chmod +x /usr/local/bin/mihomo
 
-    - name: Fetch and Merge Direct Rules
+    - name: Fetch Direct Rules
       run: |
         mkdir -p rules/Domain  # 确保目录存在
 
@@ -38,24 +38,37 @@ jobs:
         curl -sL "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/Domain/direct.list" -o rules/Domain/direct2.list
         curl -sL "https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/refs/heads/main/rule/IPTVMainland_Domain.list" -o rules/Domain/direct3.list
 
-        # 合并去重
-        cat rules/Domain/direct1.list rules/Domain/direct2.list rules/Domain/direct3.list | grep -v '^#' | sort -u > rules/Domain/merged_direct.list
-
-    - name: Convert merged direct rules to YAML
+    - name: Extract and Merge Domain Rules
       run: |
+        # 提取 DOMAIN 和 DOMAIN-SUFFIX 规则
+        grep -E 'DOMAIN|DOMAIN-SUFFIX' rules/Domain/direct1.list > rules/Domain/direct1_domain.list
+        grep -E 'DOMAIN|DOMAIN-SUFFIX' rules/Domain/direct2.list > rules/Domain/direct2_domain.list
+        grep -E 'DOMAIN|DOMAIN-SUFFIX' rules/Domain/direct3.list > rules/Domain/direct3_domain.list
+        
+        # 合并并去重规则
+        cat rules/Domain/direct1_domain.list rules/Domain/direct2_domain.list rules/Domain/direct3_domain.list | grep -v '^#' | sort -u > rules/Domain/merged_direct_domain.list
+
+    - name: Convert Domain Rules to YAML
+      run: |
+        # 将 DOMAIN 规则转换为 YAML 格式
         echo "payload:" > rules/Domain/direct_combined.yaml
-        while IFS=, read -r type value; do
-          if [[ -n "$value" ]]; then
-            echo "  - $value" >> rules/Domain/direct_combined.yaml
+        while IFS=, read -r type domain; do
+          if [[ -n "$domain" && ! "$domain" =~ ^# ]]; then
+            echo "  - $domain" >> rules/Domain/direct_combined.yaml
           fi
-        done < rules/Domain/merged_direct.list
+        done < rules/Domain/merged_direct_domain.list
 
-    - name: Convert Direct Rules to MRS
+    - name: Convert Domain Rules to MRS
       run: |
+        # 使用 mihomo 转换为 MRS 格式
         mihomo convert-ruleset domain yaml rules/Domain/direct_combined.yaml rules/Domain/direct.mrs
-        rm -f rules/Domain/direct1.list rules/Domain/direct2.list rules/Domain/direct3.list rules/Domain/merged_direct.list rules/Domain/direct_combined.yaml
+
+    - name: Clean up temporary files
+      run: |
+        # 删除临时文件
+        rm -f rules/Domain/direct1.list rules/Domain/direct2.list rules/Domain/direct3.list rules/Domain/direct1_domain.list rules/Domain/direct2_domain.list rules/Domain/direct3_domain.list rules/Domain/merged_direct_domain.list rules/Domain/direct_combined.yaml
 
     - name: Commit and Push Changes
       run: |
         git add .
-        git diff-index --quiet HEAD -- || (git commit -m "Updated direct rules (merged direct.list -> direct.mrs)" && git push)
+        git diff-index --quiet HEAD -- || (git commit -m "Updated Direct rules -> direct.mrs" && git push)
