@@ -1,0 +1,61 @@
+name: Sync and Compile Direct Rules
+
+on:
+  schedule:
+    - cron: '0 18 * * *'  # 北京时间 02:00 执行
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  direct_rules:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Set up Git user
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Install mihomo
+      run: |
+        version=$(curl -sL https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/version.txt)
+        curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/mihomo-linux-amd64-${version}.gz" | \
+          gunzip -c > /usr/local/bin/mihomo && chmod +x /usr/local/bin/mihomo
+
+    - name: Fetch and Merge Direct Rules
+      run: |
+        mkdir -p rules/Domain  # 确保目录存在
+
+        # 下载 Direct 规则文件
+        curl -sL "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Direct/Direct.list" -o rules/Domain/direct1.list
+        curl -sL "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/Domain/direct.list" -o rules/Domain/direct2.list
+        curl -sL "https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/refs/heads/main/rule/IPTVMainland_Domain.list" -o rules/Domain/direct3.list
+
+        # 合并去重
+        cat rules/Domain/direct1.list rules/Domain/direct2.list rules/Domain/direct3.list | grep -v '^#' | sort -u > rules/Domain/merged_direct.list
+
+    - name: Convert merged direct rules to YAML
+      run: |
+        echo "payload:" > rules/Domain/direct_combined.yaml
+        while IFS=, read -r type value; do
+          if [[ -n "$type" && -n "$value" ]]; then
+            echo "  - $type,$value" >> rules/Domain/direct_combined.yaml
+          fi
+        done < rules/Domain/merged_direct.list
+
+    - name: Convert Direct Rules to MRS
+      run: |
+        mihomo convert-ruleset domain yaml rules/Domain/direct_combined.yaml rules/Domain/direct.mrs
+        rm -f rules/Domain/direct1.list rules/Domain/direct2.list rules/Domain/direct3.list rules/Domain/merged_direct.list rules/Domain/direct_combined.yaml
+
+    - name: Commit and Push Changes
+      run: |
+        git add .
+        git diff-index --quiet HEAD -- || (git commit -m "Updated direct rules (merged -> direct.mrs)" && git push)
