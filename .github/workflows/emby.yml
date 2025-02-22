@@ -1,0 +1,60 @@
+name: Sync and Compile Emby Rules
+
+on:
+  schedule:
+    - cron: '0 18 * * *'  # 北京时间 02:00 执行
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  emby_rules:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Set up Git user
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Install mihomo
+      run: |
+        version=$(curl -sL https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/version.txt)
+        curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/mihomo-linux-amd64-${version}.gz" | \
+          gunzip -c > /usr/local/bin/mihomo && chmod +x /usr/local/bin/mihomo
+
+    - name: Fetch and Merge Emby Rules
+      run: |
+        mkdir -p rules/Domain  # 确保目录存在
+
+        # 下载 Emby 规则文件
+        curl -sL "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/Domain/emby.list" -o rules/Domain/emby1.list
+        curl -sL "https://raw.githubusercontent.com/666OS/YYDS/main/mihomo/rules/emby.list" -o rules/Domain/emby2.list
+
+        # 合并去重
+        cat rules/Domain/emby1.list rules/Domain/emby2.list | grep -v '^#' | sort -u > rules/Domain/merged_emby.list
+
+    - name: Convert merged emby rules to YAML
+      run: |
+        echo "payload:" > rules/Domain/emby_combined.yaml
+        while IFS=, read -r type value; do
+          if [[ -n "$type" && -n "$value" ]]; then
+            echo "  - $type,$value" >> rules/Domain/emby_combined.yaml
+          fi
+        done < rules/Domain/merged_emby.list
+
+    - name: Convert Emby Rules to MRS
+      run: |
+        mihomo convert-ruleset domain yaml rules/Domain/emby_combined.yaml rules/Domain/emby.mrs
+        rm -f rules/Domain/emby1.list rules/Domain/emby2.list rules/Domain/merged_emby.list rules/Domain/emby_combined.yaml
+
+    - name: Commit and Push Changes
+      run: |
+        git add .
+        git diff-index --quiet HEAD -- || (git commit -m "Updated emby rules (merged emby.list -> emby.mrs)" && git push)
