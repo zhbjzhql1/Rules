@@ -1,15 +1,17 @@
-name: Convert and Merge Google Domain Rules
+name: Sync and Compile Mihomo Rules
 
 on:
   schedule:
-    - cron: '0 18 * * *'  # 每天执行（北京时间02:00）
+    - cron: '0 16 * * *'  # 每天执行（北京时间00:00）
   workflow_dispatch:
+  repository_dispatch:
+    types: [remote-push]
 
 permissions:
   contents: write
 
 jobs:
-  google_domain_rules:
+  sync_and_compile:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,17 +31,16 @@ jobs:
         curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/mihomo-linux-amd64-${version}.gz" | \
           gunzip -c > /usr/local/bin/mihomo && chmod +x /usr/local/bin/mihomo
 
-    - name: Fetch Google Domain Rules
+    - name: Fetch and Merge Rules
       run: |
-        mkdir -p rules/Domain  # 确保目录存在
+        # 创建目录用于存储规则
+        mkdir -p rules/Domain
 
-        # 下载 Google Domain 规则文件
+        # 下载 Google 规则文件
         curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.yaml" -o rules/Domain/google.yaml
         curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/google-play.list" -o rules/Domain/google-play.yaml
-
-    - name: Merge and Remove Duplicates from Google Domain Rules
-      run: |
-        # 合并 google.yaml 和 google-play.yaml 文件并去重
+        
+        # 合并文件并去重
         cat rules/Domain/google.yaml rules/Domain/google-play.yaml | \
         grep -v '^\s*$' | \
         sort -u > rules/Domain/google-merged.yaml
