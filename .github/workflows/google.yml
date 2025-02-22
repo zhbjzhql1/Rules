@@ -4,14 +4,12 @@ on:
   schedule:
     - cron: '0 16 * * *'  # 每天执行（北京时间00:00）
   workflow_dispatch:
-  repository_dispatch:
-    types: [remote-push]
 
 permissions:
   contents: write
 
 jobs:
-  sync_and_compile:
+  google_rules:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,39 +29,32 @@ jobs:
         curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/mihomo-linux-amd64-${version}.gz" | \
           gunzip -c > /usr/local/bin/mihomo && chmod +x /usr/local/bin/mihomo
 
-    - name: Fetch and Convert Google Domain Rules
+    - name: Fetch and Merge Google Rules
       run: |
-        # 创建目录用于存储规则
-        mkdir -p rules/Domain
+        mkdir -p rules/Domain  # 确保目录存在
 
-        # 下载 Google 规则文件（两个 list 文件）
+        # 下载 Google 规则文件
         curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/google-play.list" -o rules/Domain/google-play.list
         curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.list" -o rules/Domain/google.list
 
-        # 将 .list 文件转换为 .yaml 格式
-        echo "Converting google-play.list to google-play.yaml"
-        mihomo convert-ruleset domain list rules/Domain/google-play.list rules/Domain/google-play.yaml
+        # 合并去重
+        cat rules/Domain/google.play.list rules/Domain/google.list | grep -v '^#' | sort -u > rules/Domain/merged_google.list
 
-        echo "Converting google.list to google.yaml"
-        mihomo convert-ruleset domain list rules/Domain/google.list rules/Domain/google.yaml
-
-        # 合并并去重
-        cat rules/Domain/google.yaml rules/Domain/google-play.yaml | \
-        grep -v '^\s*$' | \
-        sort -u > rules/Domain/google-merged.yaml
-
-        # 打印合并后的文件内容以进行调试
-        cat rules/Domain/google-merged.yaml
-
-    - name: Convert Merged Domain Rules to MRS
+    - name: Convert merged google rules to YAML
       run: |
-        # 使用 mihomo 转换为 MRS 格式
-        mihomo convert-ruleset domain yaml rules/Domain/google-merged.yaml rules/Domain/google.mrs
+        echo "payload:" > rules/Domain/google_combined.yaml
+        while IFS=, read -r type value; do
+          if [[ -n "$type" && -n "$value" ]]; then
+            echo "  - $type,$value" >> rules/Domain/google_combined.yaml
+          fi
+        done < rules/Domain/merged_google.list
 
-        # 清理临时文件
-        rm -f rules/Domain/google-merged.yaml
+    - name: Convert Google Rules to MRS
+      run: |
+        mihomo convert-ruleset domain yaml rules/Domain/google_combined.yaml rules/Domain/google.mrs
+        rm -f rules/Domain/google-play.list rules/Domain/google.list rules/Domain/merged_google.list rules/Domain/google_combined.yaml
 
     - name: Commit and Push Changes
       run: |
         git add .
-        git diff-index --quiet HEAD -- || (git commit -m "Updated Google domain rules -> google.mrs" && git push)
+        git diff-index --quiet HEAD -- || (git commit -m "Updated Google rules (merged google.list -> google.mrs)" && git push)
