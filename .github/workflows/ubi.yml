@@ -1,15 +1,15 @@
-name: Sync and Compile UBI Domain Rules
+name: Sync and Compile UBI Rules
 
 on:
   schedule:
-    - cron: '0 18 * * *'  # 每天晚上 02:00 执行
+    - cron: '0 18 * * *'  # 北京时间 02:00 执行
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  ubi_domain_rules:
+  ubi_rules:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,20 +29,28 @@ jobs:
         curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/mihomo-linux-amd64-${version}.gz" | \
           gunzip -c > /usr/local/bin/mihomo && chmod +x /usr/local/bin/mihomo
 
-    - name: Fetch UBI Domain Rule
+    - name: Fetch UBI Rules
       run: |
+        mkdir -p rules/Domain  # 确保目录存在
+
         # 下载 UBI 规则文件
         curl -sL "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/UBI/UBI.list" -o rules/Domain/ubi.list
 
-    - name: Convert UBI Domain Rules to MRS
+    - name: Convert UBI Rules to YAML
       run: |
-        # 使用 mihomo 转换为 MRS 格式
-        mihomo convert-ruleset domain yaml rules/Domain/ubi.list rules/Domain/ubi.mrs
+        echo "payload:" > rules/Domain/ubi_combined.yaml
+        while IFS=, read -r type value; do
+          if [[ -n "$type" && -n "$value" ]]; then
+            echo "  - $type,$value" >> rules/Domain/ubi_combined.yaml
+          fi
+        done < rules/Domain/ubi.list
 
-        # 清理临时文件
-        rm -f rules/Domain/ubi.list
+    - name: Convert UBI Rules to MRS
+      run: |
+        mihomo convert-ruleset domain yaml rules/Domain/ubi_combined.yaml rules/Domain/ubi.mrs
+        rm -f rules/Domain/ubi.list rules/Domain/ubi_combined.yaml
 
     - name: Commit and Push Changes
       run: |
         git add .
-        git diff-index --quiet HEAD -- || (git commit -m "Updated UBI domain rules -> ubi.mrs" && git push)
+        git diff-index --quiet HEAD -- || (git commit -m "Updated UBI rules (ubi.list -> ubi.mrs)" && git push)
