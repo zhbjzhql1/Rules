@@ -1,4 +1,4 @@
-#以下为Substore部署教程
+# 以下为Substore部署教程
 - 前提条件：一个可以使用的docker，至少120mb的docker空间
 如果你已满足上述条件那么可以进行下一步
 ##安装Substore,以openwrt平台为例
@@ -14,7 +14,7 @@ docker run -it -d \
   xream/sub-store
 ```
 等待安装完成
-###后台访问
+### 后台访问
 比如路由器网段为192.168.2.0/24
 那么如果你要访问Substore后台则须将x改为与路由器同一网段的2将y改为部署substore的openwrt设备的最后一位ip
 访问参考代码
@@ -23,13 +23,13 @@ http://192.168.x.y:3001/subs?api=http://192.168.x.y:3001/CKg2absthskxudnm
 ```
 - 其中这一段CKg2absthskxudnm为Substore访问的安全路径或者说是密码，在公共vps上部署请勿将该段设置得过于简单
 - 在线密码生成网站：(https://1password.com/zh-cn/password-generator）
-##Substore设置部分
+## Substore设置部分
 打开后台后点击第二页文件管理，创建文件
 1.名称部分可自定义但必填
 2.选填：显示名称，备注，图标链接，查询流量信息订阅链接，查询流量信息 User-Agent，User-Agent，代理/策略，合并来源
 3.关闭，启用下载(文件名为显示名称)
 4.类型选择文件，来源选择远程
-##链接部分
+## 链接部分
 标准版填入
 ```shell
 https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/configfull.yaml#noCache
@@ -42,24 +42,24 @@ Stash版填入
 ```shell
 https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/configfull_Stash.yaml#noCache
 ```
-##脚本部分
-###机场链接自动填写
+## 脚本部分
+### 机场链接自动填写
 1.创建脚本操作选择脚本，删除原有全部内容
 如果要自动填“订阅链接1”则输入
 ```shell
 $content = $content.replace(/订阅链接1/g, '此处填写订阅链接');
 ```
 以此类推，替换2/3就把（订阅链接1）替换为（订阅链接2）再贴上订阅
-###添加机场备注
+### 添加机场备注
 ```shell
 $content = $content.replace(/机场名称1/g, '此处填写机场备注');
 ```
 替换2/3同理
-###修改webUi面板代理提供者部分显示的名称
+### 修改webUi面板代理提供者部分显示的名称
 ```shell
 $content = $content.replace(/Airport_01/g, '此处填写机场备注');
 ```
-###自动策略组排除指定机场/节点，该功能依赖第二步添加机场备注
+### 自动策略组排除指定机场/节点，该功能依赖第二步添加机场备注
 我在自动策略组都加入了类似于The_US_automation的无关过滤词供各位替换
 比如我想要在美国自动里排除带有“凤凰城”名字的节点那么我只需在脚本处添加如下脚本
 ```shell
