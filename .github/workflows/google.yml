@@ -48,15 +48,18 @@ jobs:
         # 逐行读取 merged.list，并写入符合格式的 YAML
         while IFS= read -r line; do
           if [[ -n "$line" ]]; then
-            echo "  - $line" >> rules/Domain/google-merged.yaml
+            echo "  - '$line'" >> rules/Domain/google-merged.yaml
           fi
         done < rules/Domain/google-merged.list
         echo "Converted merged Google list to YAML."
 
-    - name: Convert Google Rules to MRS
+    - name: Convert Google YAML to MRS (Direct conversion)
       run: |
-        mihomo convert-ruleset domain yaml rules/Domain/google-merged.yaml rules/Domain/google.mrs
-        echo "Converted Google YAML to MRS."
+        # 手动将 YAML 转换成 MRS 格式
+        echo "Converting Google YAML to MRS..."
+        cat rules/Domain/google-merged.yaml | \
+        sed 's/^  - \'.*\'$/- \1/' > rules/Domain/google-merged.mrs
+        echo "Converted Google YAML to MRS manually."
 
     - name: Commit and Push Changes
       run: |
