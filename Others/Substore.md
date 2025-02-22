@@ -65,4 +65,4 @@ $content = $content.replace(/Airport_01/g, '此处填写机场备注');
 ```shell
 $content = $content.replace(/The_US_automation/g, '凤凰城');
 ```
-这些设置完成后便可以点击保存，复制链接，在同一局域网内使用
+这些设置完成后便可以点击保存，复制链接，在同一局域网内如同使用订阅一样使用
