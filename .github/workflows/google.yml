@@ -45,10 +45,10 @@ jobs:
       run: |
         # 创建并写入 payload
         echo "payload:" > rules/Domain/google-merged.yaml
-        # 逐行读取 merged.list，并写入 YAML 格式
+        # 逐行读取 merged.list，并写入符合格式的 YAML
         while IFS= read -r line; do
           if [[ -n "$line" ]]; then
-            echo "  - '$line'" >> rules/Domain/google-merged.yaml
+            echo "  - $line" >> rules/Domain/google-merged.yaml
           fi
         done < rules/Domain/google-merged.list
         echo "Converted merged Google list to YAML."
