@@ -64,7 +64,9 @@ jobs:
         if [[ -s rules/IP/NetEaseMusic-ip.list ]]; then
           echo "payload:" > rules/IP/NetEaseMusic-ip.yaml
           while IFS=, read -r type value cidr; do
-            if [[ -n "$cidr" && ! "$cidr" =~ ^# && "$type" == "IP-CIDR" ]]; then
+            # 只提取 IP-CIDR 后面的 CIDR 部分
+            if [[ -n "$cidr" && "$type" == "IP-CIDR" && "$cidr" != *",no-resolve"* ]]; then
+              # 只保留有效的 CIDR 地址
               echo "  - $cidr" >> rules/IP/NetEaseMusic-ip.yaml
             fi
           done < rules/IP/NetEaseMusic-ip.list
