@@ -43,7 +43,9 @@ jobs:
 
     - name: Convert Merged Google List to YAML
       run: |
+        # 创建并写入 payload
         echo "payload:" > rules/Domain/google-merged.yaml
+        # 逐行读取 merged.list，并写入 YAML 格式
         while IFS= read -r line; do
           if [[ -n "$line" ]]; then
             echo "  - '$line'" >> rules/Domain/google-merged.yaml
