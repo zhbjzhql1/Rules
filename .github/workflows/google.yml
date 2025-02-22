@@ -1,15 +1,15 @@
-name: Sync and Compile Google Rules
+name: Convert and Merge Google Domain Rules
 
 on:
   schedule:
-    - cron: '0 18 * * *'  # 每天北京时间02:00执行
+    - cron: '0 18 * * *'  # 每天执行（北京时间02:00）
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  google_rules:
+  google_domain_rules:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,26 +29,33 @@ jobs:
         curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/mihomo-linux-amd64-${version}.gz" | \
           gunzip -c > /usr/local/bin/mihomo && chmod +x /usr/local/bin/mihomo
 
-    - name: Fetch Google Rules
+    - name: Fetch Google Domain Rules
       run: |
         mkdir -p rules/Domain  # 确保目录存在
-        curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/google-play.list" -o rules/Domain/google-play.yaml
-        curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.yaml" -o rules/Domain/google.yaml
 
-    - name: Merge and Remove Duplicates from YAML Files
+        # 下载 Google Domain 规则文件
+        curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.yaml" -o rules/Domain/google.yaml
+        curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/google-play.list" -o rules/Domain/google-play.yaml
+
+    - name: Merge and Remove Duplicates from Google Domain Rules
       run: |
+        # 合并 google.yaml 和 google-play.yaml 文件并去重
         cat rules/Domain/google.yaml rules/Domain/google-play.yaml | \
+        grep -v '^\s*$' | \
         sort -u > rules/Domain/google-merged.yaml
 
-    - name: Convert Google Rules to MRS
+        # 打印合并后的文件内容以进行调试
+        cat rules/Domain/google-merged.yaml
+
+    - name: Convert Google Domain Rules to MRS
       run: |
+        # 使用 mihomo 转换为 MRS 格式
         mihomo convert-ruleset domain yaml rules/Domain/google-merged.yaml rules/Domain/google.mrs
 
-    - name: Clean up temporary files
-      run: |
-        rm -f rules/Domain/google.yaml rules/Domain/google-play.yaml rules/Domain/google-merged.yaml
+        # 清理临时文件
+        rm -f rules/Domain/google-merged.yaml
 
     - name: Commit and Push Changes
       run: |
         git add .
-        git diff-index --quiet HEAD -- || (git commit -m "Updated Google rules -> google.mrs" && git push)
+        git diff-index --quiet HEAD -- || (git commit -m "Updated Google domain rules -> google.mrs" && git push)
