@@ -1,4 +1,4 @@
-name: Sync and Compile Direct Rules
+name: Sync and Compile Direct Rules to MRS
 
 on:
   schedule:
@@ -34,16 +34,7 @@ jobs:
         mkdir -p rules/Domain  # 确保目录存在
 
         # 下载 Direct 规则文件
-        curl -sL "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Direct/Direct.list" -o rules/Domain/direct1.list
-        curl -sL "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/Domain/direct.list" -o rules/Domain/direct2.list
-        curl -sL "https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/refs/heads/main/rule/IPTVMainland_Domain.list" -o rules/Domain/direct3.list
-
-    - name: Extract DOMAIN, DOMAIN-SUFFIX, and DOMAIN-KEYWORD rules
-      run: |
-        # 提取 DOMAIN, DOMAIN-SUFFIX 和 DOMAIN-KEYWORD 规则
-        grep -E 'DOMAIN|DOMAIN-SUFFIX|DOMAIN-KEYWORD' rules/Domain/direct1.list > rules/Domain/direct1_extracted.list
-        grep -E 'DOMAIN|DOMAIN-SUFFIX|DOMAIN-KEYWORD' rules/Domain/direct2.list >> rules/Domain/direct1_extracted.list
-        grep -E 'DOMAIN|DOMAIN-SUFFIX|DOMAIN-KEYWORD' rules/Domain/direct3.list >> rules/Domain/direct1_extracted.list
+        curl -sL "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/Domain/direct.list" -o rules/Domain/direct.list
 
     - name: Convert Direct Rules to YAML
       run: |
@@ -52,13 +43,12 @@ jobs:
           if [[ -n "$type" && -n "$value" ]]; then
             echo "  - $value" >> rules/Domain/direct_combined.yaml
           fi
-        done < rules/Domain/direct1_extracted.list
+        done < rules/Domain/direct.list
 
     - name: Convert Direct Rules to MRS
       run: |
         # 使用 mihomo 转换为 MRS 格式
         mihomo convert-ruleset domain yaml rules/Domain/direct_combined.yaml rules/Domain/direct.mrs
-        rm -f rules/Domain/direct1.list rules/Domain/direct2.list rules/Domain/direct3.list rules/Domain/direct1_extracted.list rules/Domain/direct_combined.yaml
 
     - name: Commit and Push Changes
       run: |
