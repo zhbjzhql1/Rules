@@ -1,0 +1,61 @@
+name: Sync and Compile Google Rules
+
+on:
+  schedule:
+    - cron: '0 18 * * *'  # 北京时间 02:00 执行
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  google_rules:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Set up Git user
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Install mihomo
+      run: |
+        version=$(curl -sL https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/version.txt)
+        curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/mihomo-linux-amd64-${version}.gz" | \
+          gunzip -c > /usr/local/bin/mihomo && chmod +x /usr/local/bin/mihomo
+
+    - name: Fetch and Merge Google Rules
+      run: |
+        mkdir -p rules/Domain  # 确保目录存在
+
+        # 下载 Google 规则文件
+        curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.list" -o rules/Domain/google1.list
+        curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/google-play.list" -o rules/Domain/google-play.list
+        curl -sL "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/Domain/googlevpn.list" -o rules/Domain/googlevpn.list
+
+        # 合并去重
+        cat rules/Domain/google1.list rules/Domain/google-play.list rules/Domain/googlevpn.list | grep -v '^#' | sort -u > rules/Domain/merged_google.list
+
+    - name: Convert merged google rules to YAML
+      run: |
+        echo "payload:" > rules/Domain/google_combined.yaml
+        while IFS=, read -r type value; do
+          if [[ -n "$type" && -n "$value" ]]; then
+            echo "  - $type,$value" >> rules/Domain/google_combined.yaml
+          fi
+        done < rules/Domain/merged_google.list
+
+    - name: Convert Google Rules to MRS
+      run: |
+        mihomo convert-ruleset domain yaml rules/Domain/google_combined.yaml rules/Domain/google.mrs
+        rm -f rules/Domain/google1.list rules/Domain/google-play.list rules/Domain/googlevpn.list rules/Domain/merged_google.list rules/Domain/google_combined.yaml
+
+    - name: Commit and Push Changes
+      run: |
+        git add .
+        git diff-index --quiet HEAD -- || (git commit -m "Updated google rules (merged -> google.mrs)" && git push)
