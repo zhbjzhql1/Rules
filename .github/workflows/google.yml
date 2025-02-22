@@ -2,7 +2,7 @@ name: Sync and Compile Google Rules
 
 on:
   schedule:
-    - cron: '0 18 * * *'  # 北京时间 02:00 执行
+    - cron: '0 18 * * *'  # 每天北京时间02:00执行
   workflow_dispatch:
 
 permissions:
@@ -29,33 +29,31 @@ jobs:
         curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/mihomo-linux-amd64-${version}.gz" | \
           gunzip -c > /usr/local/bin/mihomo && chmod +x /usr/local/bin/mihomo
 
-    - name: Fetch and Merge Google Rules
+    - name: Fetch Google Rules
       run: |
-        mkdir -p rules/Domain  # 确保目录存在
+        mkdir -p rules/Google  # 确保目录存在
+        curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.list" -o rules/Google/google.list
+        curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/google-play.list" -o rules/Google/google-play.list
 
-        # 下载 Google 规则文件
-        curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.list" -o rules/Domain/google1.list
-        curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/google-play.list" -o rules/Domain/google-play.list
-        curl -sL "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/Domain/googlevpn.list" -o rules/Domain/googlevpn.list
-
-        # 合并去重
-        cat rules/Domain/google1.list rules/Domain/google-play.list rules/Domain/googlevpn.list | grep -v '^#' | sort -u > rules/Domain/merged_google.list
-
-    - name: Convert merged google rules to YAML
+    - name: Merge and Extract DOMAIN Rules
       run: |
-        echo "payload:" > rules/Domain/google_combined.yaml
-        while IFS=, read -r type value; do
-          if [[ -n "$type" && -n "$value" ]]; then
-            echo "  - $type,$value" >> rules/Domain/google_combined.yaml
-          fi
-        done < rules/Domain/merged_google.list
+        cat rules/Google/google.list rules/Google/google-play.list | \
+        grep -Eo 'DOMAIN-SUFFIX,[^,]+' | sed 's/DOMAIN-SUFFIX,//' > rules/Google/google-domain.list
 
-    - name: Convert Google Rules to MRS
+    - name: Format Extracted Domains as YAML
       run: |
-        mihomo convert-ruleset domain yaml rules/Domain/google_combined.yaml rules/Domain/google.mrs
-        rm -f rules/Domain/google1.list rules/Domain/google-play.list rules/Domain/googlevpn.list rules/Domain/merged_google.list rules/Domain/google_combined.yaml
+        echo "payload:" > rules/Google/google.yaml
+        sort -u rules/Google/google-domain.list | awk '{print "  - \047" $0 "\047"}' >> rules/Google/google.yaml
+
+    - name: Convert Google DOMAIN Rules to MRS
+      run: |
+        mihomo convert-ruleset domain yaml rules/Google/google.yaml rules/Google/google.mrs
+
+    - name: Clean up temporary files
+      run: |
+        rm -f rules/Google/google.list rules/Google/google-play.list rules/Google/google-domain.list rules/Google/google.yaml
 
     - name: Commit and Push Changes
       run: |
         git add .
-        git diff-index --quiet HEAD -- || (git commit -m "Updated google rules (merged -> google.mrs)" && git push)
+        git diff-index --quiet HEAD -- || (git commit -m "Updated Google rules -> google.mrs" && git push)
