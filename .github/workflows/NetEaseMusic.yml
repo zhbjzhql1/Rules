@@ -46,32 +46,50 @@ jobs:
 
     - name: Convert NetEaseMusic Domain Rules to YAML
       run: |
-        echo "payload:" > rules/Domain/NetEaseMusic-domain.yaml
-        while IFS=, read -r type value; do
-          if [[ -n "$type" && -n "$value" ]]; then
-            echo "  - $value" >> rules/Domain/NetEaseMusic-domain.yaml
-          fi
-        done < rules/Domain/NetEaseMusic-domain.list
+        # 如果存在域名规则，则进行转换
+        if [[ -s rules/Domain/NetEaseMusic-domain.list ]]; then
+          echo "payload:" > rules/Domain/NetEaseMusic-domain.yaml
+          while IFS=, read -r type value; do
+            if [[ -n "$value" && "$type" == "DOMAIN" ]]; then
+              echo "  - $value" >> rules/Domain/NetEaseMusic-domain.yaml
+            fi
+          done < rules/Domain/NetEaseMusic-domain.list
+        else
+          echo "No domain rules found"
+        fi
 
     - name: Convert NetEaseMusic IP Rules to YAML
       run: |
-        echo "payload:" > rules/IP/NetEaseMusic-ip.yaml
-        while IFS=, read -r type value cidr; do
-          if [[ -n "$cidr" && ! "$cidr" =~ ^# ]]; then
-            echo "  - $cidr" >> rules/IP/NetEaseMusic-ip.yaml
-          fi
-        done < rules/IP/NetEaseMusic-ip.list
+        # 如果存在 IP 规则，则进行转换
+        if [[ -s rules/IP/NetEaseMusic-ip.list ]]; then
+          echo "payload:" > rules/IP/NetEaseMusic-ip.yaml
+          while IFS=, read -r type value cidr; do
+            if [[ -n "$cidr" && ! "$cidr" =~ ^# && "$type" == "IP-CIDR" ]]; then
+              echo "  - $cidr" >> rules/IP/NetEaseMusic-ip.yaml
+            fi
+          done < rules/IP/NetEaseMusic-ip.list
+        else
+          echo "No IP rules found"
+        fi
 
     - name: Convert NetEaseMusic Domain Rules to MRS
       run: |
-        # 使用 mihomo 转换为 MRS 格式
-        mihomo convert-ruleset domain yaml rules/Domain/NetEaseMusic-domain.yaml rules/Domain/NetEaseMusic-domain.mrs
+        # 如果域名规则存在，使用 mihomo 转换为 MRS 格式
+        if [[ -s rules/Domain/NetEaseMusic-domain.yaml ]]; then
+          mihomo convert-ruleset domain yaml rules/Domain/NetEaseMusic-domain.yaml rules/Domain/NetEaseMusic-domain.mrs
+        else
+          echo "No domain rules to convert"
+        fi
         rm -f rules/Domain/NetEaseMusic-domain.yaml rules/Domain/NetEaseMusic-domain.list
 
     - name: Convert NetEaseMusic IP Rules to MRS
       run: |
-        # 使用 mihomo 转换为 MRS 格式
-        mihomo convert-ruleset ipcidr yaml rules/IP/NetEaseMusic-ip.yaml rules/IP/NetEaseMusic-ip.mrs
+        # 如果 IP 规则存在，使用 mihomo 转换为 MRS 格式
+        if [[ -s rules/IP/NetEaseMusic-ip.yaml ]]; then
+          mihomo convert-ruleset ipcidr yaml rules/IP/NetEaseMusic-ip.yaml rules/IP/NetEaseMusic-ip.mrs
+        else
+          echo "No IP rules to convert"
+        fi
         rm -f rules/IP/NetEaseMusic-ip.yaml rules/IP/NetEaseMusic-ip.list
 
     - name: Commit and Push Changes
