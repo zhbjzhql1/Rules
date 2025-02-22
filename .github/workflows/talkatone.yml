@@ -1,0 +1,83 @@
+name: Sync and Compile Talkatone Rules
+
+on:
+  schedule:
+    - cron: '0 18 * * *'  # 每天北京时间02:00执行
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  talkatone_rules:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Set up Git user
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Install mihomo
+      run: |
+        version=$(curl -sL https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/version.txt)
+        curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/mihomo-linux-amd64-${version}.gz" | \
+          gunzip -c > /usr/local/bin/mihomo && chmod +x /usr/local/bin/mihomo
+
+    - name: Fetch Talkatone Rules
+      run: |
+        mkdir -p rules/Domain rules/IP  # 确保目录存在
+
+        # 下载 Talkatone 规则文件
+        curl -sL "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/Domain/talkatone.list" -o rules/talkatone.list
+
+    - name: Extract DOMAIN and IP rules from Talkatone list
+      run: |
+        # 提取 DOMAIN 和 IP-CIDR 规则
+        grep -E 'DOMAIN|DOMAIN-SUFFIX' rules/talkatone.list > rules/Domain/Talkatone-domain.list
+        grep -E 'IP-CIDR' rules/talkatone.list > rules/IP/Talkatone-ip.list
+
+    - name: Convert Talkatone DOMAIN rules to YAML
+      run: |
+        # 将 DOMAIN 和 DOMAIN-SUFFIX 规则转换为 YAML 格式
+        echo "payload:" > rules/Domain/Talkatone-domain.yaml
+        while IFS=, read -r type domain; do
+          if [[ -n "$domain" && ! "$domain" =~ ^# ]]; then
+            echo "  - $domain" >> rules/Domain/Talkatone-domain.yaml
+          fi
+        done < rules/Domain/Talkatone-domain.list
+
+    - name: Convert Talkatone IP rules to YAML
+      run: |
+        # 将 IP-CIDR 规则转换为 YAML 格式
+        echo "payload:" > rules/IP/Talkatone-ip.yaml
+        while IFS=, read -r type ip cidr; do
+          if [[ -n "$ip" && ! "$ip" =~ ^# && "$type" == "IP-CIDR" ]]; then
+            echo "  - $ip" >> rules/IP/Talkatone-ip.yaml
+          fi
+        done < rules/IP/Talkatone-ip.list
+
+    - name: Convert Talkatone DOMAIN rules to MRS
+      run: |
+        # 使用 mihomo 转换为 MRS 格式
+        mihomo convert-ruleset domain yaml rules/Domain/Talkatone-domain.yaml rules/Domain/Talkatone-domain.mrs
+
+    - name: Convert Talkatone IP rules to MRS
+      run: |
+        # 使用 mihomo 转换为 MRS 格式
+        mihomo convert-ruleset ipcidr yaml rules/IP/Talkatone-ip.yaml rules/IP/Talkatone-ip.mrs
+
+    - name: Clean up temporary files
+      run: |
+        # 删除临时文件
+        rm -f rules/talkatone.list rules/Domain/Talkatone-domain.list rules/IP/Talkatone-ip.list rules/Domain/Talkatone-domain.yaml rules/IP/Talkatone-ip.yaml
+
+    - name: Commit and Push Changes
+      run: |
+        git add .
+        git diff-index --quiet HEAD -- || (git commit -m "Updated Talkatone rules -> Talkatone-domain.mrs and Talkatone-ip.mrs" && git push)
