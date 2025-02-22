@@ -31,27 +31,22 @@ jobs:
 
     - name: Fetch Google Rules
       run: |
-        mkdir -p rules/Google  # 确保目录存在
-        curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.list" -o rules/Google/google.list
-        curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/google-play.list" -o rules/Google/google-play.list
+        mkdir -p rules/Domain  # 确保目录存在
+        curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/google-play.list" -o rules/Domain/google-play.yaml
+        curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.yaml" -o rules/Domain/google.yaml
 
-    - name: Merge and Extract DOMAIN Rules
+    - name: Merge and Remove Duplicates from YAML Files
       run: |
-        cat rules/Google/google.list rules/Google/google-play.list | \
-        grep -Eo 'DOMAIN-SUFFIX,[^,]+' | sed 's/DOMAIN-SUFFIX,//' > rules/Google/google-domain.list
+        cat rules/Domain/google.yaml rules/Domain/google-play.yaml | \
+        sort -u > rules/Domain/google-merged.yaml
 
-    - name: Format Extracted Domains as YAML
+    - name: Convert Google Rules to MRS
       run: |
-        echo "payload:" > rules/Google/google.yaml
-        sort -u rules/Google/google-domain.list | awk '{print "  - \047" $0 "\047"}' >> rules/Google/google.yaml
-
-    - name: Convert Google DOMAIN Rules to MRS
-      run: |
-        mihomo convert-ruleset domain yaml rules/Google/google.yaml rules/Google/google.mrs
+        mihomo convert-ruleset domain yaml rules/Domain/google-merged.yaml rules/Domain/google.mrs
 
     - name: Clean up temporary files
       run: |
-        rm -f rules/Google/google.list rules/Google/google-play.list rules/Google/google-domain.list rules/Google/google.yaml
+        rm -f rules/Domain/google.yaml rules/Domain/google-play.yaml rules/Domain/google-merged.yaml
 
     - name: Commit and Push Changes
       run: |
