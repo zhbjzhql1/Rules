@@ -1,0 +1,77 @@
+name: Sync and Compile NetEaseMusic Rules
+
+on:
+  schedule:
+    - cron: '0 18 * * *'  # 北京时间 02:00 执行
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  netease_music_rules:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Set up Git user
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Install mihomo
+      run: |
+        version=$(curl -sL https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/version.txt)
+        curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/mihomo-linux-amd64-${version}.gz" | \
+          gunzip -c > /usr/local/bin/mihomo && chmod +x /usr/local/bin/mihomo
+
+    - name: Fetch NetEaseMusic Rules
+      run: |
+        mkdir -p rules/Domain rules/IP  # 确保目录存在
+
+        # 下载 NetEaseMusic 规则文件
+        curl -sL "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/NetEaseMusic/NetEaseMusic.list" -o rules/Domain/NetEaseMusic.list
+
+    - name: Separate Domains and IPs
+      run: |
+        # 提取域名规则
+        grep -E '^[^,]+$' rules/Domain/NetEaseMusic.list > rules/Domain/NetEaseMusic-domain.list
+        # 提取IP规则，并去掉 no-resolve
+        grep -E ',[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' rules/Domain/NetEaseMusic.list | sed 's/,no-resolve//g' > rules/IP/NetEaseMusic-ip.list
+
+    - name: Convert NetEaseMusic Domain Rules to YAML
+      run: |
+        echo "payload:" > rules/Domain/NetEaseMusic-domain.yaml
+        while IFS=, read -r type value; do
+          if [[ -n "$type" && -n "$value" ]]; then
+            echo "  - $value" >> rules/Domain/NetEaseMusic-domain.yaml
+          fi
+        done < rules/Domain/NetEaseMusic-domain.list
+
+    - name: Convert NetEaseMusic IP Rules to YAML
+      run: |
+        echo "payload:" > rules/IP/NetEaseMusic-ip.yaml
+        while IFS=, read -r type value; do
+          if [[ -n "$type" && -n "$value" ]]; then
+            echo "  - $value" >> rules/IP/NetEaseMusic-ip.yaml
+          fi
+        done < rules/IP/NetEaseMusic-ip.list
+
+    - name: Convert NetEaseMusic Domain Rules to MRS
+      run: |
+        mihomo convert-ruleset domain yaml rules/Domain/NetEaseMusic-domain.yaml rules/Domain/NetEaseMusic-domain.mrs
+        rm -f rules/Domain/NetEaseMusic-domain.list rules/Domain/NetEaseMusic-domain.yaml
+
+    - name: Convert NetEaseMusic IP Rules to MRS
+      run: |
+        mihomo convert-ruleset ip yaml rules/IP/NetEaseMusic-ip.yaml rules/IP/NetEaseMusic-ip.mrs
+        rm -f rules/IP/NetEaseMusic-ip.list rules/IP/NetEaseMusic-ip.yaml
+
+    - name: Commit and Push Changes
+      run: |
+        git add .
+        git diff-index --quiet HEAD -- || (git commit -m "Updated NetEaseMusic rules (NetEaseMusic.list -> NetEaseMusic-domain.mrs, NetEaseMusic-ip.mrs)" && git push)
