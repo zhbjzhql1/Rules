@@ -1,4 +1,4 @@
-name: Sync and Compile Mihomo Rules
+name: Sync and Compile Google Rules
 
 on:
   schedule:
@@ -31,16 +31,23 @@ jobs:
         curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/mihomo-linux-amd64-${version}.gz" | \
           gunzip -c > /usr/local/bin/mihomo && chmod +x /usr/local/bin/mihomo
 
-    - name: Fetch and Merge Rules
+    - name: Fetch and Convert Google Domain Rules
       run: |
         # 创建目录用于存储规则
         mkdir -p rules/Domain
 
-        # 下载 Google 规则文件
-        curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.yaml" -o rules/Domain/google.yaml
-        curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/google-play.list" -o rules/Domain/google-play.yaml
-        
-        # 合并文件并去重
+        # 下载 Google 规则文件（两个 list 文件）
+        curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/google-play.list" -o rules/Domain/google-play.list
+        curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.list" -o rules/Domain/google.list
+
+        # 将 .list 文件转换为 .yaml 格式
+        echo "Converting google-play.list to google-play.yaml"
+        mihomo convert-ruleset domain list rules/Domain/google-play.list rules/Domain/google-play.yaml
+
+        echo "Converting google.list to google.yaml"
+        mihomo convert-ruleset domain list rules/Domain/google.list rules/Domain/google.yaml
+
+        # 合并并去重
         cat rules/Domain/google.yaml rules/Domain/google-play.yaml | \
         grep -v '^\s*$' | \
         sort -u > rules/Domain/google-merged.yaml
@@ -48,7 +55,7 @@ jobs:
         # 打印合并后的文件内容以进行调试
         cat rules/Domain/google-merged.yaml
 
-    - name: Convert Google Domain Rules to MRS
+    - name: Convert Merged Domain Rules to MRS
       run: |
         # 使用 mihomo 转换为 MRS 格式
         mihomo convert-ruleset domain yaml rules/Domain/google-merged.yaml rules/Domain/google.mrs
