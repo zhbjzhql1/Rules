@@ -68,6 +68,7 @@ $content = $content.replace(/The_US_automation/g, '凤凰城');
 这些设置完成后便可以点击保存，复制链接，在同一局域网内如同使用订阅一样使用
 
 ### 实在不会的这里提供部署事例
+#### nikki订阅要选择本地
 ![Substore 部署示例1](https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/Others/Substore01.jpg)
 ![Substore 部署示例2](https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/Others/Substore02.jpg)
 ![Substore 部署示例3](https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/Others/Substore03.jpg)
