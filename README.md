@@ -18,7 +18,7 @@ Stash专用➡️
 ## 客户端推荐
 •Windows/MacOS/Linux
 
-Clash-verge-rev（请优先用这个）
+Clash-verge-rev（请优先用这个,出现DNS泄漏请打开严格路由）
 (https://github.com/clash-verge-rev/clash-verge-rev)
 
 Mihomo-Party 
