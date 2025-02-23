@@ -31,7 +31,7 @@ jobs:
 
     - name: Fetch WeChat Rules
       run: |
-        mkdir -p rules/WeChat  # 确保目录存在
+        mkdir -p rules/Domain  # 确保目录存在
         curl -sL "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/WeChat/WeChat.list" -o rules/WeChat/WeChat.list
 
     - name: Extract DOMAIN rules from WeChat.list
@@ -42,17 +42,17 @@ jobs:
 
     - name: Format extracted domains as YAML
       run: |
-        echo "payload:" > rules/WeChat/WeChat.yaml
+        echo "payload:" > rules/Domain/WeChat.yaml
         sort -u rules/WeChat/WeChat-domain.list | awk '{print "  - \047" $0 "\047"}' >> rules/WeChat/WeChat.yaml
 
     - name: Convert WeChat DOMAIN rules to MRS
       run: |
         # 使用 mihomo 转换为 MRS 格式
-        mihomo convert-ruleset domain yaml rules/WeChat/WeChat.yaml rules/WeChat/WeChat.mrs
+        mihomo convert-ruleset domain yaml rules/WeChat/WeChat.yaml rules/Domain/WeChat.mrs
 
     - name: Clean up temporary files
       run: |
-        rm -f rules/WeChat/WeChat.list rules/WeChat/WeChat-domain.list rules/WeChat/WeChat.yaml
+        rm -f rules/Domain/WeChat.list rules/Domain/WeChat-domain.list rules/Domain/WeChat.yaml
 
     - name: Commit and Push Changes
       run: |
