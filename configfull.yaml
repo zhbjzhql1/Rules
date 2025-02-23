@@ -316,7 +316,7 @@ rules:
   - RULE-SET,hbo_domain,HBO
   - RULE-SET,primevideo_domain,Primevideo
   - RULE-SET,emby_domain,Emby
-  - RULE-SET,emby_ip,Emby
+  - RULE-SET,emby_ip,Emby,no-resolve
   - RULE-SET,spotify_domain,Spotify
   - RULE-SET,facebook_domain,Meta
   - RULE-SET,whatsapp_domain,Meta
