@@ -2,7 +2,7 @@ name: Sync and Compile Direct Rules
 
 on:
   schedule:
-    - cron: '0 18 * * *'  # 每天北京时间02:00执行
+    - cron: '0 18 * * *'  # 北京时间 02:00 执行
   workflow_dispatch:
 
 permissions:
@@ -36,19 +36,21 @@ jobs:
         # 下载 Direct 规则文件
         curl -sL "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/Domain/direct.list" -o rules/Domain/direct.list
 
-    - name: Convert Direct Rules to YAML
+    - name: Extract DOMAIN rules from direct.list
       run: |
-        echo "payload:" > rules/Domain/direct_combined.yaml
-        while IFS=, read -r type value; do
-          if [[ -n "$type" && -n "$value" ]]; then
-            echo "  - $value" >> rules/Domain/direct_combined.yaml
-          fi
-        done < rules/Domain/direct.list
+        # 提取 direct.list 中的 DOMAIN 和 DOMAIN-SUFFIX 规则
+        grep -Eo 'DOMAIN-SUFFIX,[^,]+' rules/Domain/direct.list | sed 's/DOMAIN-SUFFIX,//' > rules/Domain/direct-domain.list
+        grep -Eo 'DOMAIN,[^,]+' rules/Domain/direct.list | sed 's/DOMAIN,//' >> rules/Domain/direct-domain.list
+
+    - name: Format extracted domains as YAML
+      run: |
+        echo "payload:" > rules/Domain/direct.yaml
+        sort -u rules/Domain/direct-domain.list | awk '{print "  - \047" $0 "\047"}' >> rules/Domain/direct.yaml
 
     - name: Convert Direct Rules to MRS
       run: |
         # 使用 mihomo 转换为 MRS 格式
-        mihomo convert-ruleset domain yaml rules/Domain/direct_combined.yaml rules/Domain/direct.mrs
+        mihomo convert-ruleset domain yaml rules/Domain/direct.yaml rules/Domain/direct.mrs
 
     - name: Commit and Push Changes
       run: |
