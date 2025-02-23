@@ -12,7 +12,12 @@ Stash专用➡️
 [configfull_Stash.yaml](https://github.com/Lanlan13-14/Rules/blob/main/configfull_Stash.yaml)
 
 ### 无去广告版
+
+除Stash外使用➡️
 [configfull_NoAd.yaml](https://github.com/Lanlan13-14/Rules/blob/main/configfull_NoAd.yaml)
+
+Stash专用➡️
+[configfull_NoAd_stash](https://github.com/Lanlan13-14/Rules/blob/main/configfull_NoAd_Stash.yaml)
 
 
 ## 客户端推荐
