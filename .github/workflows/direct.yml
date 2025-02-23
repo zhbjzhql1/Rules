@@ -51,6 +51,7 @@ jobs:
       run: |
         # 使用 mihomo 转换为 MRS 格式
         mihomo convert-ruleset domain yaml rules/Domain/direct.yaml rules/Domain/direct.mrs
+        rm -f rules/Domain/direct.list rules/Domain/direct-domain.list rules/Domain/direct.yaml
 
     - name: Commit and Push Changes
       run: |
