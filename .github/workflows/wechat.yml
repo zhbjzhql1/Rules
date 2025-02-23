@@ -37,22 +37,23 @@ jobs:
     - name: Extract DOMAIN rules from WeChat.list
       run: |
         # 提取 WeChat.list 中的 DOMAIN-SUFFIX 和 DOMAIN 规则
-        grep -Eo 'DOMAIN-SUFFIX,[^,]+' rules/WeChat/WeChat.list | sed 's/DOMAIN-SUFFIX,//' > rules/WeChat/WeChat-domain.list
-        grep -Eo 'DOMAIN,[^,]+' rules/WeChat/WeChat.list | sed 's/DOMAIN,//' >> rules/WeChat/WeChat-domain.list
+        grep -Eo 'DOMAIN-SUFFIX,[^,]+' rules/WeChat/WeChat.list | sed 's/DOMAIN-SUFFIX,//' > rules/Domain/WeChat-domain.list
+        grep -Eo 'DOMAIN,[^,]+' rules/WeChat/WeChat.list | sed 's/DOMAIN,//' >> rules/Domain/WeChat-domain.list
 
     - name: Format extracted domains as YAML
       run: |
-        echo "payload:" > rules/Domain/WeChat.yaml
-        sort -u rules/WeChat/WeChat-domain.list | awk '{print "  - \047" $0 "\047"}' >> rules/WeChat/WeChat.yaml
+        echo "payload:" > rules/Domain/WeChat-domain.yaml
+        sort -u rules/Domain/WeChat-domain.list | awk '{print "  - \047" $0 "\047"}' >> rules/Domain/WeChat-domain.yaml
 
     - name: Convert WeChat DOMAIN rules to MRS
       run: |
         # 使用 mihomo 转换为 MRS 格式
-        mihomo convert-ruleset domain yaml rules/WeChat/WeChat.yaml rules/Domain/WeChat.mrs
+        mihomo convert-ruleset domain yaml rules/Domain/WeChat-domain.yaml rules/Domain/WeChat.mrs
 
     - name: Clean up temporary files
       run: |
-        rm -f rules/Domain/WeChat.list rules/Domain/WeChat-domain.list rules/Domain/WeChat.yaml
+        # 删除临时文件，不保留 WeChat.list 文件
+        rm -f rules/Domain/WeChat-domain.list rules/Domain/WeChat-domain.yaml rules/WeChat.list
 
     - name: Commit and Push Changes
       run: |
