@@ -65,6 +65,10 @@ $content = $content.replace(/Airport_01/g, '此处填写机场备注');
 ```shell
 $content = $content.replace(/The_US_automation/g, '凤凰城');
 ```
+需要在自建/家宽节点自定义过滤的使用以下代码，以过滤HGC为例
+```shell
+$content = $content.replace(/The_house/g, 'hgc');
+```
 这些设置完成后便可以点击保存，复制链接，在同一局域网内如同使用订阅一样使用
 
 ### 实在不会的这里提供部署事例
