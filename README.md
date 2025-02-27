@@ -3,6 +3,8 @@
 #### Substore部署使用教程，高级玩法将在Substore作者修复完覆写bug后提供
 [Substore](https://github.com/Lanlan13-14/Rules/blob/main/Others/Substore.md)
 
+[Sub-store直达链接](https://github.com/sub-store-org/Sub-Store)
+
 ### 标准版
 
 除Stash外使用➡️
