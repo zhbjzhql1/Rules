@@ -1,15 +1,15 @@
-name: Sync and Compile Ad Blocking Rules
+name: Sync and Compile BanAd Rules
 
 on:
   schedule:
-    - cron: '0 18 * * *'  # 每天北京时间02:00执行
+    - cron: '0 18 * * *'  # 北京时间 02:00 执行
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  ban_ad_rules:
+  banad_rules:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,38 +29,28 @@ jobs:
         curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/mihomo-linux-amd64-${version}.gz" | \
           gunzip -c > /usr/local/bin/mihomo && chmod +x /usr/local/bin/mihomo
 
-    - name: Fetch Ad Blocking Rules
+    - name: Fetch BanAd Rules
       run: |
         mkdir -p rules/Domain  # 确保目录存在
-        curl -sL "https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/qx.list" -o rules/qx.list
-        curl -sL "https://raw.githubusercontent.com/neodevpro/neodevhost/master/clash" -o rules/clash.yaml
 
-    - name: Extract DOMAIN rules from qx.list
-      run: |
-        # 只提取 DOMAIN 和 DOMAIN-SUFFIX 规则后的域名，并去掉 ",reject"
-        grep -Eo 'DOMAIN-SUFFIX,[^,]+' rules/qx.list | sed 's/DOMAIN-SUFFIX,//' > rules/Domain/banAd.list
-        grep -Eo 'DOMAIN,[^,]+' rules/qx.list | sed 's/DOMAIN,//' >> rules/Domain/banAd.list
+        # 下载 BanAd 规则文件
+        curl -sL "https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/qx.list" -o rules/Domain/banad.list
 
-    - name: Extract payload from clash.yaml
+    - name: Convert BanAd Rules to YAML
       run: |
-        # 提取 clash.yaml 中的 payload 规则
-        awk '/payload:/ {flag=1; next} flag && /^  - / {print $2}' rules/clash.yaml >> rules/Domain/banAd.list
+        echo "payload:" > rules/Domain/banad_combined.yaml
+        while IFS=, read -r type value; do
+          if [[ -n "$type" && -n "$value" ]]; then
+            echo "  - $type,$value" >> rules/Domain/banad_combined.yaml
+          fi
+        done < rules/Domain/banad.list
 
-    - name: Remove duplicates and format as YAML
+    - name: Convert BanAd Rules to MRS
       run: |
-        echo "payload:" > rules/Domain/banAd.yaml
-        sort -u rules/Domain/banAd.list | awk '{print "  - \047" $0 "\047"}' >> rules/Domain/banAd.yaml
-
-    - name: Convert DOMAIN rules to MRS
-      run: |
-        # 使用 mihomo 转换为 MRS 格式
-        mihomo convert-ruleset domain yaml rules/Domain/banAd.yaml rules/Domain/banAd.mrs
-
-    - name: Clean up temporary files
-      run: |
-        rm -f rules/qx.list rules/clash.yaml rules/Domain/banAd.list rules/Domain/banAd.yaml
+        mihomo convert-ruleset domain yaml rules/Domain/banad_combined.yaml rules/Domain/banAd.mrs
+        rm -f rules/Domain/banad.list rules/Domain/banad_combined.yaml
 
     - name: Commit and Push Changes
       run: |
         git add .
-        git diff-index --quiet HEAD -- || (git commit -m "Updated Ad Blocking rules -> banAd.mrs" && git push)
+        git diff-index --quiet HEAD -- || (git commit -m "Updated BanAd rules (qx.list -> banAd.mrs)" && git push)
