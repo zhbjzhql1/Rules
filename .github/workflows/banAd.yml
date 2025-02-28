@@ -44,13 +44,16 @@ jobs:
 
         echo "payload:" > rules/Domain/banAd.yaml
         
-        # 处理 qx.list，转换 *.domain -> *.domain，去除 ",reject"
-        awk -F',' '
-        {
-          gsub("DOMAIN,", "", $1);    # 去掉 "DOMAIN,"
-          gsub(",reject", "", $2);    # 去掉 ",reject"
-          print "  - \047" $1 "\047"  # 输出到 YAML 格式
-        }' rules/Domain/qx.list >> rules/Domain/banAd.yaml
+        # 处理 qx.list，删除开头的 DOMAIN, 和结尾的 ,reject
+        while IFS=, read -r domain reject; do
+          # 删除 "DOMAIN," 和 ",reject"，保留域名部分
+          domain=$(echo "$domain" | sed 's/^DOMAIN,//' | sed 's/,reject$//')
+          # 如果域名存在，且包含 '*' 替换为 '+'
+          if [[ -n "$domain" ]]; then
+            domain=$(echo "$domain" | sed 's/\*/+/g')
+            echo "  - \047$domain\047" >> rules/Domain/banAd.yaml
+          fi
+        done < rules/Domain/qx.list
 
     - name: Convert BanAd Rules to MRS
       run: |
