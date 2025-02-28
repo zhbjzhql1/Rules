@@ -39,12 +39,9 @@ jobs:
     - name: Convert BanAd Rules to YAML
       run: |
         echo "payload:" > rules/Domain/banad_combined.yaml
-        while IFS=, read -r type value action; do
-          if [[ "$type" == "DOMAIN" && "$action" == "reject" ]]; then
-            cleaned_value=$(echo "$value" | sed 's/\*/+/g')  # 替换 * 为 +
-            echo "  - $cleaned_value" >> rules/Domain/banad_combined.yaml
-          fi
-        done < rules/Domain/banad.list
+        grep '^DOMAIN,' rules/Domain/banad.list | sed 's/,reject//' | cut -d',' -f2 | while read -r domain; do
+          echo "  - $domain" >> rules/Domain/banad_combined.yaml
+        done
 
     - name: Convert BanAd Rules to MRS
       run: |
