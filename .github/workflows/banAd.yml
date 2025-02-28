@@ -29,25 +29,29 @@ jobs:
         curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/mihomo-linux-amd64-${version}.gz" | \
           gunzip -c > /usr/local/bin/mihomo && chmod +x /usr/local/bin/mihomo
 
-    - name: Fetch BanAd Rules
+    - name: Fetch and Merge BanAd Rules
       run: |
         mkdir -p rules/Domain  # 确保目录存在
 
         # 下载 qx.list 规则文件
-        curl -sL "https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/qx.list" -o rules/Domain/banAd.list
+        curl -sL "https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/qx.list" -o rules/Domain/qx.list
+        # 下载 category-ads-all.list 规则文件
+        curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-ads-all.list" -o rules/Domain/category-ads-all.list
 
-    - name: Convert BanAd Rules to YAML
-      run: |
         echo "payload:" > rules/Domain/banAd.yaml
-        grep -Eo 'DOMAIN-SUFFIX,[^,]+' rules/Domain/banAd.list | sed 's/DOMAIN-SUFFIX,/  - \047+./' | sed "s/$/\047/" >> rules/Domain/banAd.yaml
-        grep -Eo 'DOMAIN,[^,]+' rules/Domain/banAd.list | sed 's/DOMAIN,/  - \047/' | sed "s/$/\047/" >> rules/Domain/banAd.yaml
+        
+        # 处理 qx.list，转换 *.domain -> +.domain，去除 ",reject"
+        sed -E 's/DOMAIN,\*\./  - \047+./; s/DOMAIN,//; s/,reject//' rules/Domain/qx.list >> rules/Domain/banAd.yaml
+
+        # 直接追加 category-ads-all.list（格式已符合要求）
+        cat rules/Domain/category-ads-all.list >> rules/Domain/banAd.yaml
 
     - name: Convert BanAd Rules to MRS
       run: |
         mihomo convert-ruleset domain yaml rules/Domain/banAd.yaml rules/Domain/banAd.mrs
-        rm -f rules/Domain/banAd.list rules/Domain/banAd.yaml
+        rm -f rules/Domain/qx.list rules/Domain/category-ads-all.list rules/Domain/banAd.yaml
 
     - name: Commit and Push Changes
       run: |
         git add .
-        git diff-index --quiet HEAD -- || (git commit -m "Updated BanAd rules (qx.list -> banAd.mrs)" && git push)
+        git diff-index --quiet HEAD -- || (git commit -m "Updated BanAd rules (merged qx.list & category-ads-all.list -> banAd.mrs)" && git push)
