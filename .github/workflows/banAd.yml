@@ -16,7 +16,8 @@ jobs:
     - name: Checkout the repository
       uses: actions/checkout@v4
       with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0  # 拉取完整历史，防止 push 失败
 
     - name: Set up Git user
       run: |
@@ -32,14 +33,20 @@ jobs:
     - name: Fetch BanAd Rules
       run: |
         mkdir -p rules/Domain  # 确保目录存在
-        curl -sL "https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockmihomo.yaml" -o rules/Domain/banAd.yaml
+        curl -sL "https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockmihomo.yaml" -o rules/Domain/adblockmihomo.yaml
 
     - name: Convert BanAd Rules to MRS
       run: |
-        mihomo convert-ruleset domain yaml rules/Domain/banAd.yaml rules/Domain/banAd.mrs
-        rm -f rules/Domain/banAd.yaml
+        mihomo convert-ruleset domain yaml rules/Domain/adblockmihomo.yaml rules/Domain/banAd.mrs
+        rm -f rules/Domain/adblockmihomo.yaml  # 删除原 YAML 文件，保持仓库整洁
 
     - name: Commit and Push Changes
       run: |
         git add .
-        git diff-index --quiet HEAD -- || (git commit -m "Updated BanAd rules (banAd.yaml -> banAd.mrs)" && git push)
+        git pull --rebase  # 先拉取远程仓库最新变更，防止 push 失败
+        if git diff-index --quiet HEAD --; then
+          echo "No changes to commit"
+        else
+          git commit -m "Updated BanAd rules (adblockmihomo.yaml -> banAd.mrs)"
+          git push
+        fi
