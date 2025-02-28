@@ -52,10 +52,6 @@ jobs:
           print "  - \047" $1 "\047"  # 输出到 YAML 格式
         }' rules/Domain/qx.list >> rules/Domain/banAd.yaml
 
-        # 去重并合并重复的行，保留一个
-        awk '!seen[$0]++' rules/Domain/banAd.yaml > rules/Domain/banAd_unique.yaml
-        mv rules/Domain/banAd_unique.yaml rules/Domain/banAd.yaml
-
     - name: Convert BanAd Rules to MRS
       run: |
         mihomo convert-ruleset domain yaml rules/Domain/banAd.yaml rules/Domain/banAd.mrs
