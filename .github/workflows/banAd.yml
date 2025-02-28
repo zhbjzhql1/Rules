@@ -38,13 +38,28 @@ jobs:
         # 下载 category-ads-all.list 规则文件
         curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-ads-all.list" -o rules/Domain/category-ads-all.list
 
+        # 确保文件非空，否则退出
+        if [[ ! -s rules/Domain/qx.list || ! -s rules/Domain/category-ads-all.list ]]; then
+          echo "Error: One of the rule files is empty!" >&2
+          exit 1
+        fi
+
         echo "payload:" > rules/Domain/banAd.yaml
         
         # 处理 qx.list，转换 *.domain -> +.domain，去除 ",reject"
-        sed -E 's/DOMAIN,\*\./  - \047+./; s/DOMAIN,//; s/,reject//' rules/Domain/qx.list >> rules/Domain/banAd.yaml
+        awk -F',' '
+        {
+          gsub("DOMAIN,", "", $1);    # 去掉 "DOMAIN,"
+          gsub("\\*\\.", "+.", $1);   # 把 "*.domain" 转换为 "+.domain"
+          print "  - \047" $1 "\047"  # 输出到 YAML 格式
+        }' rules/Domain/qx.list >> rules/Domain/banAd.yaml
 
         # 直接追加 category-ads-all.list（格式已符合要求）
         cat rules/Domain/category-ads-all.list >> rules/Domain/banAd.yaml
+
+        # 去重并合并重复的行，保留一个
+        awk '!seen[$0]++' rules/Domain/banAd.yaml > rules/Domain/banAd_unique.yaml
+        mv rules/Domain/banAd_unique.yaml rules/Domain/banAd.yaml
 
     - name: Convert BanAd Rules to MRS
       run: |
