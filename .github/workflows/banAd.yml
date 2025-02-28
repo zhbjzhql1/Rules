@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  sync_and_compile:
+  banad_rules:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,7 +17,6 @@ jobs:
       uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        fetch-depth: 0  # 拉取完整历史，防止 push 失败
 
     - name: Set up Git user
       run: |
@@ -43,10 +42,4 @@ jobs:
     - name: Commit and Push Changes
       run: |
         git add .
-        git pull --rebase  # 先拉取远程仓库最新变更，防止 push 失败
-        if git diff-index --quiet HEAD --; then
-          echo "No changes to commit"
-        else
-          git commit -m "Updated BanAd rules (adblockmihomo.yaml -> banAd.mrs)"
-          git push
-        fi
+        git diff-index --quiet HEAD -- || (git commit -m "Updated BanAd rules (adblockmihomo.yaml -> banAd.mrs)" && git push)
