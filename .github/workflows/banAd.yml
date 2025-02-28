@@ -9,14 +9,14 @@ permissions:
   contents: write
 
 jobs:
-  banad_rules:
+  sync_and_compile:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout the repository
       uses: actions/checkout@v4
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Set up Git user
       run: |
@@ -32,16 +32,14 @@ jobs:
     - name: Fetch BanAd Rules
       run: |
         mkdir -p rules/Domain  # 确保目录存在
-
-        # 下载 BanAd 规则文件（已是 YAML 格式）
-        curl -sL "https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockmihomo.yaml" -o rules/Domain/banad.yaml
+        curl -sL "https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockmihomo.yaml" -o rules/Domain/banAd.yaml
 
     - name: Convert BanAd Rules to MRS
       run: |
-        mihomo convert-ruleset domain yaml rules/Domain/banad.yaml rules/Domain/banAd.mrs
-        rm -f rules/Domain/banad.yaml
+        mihomo convert-ruleset domain yaml rules/Domain/banAd.yaml rules/Domain/banAd.mrs
+        rm -f rules/Domain/banAd.yaml
 
     - name: Commit and Push Changes
       run: |
         git add .
-        git diff-index --quiet HEAD -- || (git commit -m "Updated BanAd rules (adblockmihomo.yaml -> banAd.mrs)" && git push)
+        git diff-index --quiet HEAD -- || (git commit -m "Updated BanAd rules (banAd.yaml -> banAd.mrs)" && git push)
