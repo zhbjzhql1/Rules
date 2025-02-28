@@ -33,22 +33,15 @@ jobs:
       run: |
         mkdir -p rules/Domain  # 确保目录存在
 
-        # 下载 BanAd 规则文件
-        curl -sL "https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/qx.list" -o rules/Domain/banad.list
-
-    - name: Convert BanAd Rules to YAML
-      run: |
-        echo "payload:" > rules/Domain/banad_combined.yaml
-        grep '^DOMAIN,' rules/Domain/banad.list | sed 's/,reject//' | cut -d',' -f2 | while read -r domain; do
-          echo "  - $domain" >> rules/Domain/banad_combined.yaml
-        done
+        # 下载 BanAd 规则文件（已是 YAML 格式）
+        curl -sL "https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockmihomo.yaml" -o rules/Domain/banad.yaml
 
     - name: Convert BanAd Rules to MRS
       run: |
-        mihomo convert-ruleset domain yaml rules/Domain/banad_combined.yaml rules/Domain/banAd.mrs
-        rm -f rules/Domain/banad.list rules/Domain/banad_combined.yaml
+        mihomo convert-ruleset domain yaml rules/Domain/banad.yaml rules/Domain/banAd.mrs
+        rm -f rules/Domain/banad.yaml
 
     - name: Commit and Push Changes
       run: |
         git add .
-        git diff-index --quiet HEAD -- || (git commit -m "Updated BanAd rules (qx.list -> banAd.mrs)" && git push)
+        git diff-index --quiet HEAD -- || (git commit -m "Updated BanAd rules (adblockmihomo.yaml -> banAd.mrs)" && git push)
