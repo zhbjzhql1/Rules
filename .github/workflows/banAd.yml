@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  banAd_rules:
+  banad_rules:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,31 +29,24 @@ jobs:
         curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/mihomo-linux-amd64-${version}.gz" | \
           gunzip -c > /usr/local/bin/mihomo && chmod +x /usr/local/bin/mihomo
 
-    - name: Fetch and Process qx.list
+    - name: Fetch BanAd Rules
       run: |
         mkdir -p rules/Domain  # 确保目录存在
 
-        # 下载 qx.list 规则文件
+        # 下载 BanAd 规则文件
         curl -sL "https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/qx.list" -o rules/Domain/qx.list
+        curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-ads-all.list" -o rules/Domain/category-ads-all.list
 
-        # 确保文件非空，否则退出
-        if [[ ! -s rules/Domain/qx.list ]]; then
-          echo "Error: qx.list is empty!" >&2
-          exit 1
-        fi
+    - name: Extract DOMAIN rules from qx.list
+      run: |
+        # 提取 qx.list 中的 DOMAIN 规则
+        grep -Eo 'DOMAIN,[^,]+' rules/Domain/qx.list | sed 's/DOMAIN,//' > rules/Domain/banAd-domain.list
+        grep -Eo 'DOMAIN-SUFFIX,[^,]+' rules/Domain/qx.list | sed 's/DOMAIN-SUFFIX,//' >> rules/Domain/banAd-domain.list
 
+    - name: Convert BanAd Rules to YAML
+      run: |
         echo "payload:" > rules/Domain/banAd.yaml
-        
-        # 处理 qx.list，删除开头的 DOMAIN, 和结尾的 ,reject
-        while IFS=, read -r domain reject; do
-          # 删除 "DOMAIN," 和 ",reject"，保留域名部分
-          domain=$(echo "$domain" | sed 's/^DOMAIN,//' | sed 's/,reject$//')
-          # 如果域名存在，且包含 '*' 替换为 '+'
-          if [[ -n "$domain" ]]; then
-            domain=$(echo "$domain" | sed 's/\*/+/g')
-            echo "  - \047$domain\047" >> rules/Domain/banAd.yaml
-          fi
-        done < rules/Domain/qx.list
+        sort -u rules/Domain/banAd-domain.list | awk '{print "  - \047" $0 "\047"}' >> rules/Domain/banAd.yaml
 
     - name: Convert BanAd Rules to MRS
       run: |
