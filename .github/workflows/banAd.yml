@@ -40,10 +40,8 @@ jobs:
       run: |
         echo "payload:" > rules/Domain/banad_combined.yaml
         while IFS=, read -r type value action; do
-          # 确保是 DOMAIN 规则，并且 action 是 reject
           if [[ "$type" == "DOMAIN" && "$action" == "reject" ]]; then
-            # 替换 "*" 为 "+"
-            cleaned_value=$(echo "$value" | sed 's/*/+/g')
+            cleaned_value=$(echo "$value" | sed 's/\*/+/g')  # 替换 * 为 +
             echo "  - $cleaned_value" >> rules/Domain/banad_combined.yaml
           fi
         done < rules/Domain/banad.list
