@@ -40,12 +40,13 @@ jobs:
       run: |
         echo "payload:" > rules/Domain/banad_combined.yaml
         while IFS=, read -r type value; do
-          # 删除 ",reject" 部分
+          # 删除 ",reject" 部分并提取内容
           value=$(echo "$value" | sed 's/,reject$//')
           # 替换 "*" 为 "+"
           value=$(echo "$value" | sed 's/*/+/g')
-          if [[ -n "$type" && -n "$value" ]]; then
-            echo "  - $type,$value" >> rules/Domain/banad_combined.yaml
+          # 只保留 Domain 和 ,reject 之间的内容
+          if [[ -n "$type" && -n "$value" && "$type" == "DOMAIN" ]]; then
+            echo "  - $value" >> rules/Domain/banad_combined.yaml
           fi
         done < rules/Domain/banad.list
 
