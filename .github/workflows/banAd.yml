@@ -39,14 +39,12 @@ jobs:
     - name: Convert BanAd Rules to YAML
       run: |
         echo "payload:" > rules/Domain/banad_combined.yaml
-        while IFS=, read -r type value; do
-          # 删除 ",reject" 部分并提取内容
-          value=$(echo "$value" | sed 's/,reject$//')
-          # 替换 "*" 为 "+"
-          value=$(echo "$value" | sed 's/*/+/g')
-          # 只保留 Domain 和 ,reject 之间的内容
-          if [[ -n "$type" && -n "$value" && "$type" == "DOMAIN" ]]; then
-            echo "  - $value" >> rules/Domain/banad_combined.yaml
+        while IFS=, read -r type value action; do
+          # 确保是 DOMAIN 规则，并且 action 是 reject
+          if [[ "$type" == "DOMAIN" && "$action" == "reject" ]]; then
+            # 替换 "*" 为 "+"
+            cleaned_value=$(echo "$value" | sed 's/*/+/g')
+            echo "  - $cleaned_value" >> rules/Domain/banad_combined.yaml
           fi
         done < rules/Domain/banad.list
 
