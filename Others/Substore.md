@@ -24,7 +24,7 @@ docker run -it -d \
 http://192.168.x.y:3001/subs?api=http://192.168.x.y:3001/CKg2absthskxudnm
 ```
 - 其中这一段CKg2absthskxudnm为Substore访问的安全路径或者说是密码，在公共vps上部署请勿将该段设置得过于简单
-- [在线密码生成网站](https://1password.com/zh-cn/password-generator）
+- [在线密码生成网站](https://1password.com/zh-cn/password-generator)
 ## Substore设置部分
 打开后台后点击第二页文件管理，创建文件
 #### 1.名称部分可自定义但必填
