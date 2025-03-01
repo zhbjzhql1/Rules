@@ -81,4 +81,4 @@ $content = $content.replace(/The_house/g, 'hgc');
 
 # 高级篇
 
-###Comming soon
+### Comming soon
