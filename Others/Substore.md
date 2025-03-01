@@ -3,7 +3,7 @@
 一个可以使用的docker，至少120mb的docker空间
 或者代理软件内置Substore支持也可以使用
 如果你已满足上述条件那么可以进行下一步
-##安装Substore,以openwrt平台为例
+## 安装Substore,以openwrt平台为例
 打开docker输入以下命令
 ```
 docker run -it -d \
