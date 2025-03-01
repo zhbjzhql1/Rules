@@ -1,5 +1,7 @@
 # 以下为Substore部署教程
-- 前提条件：一个可以使用的docker，至少120mb的docker空间
+- 前提条件：
+一个可以使用的docker，至少120mb的docker空间
+或者代理软件内置Substore支持也可以使用
 如果你已满足上述条件那么可以进行下一步
 ##安装Substore,以openwrt平台为例
 打开docker输入以下命令
@@ -76,3 +78,7 @@ $content = $content.replace(/The_house/g, 'hgc');
 ![Substore 部署示例1](https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/Others/Substore01.jpg)
 ![Substore 部署示例2](https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/Others/Substore02.jpg)
 ![Substore 部署示例3](https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/Others/Substore03.jpg)
+
+# 高级篇
+
+###Comming soon
