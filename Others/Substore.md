@@ -80,5 +80,13 @@ $content = $content.replace(/The_house/g, 'hgc');
 ![Substore 部署示例3](https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/Others/Substore03.jpg)
 
 # 高级篇
-
-### Comming soon
+#### 部署同上，请确保Substore版本已为最新版
+使用教程如下
+- 1 新建文件选择mihomo覆写如图
+![Substore高级01](https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/Others/Substore%E9%AB%98%E7%BA%A701.jpg)
+- 2 新建后名称自定义一个不重复的
+- 3 类型-选择mihomo配置
+- 4 来源-选择无
+- 5 若想自定义配置名称那么在显示名称那里输入并开启启用下载，如图
+![Substore高级02](https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/Others/Substore%E9%AB%98%E7%BA%A702.png)
+- 6 其余选项个人需要填写
