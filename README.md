@@ -37,7 +37,7 @@ FlClash
 
 •iOS
 Stash
-(https://apps.apple.com/app/stash/id1596063349?platform=iphone&l=zh-CN）
+(https://apps.apple.com/app/stash/id1596063349?platform=iphone&l=zh-CN ）
 
 •Openwrt
 
