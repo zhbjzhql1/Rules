@@ -107,7 +107,7 @@ https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/configfull_S
 ```
 - 2 新建一个脚本以替换订阅及名称所需代码与基础篇一致包括自定义过滤部分
 
-- 3 添加自定义国家分组，以韩国为例，新建脚本输入以下内容
+#### 添加自定义国家分组/策略组，以韩国为例，新建脚本输入以下内容
 ```
 function main(config) {
   // 确保 `proxy-groups` 存在
@@ -184,7 +184,7 @@ function main(config) {
   return config;
 }
 ```
-添加全局策略组脚本（标准版）
+##### 添加全局策略组脚本（标准版）
 ```
 function main(config) {
   // 确保 `proxy-groups` 存在
@@ -249,7 +249,7 @@ function main(config) {
 }
 ```
 以此类推如果你想再添加照着上方代码修改即可，添加其他策略组也是如此操作即可
-- 4 添加自建节点以添加ss2022节点回家为例使用如下代码，其余代理协议需要其他配置可自行参照[mihomo官方文档](https://wiki.metacubex.one)填入
+#### 添加自建节点以添加ss2022节点回家为例使用如下代码，其余代理协议需要其他配置可自行参照[mihomo官方文档](https://wiki.metacubex.one)填入
 ```
 function main(config) {
   // 确保 `proxies` 存在
@@ -274,7 +274,7 @@ function main(config) {
   return config;
 }
 ```
-- 5 添加自定义规则
+#### 添加自定义规则
 仍然以添加backhome为例输入以下代码
 ```
 function main(config) {
