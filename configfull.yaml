@@ -355,6 +355,7 @@ rule-anchor:
   domain: &domain {type: http, interval: 86400, behavior: domain, format: mrs}
   domain_optical: &domain_optical {type: http, interval: 86400, behavior: domain, format: yaml}
   class: &class {type: http, interval: 86400, behavior: classical, format: text}
+  class_optical: &class {type: http, interval: 86400, behavior: classical, format: yaml}
 rule-providers: 
   banAd_domain: { <<: *domain, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/Domain/banAd.mrs" }
   private_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs" }
