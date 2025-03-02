@@ -47,7 +47,13 @@ Nikki
 Openclash(若连接数大于1w推荐使用)
 (https://github.com/vernesong/OpenClash)
 
-### [去广告效果测试](https://adblock.turtlecute.org)
+<h2 id="c">🚫 拦截效果</h2>
+
+[AdBlock Tester](https://adblock-tester.com)
+
+[Block Ads! Adblock test](https://blockads.fivefilters.org/)
+
+[Ad Blocker Test](https://adblock.turtlecute.org/)
 
 ## 鸣谢,以下排名不分先后
 
