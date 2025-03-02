@@ -44,7 +44,7 @@ Stash
 Nikki
 (https://github.com/nikkinikki-org/OpenWrt-nikki)
 
-Openclash(若连接数大于1w推荐使用)
+Openclash
 (https://github.com/vernesong/OpenClash)
 
 <h2 id="c">🚫 广告拦截效果</h2>
