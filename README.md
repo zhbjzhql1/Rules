@@ -37,11 +37,11 @@ FlClash
 
 •iOS
 Stash
-(https://apps.apple.com/app/stash/id1596063349?platform=iphone&l=zh-CN ）
+(https://apps.apple.com/app/stash/id1596063349?platform=iphone&l=zh-CN)
 
 •鸿蒙
 
-（https://github.com/xiaobaigroup/hapapp）
+（https://github.com/xiaobaigroup/hapapp)
 
 
 •Openwrt
