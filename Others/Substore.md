@@ -216,6 +216,38 @@ function main(config) {
   return config;
 }
 ```
+NoAd版本
+```
+function main(config) {
+  // 确保 `proxy-groups` 存在
+  if (!config["proxy-groups"]) {
+    config["proxy-groups"] = [];
+  }
+
+  // 定义 "GLOBAL" 策略组
+  const globalGroup = {
+    name: "GLOBAL",
+    type: "select",
+    "include-all": true,
+    proxies: [
+      "节点选择", "YouTube", "GoogleVPN", "FCM", "Google", "Meta", "AI", "GitHub", "OneDrive", 
+      "Microsoft", "Telegram", "Discord", "Talkatone", "LINE", "Signal", "TikTok", "NETFLIX", 
+      "DisneyPlus", "HBO", "Primevideo", "AppleTV", "Apple", "Emby", "哔哩哔哩", "哔哩东南亚", 
+      "巴哈姆特", "Spotify", "国内媒体", "Global-TV", "Global-Medial", "游戏平台", "Speedtest", 
+      "PayPal", "Wise", "国外电商", "STEAM", "全球直连", "Final", "自建/家宽节点", "香港节点", 
+      "新加坡节点", "日本节点", "台湾节点", "美国节点", "欧洲节点", "香港自动", "新加坡自动", 
+      "日本自动", "台湾自动", "美国自动", "自动选择", "全部节点"
+    ],
+    "exclude-filter": "(?i)(🟢 直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author)",
+    icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/global.png"
+  };
+
+  // 将 "GLOBAL" 策略组添加到 proxy-groups 中
+  config["proxy-groups"].push(globalGroup);
+
+  return config;
+}
+```
 以此类推如果你想再添加照着上方代码修改即可，添加其他策略组也是如此操作即可
 - 4 添加自建节点以添加ss2022节点回家为例使用如下代码，其余代理协议需要其他配置可自行参照[mihomo官方文档](https://wiki.metacubex.one)填入
 ```
