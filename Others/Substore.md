@@ -185,7 +185,7 @@ function main(config) {
 }
 ```
 以此类推如果你想再添加照着上方代码修改即可，添加其他策略组也是如此操作即可
-- 4 添加自建节点以添加ss2022节点回家为例使用如下代码，其余代理协议需要其他配置可自行参照mihomo官方文档填入
+- 4 添加自建节点以添加ss2022节点回家为例使用如下代码，其余代理协议需要其他配置可自行参照[mihomo官方文档](https://wiki.metacubex.one)填入
 ```
 function main(config) {
   // 确保 `proxies` 存在
@@ -242,5 +242,4 @@ function main(config) {
 该规则将会在rule-providers里添加新规则源 "localip192.168.31.0"
 
 在 rules 中插入新的规则 "RULE-SET,localip192.168.31.0,Back_store,no-resolve"
-其余以此类推，规则写法部分参考mihomo官方文档
-[mihomo官方文档](https://wiki.metacubex.one)
+其余以此类推，规则写法部分参考[mihomo官方文档](https://wiki.metacubex.one)
