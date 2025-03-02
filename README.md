@@ -47,7 +47,7 @@ Nikki
 Openclash(若连接数大于1w推荐使用)
 (https://github.com/vernesong/OpenClash)
 
-<h2 id="c">🚫 拦截效果</h2>
+<h2 id="c">🚫 广告拦截效果</h2>
 
 [AdBlock Tester](https://adblock-tester.com)
 
