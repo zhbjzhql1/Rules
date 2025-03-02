@@ -308,5 +308,4 @@ function main(config) {
 在 rules 中插入新的规则 "RULE-SET,localip192.168.31.0,Back_store,no-resolve"
 其余以此类推，规则写法部分参考[mihomo官方文档](https://wiki.metacubex.one)
 
-### 实在能力有限欢迎使用
-[ChatGPT](https://chatgpt.com)复制代码让他按照你的要求修改
+### 若能力有限建议使用[ChatGPT](https://chatgpt.com)复制代码让他按照你的要求修改
