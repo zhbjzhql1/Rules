@@ -1,4 +1,5 @@
 # 以下为Substore部署教程
+# 基础版
 - 前提条件：
 一个可以使用的docker，至少120mb的docker空间
 或者代理软件内置Substore支持也可以使用
@@ -90,3 +91,19 @@ $content = $content.replace(/The_house/g, 'hgc');
 - 5 若想自定义配置名称那么在显示名称那里输入并开启启用下载，如图
 ![Substore高级02](https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/Others/Substore%E9%AB%98%E7%BA%A702.png)
 - 6 其余选项个人需要填写
+## 链接部分（🔗链接一定要放在第一个脚本处）
+- 1 新建一个脚本
+标准版填入
+```
+https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/configfull.yaml#noCache
+```
+NoAd版填入
+```
+https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/configfull_NoAd.yaml#noCache
+```
+Stash版填入
+```
+https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/configfull_Stash.yaml#noCache
+```
+- 2 新建一个脚本以替换订阅及名称所需代码与基础篇一致包括自定义过滤部分
+
