@@ -1,6 +1,6 @@
 # Some rules for emby
 # Power by Lanlan13-14
-DOMAIN-SUFFIX,cavps.eu.org
+DOMAIN,cavps.eu.org
 DOMAIN,emby.aikan.la
 DOMAIN,emby.aikan.cloud
 DOMAIN,random.ouonet.org
