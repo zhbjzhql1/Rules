@@ -39,6 +39,11 @@ FlClash
 Stash
 (https://apps.apple.com/app/stash/id1596063349?platform=iphone&l=zh-CN ）
 
+•鸿蒙
+
+（https://github.com/xiaobaigroup/hapapp）
+
+
 •Openwrt
 
 Nikki
