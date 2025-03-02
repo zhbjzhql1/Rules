@@ -1,7 +1,7 @@
 # Some rules for emby
 # Power by Lanlan13-14
 DOMAIN-SUFFIX,cavps.eu.org
-DOMAIN-SUFFIX,emby.aikan.la
-DOMAIN-SUFFIX,emby.aikan.cloud
-DOMAIN-SUFFIX,random.ouonet.org
+DOMAIN,emby.aikan.la
+DOMAIN,emby.aikan.cloud
+DOMAIN,random.ouonet.org
 DOMAIN-REGEX,(?i)emby|tsukimi
