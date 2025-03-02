@@ -107,3 +107,81 @@ https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/configfull_S
 ```
 - 2 新建一个脚本以替换订阅及名称所需代码与基础篇一致包括自定义过滤部分
 
+- 3 添加自定义国家分组，以韩国为例，新建脚本输入以下内容
+```
+function main(config) {
+  // 确保 `proxy-groups` 存在
+  if (!config["proxy-groups"]) {
+    config["proxy-groups"] = [];
+  }
+
+  // 找到 "欧洲节点" 的位置
+  const euIndex = config["proxy-groups"].findIndex(group => group.name === "欧洲节点");
+
+  // 定义 "韩国节点" 策略组
+  const krGroup = {
+    name: "韩国节点",
+    type: "select",
+    "include-all": true,
+    tolerance: 20,
+    interval: 300,
+    filter: "(?i)(韩|🇰🇷|kr|Korea)",
+    "exclude-filter": "(?i)(直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|traffic)",
+    icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/Korea.png"
+  };
+
+  // 插入到 "欧洲节点" 之后
+  if (euIndex !== -1) {
+    config["proxy-groups"].splice(euIndex + 1, 0, krGroup);
+  } else {
+    // 如果找不到 "欧洲节点"，则添加到末尾
+    config["proxy-groups"].push(krGroup);
+  }
+
+  return config;
+}
+```
+该脚本会自动在欧洲节点后添加一个名为韩国节点的策略组，
+若要在没个节点选择里面都能选择该组那么则需使用如下代码
+- 1 所添加的不在proxy-group内
+```
+function main(config) {
+  // 确保 `pr` 这个对象存在
+  if (config["pr"] && Array.isArray(config["pr"].proxies)) {
+    // 找到 "欧洲节点" 在 proxies 里的位置
+    const euIndex = config["pr"].proxies.indexOf("欧洲节点");
+
+    // 如果找到了 "欧洲节点"，就在它后面插入 "韩国节点"
+    if (euIndex !== -1) {
+      config["pr"].proxies.splice(euIndex + 1, 0, "韩国节点");
+    }
+  }
+
+  return config;
+}
+```
+- 2 所添加的在proxy-group内
+```
+function main(config) {
+  // 确保 `proxy-groups` 存在
+  if (!config["proxy-groups"]) {
+    config["proxy-groups"] = [];
+  }
+
+  // 找到 "节点选择" 组
+  const nodeSelectGroup = config["proxy-groups"].find(group => group.name === "节点选择");
+
+  if (nodeSelectGroup && Array.isArray(nodeSelectGroup.proxies)) {
+    // 找到 "欧洲节点" 在 proxies 里的位置
+    const euIndex = nodeSelectGroup.proxies.indexOf("欧洲节点");
+
+    // 如果找到了 "欧洲节点"，就在它后面插入 "韩国节点"
+    if (euIndex !== -1) {
+      nodeSelectGroup.proxies.splice(euIndex + 1, 0, "韩国节点");
+    }
+  }
+
+  return config;
+}
+```
+以此类推如果你想再添加照着上方代码修改即可
