@@ -185,3 +185,61 @@ function main(config) {
 }
 ```
 以此类推如果你想再添加照着上方代码修改即可，添加其他策略组也是如此操作即可
+- 4 添加自建节点以添加ss2022节点回家为例使用如下代码，其余代理协议需要其他配置可自行参照mihomo官方文档填入
+```
+function main(config) {
+  // 确保 `proxies` 存在
+  if (!config["proxies"]) {
+    config["proxies"] = [];
+  }
+
+  // 定义自建节点
+  const homeNode = {
+    name: "🏠 home",
+    type: "ss",
+    server: "写入你的域名或ip",
+    port: 这里写入端口,
+    cipher: "这里写入你的加密方式",
+    password: "这里写入密码",
+    tfo: false
+  };
+
+  // 直接添加到 `proxies`
+  config["proxies"].push(homeNode);
+
+  return config;
+}
+```
+- 5 添加自定义规则
+仍然以添加backhome为例输入以下代码
+```
+function main(config) {
+  // 确保 `rule-providers` 存在
+  if (!config["rule-providers"]) {
+    config["rule-providers"] = {};
+  }
+
+  // 添加新的 rule-provider
+  config["rule-providers"]["localip192.168.31.0"] = {
+    type: "http",
+    interval: 86400,
+    behavior: "classical",
+    format: "yaml",
+    url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/IP/localip_192.168.31.0.yaml",
+  };
+
+  // 确保 `rules` 存在
+  if (!config["rules"]) {
+    config["rules"] = [];
+  }
+
+  // 添加规则
+  config["rules"].unshift("RULE-SET,localip192.168.31.0,Back_store,no-resolve");
+
+  return config;
+}
+```
+该规则将会在rule-providers里添加新规则源 "localip192.168.31.0"
+
+在 rules 中插入新的规则 "RULE-SET,localip192.168.31.0,Back_store,no-resolve"
+其余以此类推，规则写法部分参考mihomo官方文档
