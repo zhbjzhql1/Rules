@@ -15,10 +15,10 @@ Stash专用➡️
 
 ### 无去广告版
 
-除Stash外使用➡️［维护ing］
+除Stash外使用➡️
 [configfull_NoAd.yaml](https://github.com/Lanlan13-14/Rules/blob/main/configfull_NoAd.yaml)
 
-Stash专用➡️［维护ing］
+Stash专用➡️
 [configfull_NoAd_stash.yaml](https://github.com/Lanlan13-14/Rules/blob/main/configfull_NoAd_Stash.yaml)
 
 
