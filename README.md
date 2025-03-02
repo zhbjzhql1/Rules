@@ -41,7 +41,7 @@ Stash
 
 •鸿蒙
 ClashNEXT
-（https://github.com/xiaobaigroup/hapapp)
+(https://github.com/xiaobaigroup/hapapp)
 
 
 •Openwrt
