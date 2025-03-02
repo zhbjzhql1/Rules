@@ -308,4 +308,6 @@ function main(config) {
 在 rules 中插入新的规则 "RULE-SET,localip192.168.31.0,Back_store,no-resolve"
 其余以此类推，规则写法部分参考[mihomo官方文档](https://wiki.metacubex.one)
 
+#### 最后预览符合预期后保存复制链接即可，如果想要在外面也能更新那么只需要一个反代+域名+ssl证书即可实现，反代地址填入刚刚复制的链接即可
+
 ### 若能力有限建议使用[ChatGPT](https://chatgpt.com)复制代码让他按照你的要求修改
