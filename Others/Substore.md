@@ -243,3 +243,4 @@ function main(config) {
 
 在 rules 中插入新的规则 "RULE-SET,localip192.168.31.0,Back_store,no-resolve"
 其余以此类推，规则写法部分参考mihomo官方文档
+[mihomo官方文档](https://wiki.metacubex.one/）
