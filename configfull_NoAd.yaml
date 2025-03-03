@@ -347,11 +347,11 @@ rules:
   - MATCH,Final
 rule-anchor:
   ip: &ip {type: http, interval: 86400, behavior: ipcidr, format: mrs}
-  ip_optical: &domain_optical {type: http, interval: 86400, behavior: ipcidr, format: yaml}
+  ip_optical: &domain_optical {type: http, interval: 86400, behavior: ipcidr, format: text}
   domain: &domain {type: http, interval: 86400, behavior: domain, format: mrs}
-  domain_optical: &domain_optical {type: http, interval: 86400, behavior: domain, format: yaml}
+  domain_optical: &domain_optical {type: http, interval: 86400, behavior: domain, format: text}
   class: &class {type: http, interval: 86400, behavior: classical, format: text}
-  class_optical: &class {type: http, interval: 86400, behavior: classical, format: yaml}
+  class_optical: &class {type: http, interval: 86400, behavior: classical, format: text}
 rule-providers: 
   private_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs" }
   bank_cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-bank-cn.mrs" }
