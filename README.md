@@ -30,6 +30,8 @@
 
 [Sub-store直达链接](https://github.com/sub-store-org/Sub-Store)
 
+[游戏规则相关内容](https://github.com/FQrabbit/SSTap-Rule)
+
 ### 标准版
 
 除Stash外使用➡️
