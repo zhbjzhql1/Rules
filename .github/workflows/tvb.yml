@@ -41,7 +41,13 @@ jobs:
         echo "payload:" > rules/Domain/tvb.yaml
         while IFS=, read -r type value; do
           if [[ -n "$type" && -n "$value" ]]; then
-            echo "  - $value" >> rules/Domain/tvb.yaml
+            # 处理 DOMAIN 规则，直接加入
+            if [[ "$type" == "DOMAIN" ]]; then
+              echo "  - $value" >> rules/Domain/tvb.yaml
+            # 处理 DOMAIN-SUFFIX 规则，加上 *.
+            elif [[ "$type" == "DOMAIN-SUFFIX" ]]; then
+              echo "  - '*.$value'" >> rules/Domain/tvb.yaml
+            fi
           fi
         done < rules/Domain/tvb.list
 
@@ -50,7 +56,9 @@ jobs:
         # 使用 mihomo 转换为 MRS 格式
         mihomo convert-ruleset domain yaml rules/Domain/tvb.yaml rules/Domain/tvb.mrs
 
-    - name: Commit and Push Changes
+    - name: Clean up and Commit Changes
       run: |
+        # 删除原始的 tvb.list 文件，保留 tvb.yaml 和 tvb.mrs
+        rm -f rules/Domain/tvb.list
         git add .
         git diff-index --quiet HEAD -- || (git commit -m "Updated TVB rules (tvb.list -> tvb.mrs)" && git push)
