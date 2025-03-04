@@ -2,7 +2,7 @@ name: Sync and Compile Emby Rules
 
 on:
   schedule:
-    - cron: '0 18 * * *'  # 北京时间 02:00 执行
+    - cron: '0 18 * * *'  # 每天北京时间02:00执行
   workflow_dispatch:
 
 permissions:
@@ -40,14 +40,20 @@ jobs:
         # 合并去重
         cat rules/Domain/emby1.list rules/Domain/emby2.list | grep -v '^#' | sort -u > rules/Domain/merged_emby.list
 
-    - name: Extract and Format DOMAIN and DOMAIN-SUFFIX rules
+    - name: Convert Emby Rules to YAML
       run: |
-        # 提取并格式化 DOMAIN 和 DOMAIN-SUFFIX 规则
         echo "payload:" > rules/Domain/emby.yaml
-
-        # 处理 DOMAIN-SUFFIX 和 DOMAIN 规则
-        grep -E '^DOMAIN-SUFFIX,[^,]+' rules/Domain/merged_emby.list | sed 's/^DOMAIN-SUFFIX,/+. /' >> rules/Domain/emby.yaml
-        grep -E '^DOMAIN,[^,]+' rules/Domain/merged_emby.list | sed 's/^DOMAIN,//' >> rules/Domain/emby.yaml
+        while IFS=, read -r type value; do
+          if [[ -n "$type" && -n "$value" ]]; then
+            # 处理 DOMAIN 规则，直接加入
+            if [[ "$type" == "DOMAIN" ]]; then
+              echo "  - $value" >> rules/Domain/emby.yaml
+            # 处理 DOMAIN-SUFFIX 规则，加上 *.
+            elif [[ "$type" == "DOMAIN-SUFFIX" ]]; then
+              echo "  - '*.$value'" >> rules/Domain/emby.yaml
+            fi
+          fi
+        done < rules/Domain/merged_emby.list
 
     - name: Convert Emby Rules to MRS
       run: |
@@ -62,4 +68,4 @@ jobs:
     - name: Commit and Push Changes
       run: |
         git add .
-        git diff-index --quiet HEAD -- || (git commit -m "Updated emby rules (merged emby.list -> emby.mrs)" && git push)
+        git diff-index --quiet HEAD -- || (git commit -m "Updated Emby rules (merged emby.list -> emby.mrs)" && git push)
