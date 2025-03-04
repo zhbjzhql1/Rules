@@ -49,7 +49,6 @@ jobs:
       run: |
         # 使用 mihomo 转换为 MRS 格式
         mihomo convert-ruleset domain yaml rules/Domain/tvb.yaml rules/Domain/tvb.mrs
-        rm -f rules/Domain/tvb.list rules/Domain/tvb.yaml
 
     - name: Commit and Push Changes
       run: |
