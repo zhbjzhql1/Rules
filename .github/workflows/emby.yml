@@ -43,22 +43,21 @@ jobs:
     - name: Extract and Format DOMAIN and DOMAIN-SUFFIX rules
       run: |
         # 提取并格式化 DOMAIN 和 DOMAIN-SUFFIX 规则
-        grep -E '^DOMAIN-SUFFIX,[^,]+' rules/Domain/merged_emby.list | sed 's/^DOMAIN-SUFFIX,/+. /' > rules/Domain/emby-domain.list
-        grep -E '^DOMAIN,[^,]+' rules/Domain/merged_emby.list | sed 's/^DOMAIN,//' >> rules/Domain/emby-domain.list
+        echo "payload:" > rules/Domain/emby.yaml
 
-    - name: Convert extracted Emby rules to YAML
-      run: |
-        echo "payload:" > rules/Domain/emby_combined.yaml
-        sort -u rules/Domain/emby-domain.list | awk '{print "  - \047" $0 "\047"}' >> rules/Domain/emby_combined.yaml
+        # 处理 DOMAIN-SUFFIX 和 DOMAIN 规则
+        grep -E '^DOMAIN-SUFFIX,[^,]+' rules/Domain/merged_emby.list | sed 's/^DOMAIN-SUFFIX,/+. /' >> rules/Domain/emby.yaml
+        grep -E '^DOMAIN,[^,]+' rules/Domain/merged_emby.list | sed 's/^DOMAIN,//' >> rules/Domain/emby.yaml
 
     - name: Convert Emby Rules to MRS
       run: |
-        mihomo convert-ruleset domain yaml rules/Domain/emby_combined.yaml rules/Domain/emby.mrs
+        # 使用 mihomo 转换为 MRS 格式
+        mihomo convert-ruleset domain yaml rules/Domain/emby.yaml rules/Domain/emby.mrs
 
     - name: Clean up the source files
       run: |
         # 删除源文件
-        rm -f rules/Domain/emby1.list rules/Domain/emby2.list rules/Domain/merged_emby.list rules/Domain/emby-domain.list rules/Domain/emby_combined.yaml
+        rm -f rules/Domain/emby1.list rules/Domain/emby2.list rules/Domain/merged_emby.list
 
     - name: Commit and Push Changes
       run: |
