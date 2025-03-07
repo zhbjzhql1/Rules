@@ -39,23 +39,23 @@ jobs:
     - name: Convert Amazon IP Rules to YAML
       run: |
         # 将 IP 规则文件转换为 YAML 格式
-        echo "payload:" > rules/IP/amazon-ip_combined.yaml
+        echo "payload:" > rules/IP/amazon-ip.yaml
         while IFS=, read -r type ip cidr; do
           # 过滤空行和注释行
           if [[ -n "$ip" && ! "$ip" =~ ^# && "$type" == "IP-CIDR" ]]; then
-            echo "  - '$ip'" >> rules/IP/amazon-ip_combined.yaml
+            echo "  - '$ip'" >> rules/IP/amazon-ip.yaml
           fi
         done < rules/IP/amazon-ip.list
 
     - name: Convert Amazon IP Rules to MRS
       run: |
         # 使用 mihomo 转换为 MRS 格式
-        mihomo convert-ruleset ipcidr yaml rules/IP/amazon-ip_combined.yaml rules/IP/amazon-ip.mrs
+        mihomo convert-ruleset ipcidr yaml rules/IP/amazon-ip.yaml rules/IP/amazon-ip.mrs
 
     - name: Clean up temporary files
       run: |
-        # 清理临时文件
-        rm -f rules/IP/amazon-ip.list rules/IP/amazon-ip_combined.yaml
+        # 删除原始列表文件，但保留 amazon-ip.yaml 和 amazon-ip.mrs
+        rm -f rules/IP/amazon-ip.list
 
     - name: Commit and Push Changes
       run: |
