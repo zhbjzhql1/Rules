@@ -48,7 +48,12 @@ jobs:
         echo "payload:" > rules/Domain/Talkatone-domain.yaml
         while IFS=, read -r type domain; do
           if [[ -n "$domain" && ! "$domain" =~ ^# ]]; then
-            echo "  - $domain" >> rules/Domain/Talkatone-domain.yaml
+            # 如果是 DOMAIN-SUFFIX 类型，在域名前加上 "*."
+            if [[ "$type" == "DOMAIN-SUFFIX" ]]; then
+              echo "  - *.$domain" >> rules/Domain/Talkatone-domain.yaml
+            else
+              echo "  - $domain" >> rules/Domain/Talkatone-domain.yaml
+            fi
           fi
         done < rules/Domain/Talkatone-domain.list
 
