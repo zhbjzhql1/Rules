@@ -39,7 +39,7 @@ jobs:
     - name: Extract DOMAIN rules from direct.list
       run: |
         # 提取 direct.list 中的 DOMAIN 和 DOMAIN-SUFFIX 规则
-        grep -Eo 'DOMAIN-SUFFIX,[^,]+' rules/Domain/direct.list | sed 's/DOMAIN-SUFFIX,//' > rules/Domain/direct-domain.list
+        grep -Eo 'DOMAIN-SUFFIX,[^,]+' rules/Domain/direct.list | sed 's/DOMAIN-SUFFIX/,/' | sed 's/$/./' > rules/Domain/direct-domain.list
         grep -Eo 'DOMAIN,[^,]+' rules/Domain/direct.list | sed 's/DOMAIN,//' >> rules/Domain/direct-domain.list
 
     - name: Convert Direct Rules to YAML
