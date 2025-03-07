@@ -39,7 +39,7 @@ jobs:
     - name: Extract DOMAIN rules from UBI.list
       run: |
         # 提取 UBI.list 中的 DOMAIN 和 DOMAIN-SUFFIX 规则，忽略注释行
-        grep -E '^(DOMAIN-SUFFIX|DOMAIN),' rules/Domain/ubi.list | grep -v '^#' | sed 's/DOMAIN-SUFFIX,/.\//' | sed 's/DOMAIN,//' > rules/Domain/ubi-domain.list
+        grep -E '^(DOMAIN-SUFFIX|DOMAIN),' rules/Domain/ubi.list | grep -v '^#' | sed 's/DOMAIN-SUFFIX,/.\//' | sed 's/DOMAIN,//' | sed 's/^\.\///' > rules/Domain/ubi-domain.list
 
     - name: Format extracted domains as YAML
       run: |
