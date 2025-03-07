@@ -50,9 +50,9 @@ jobs:
           if [[ -n "$domain" && ! "$domain" =~ ^# ]]; then
             # 如果是 DOMAIN-SUFFIX 类型，在域名前加上 "*."
             if [[ "$type" == "DOMAIN-SUFFIX" ]]; then
-              echo "  - *.$domain" >> rules/Domain/Talkatone-domain.yaml
+              echo "  - \"*.$domain\"" >> rules/Domain/Talkatone-domain.yaml
             else
-              echo "  - $domain" >> rules/Domain/Talkatone-domain.yaml
+              echo "  - \"$domain\"" >> rules/Domain/Talkatone-domain.yaml
             fi
           fi
         done < rules/Domain/Talkatone-domain.list
