@@ -54,8 +54,8 @@ jobs:
 
     - name: Clean up the source files
       run: |
-        # 删除中间文件，但保留 googleVPN.list 文件
-        rm -f rules/Domain/googleVPN-domain.list rules/Domain/googleVPN.yaml
+        # 删除中间文件，但保留 googleVPN.list 和 googleVPN.yaml
+        rm -f rules/Domain/googleVPN-domain.list
 
     - name: Commit and Push Changes
       run: |
