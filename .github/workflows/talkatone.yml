@@ -38,7 +38,7 @@ jobs:
 
     - name: Extract DOMAIN and IP rules from Talkatone list
       run: |
-        # 提取 DOMAIN 和 IP-CIDR 规则
+        # 提取 DOMAIN 和 DOMAIN-SUFFIX 规则
         grep -E 'DOMAIN|DOMAIN-SUFFIX' rules/talkatone.list > rules/Domain/Talkatone-domain.list
         grep -E 'IP-CIDR' rules/talkatone.list > rules/IP/Talkatone-ip.list
 
@@ -48,6 +48,11 @@ jobs:
         echo "payload:" > rules/Domain/Talkatone-domain.yaml
         while IFS=, read -r type domain; do
           if [[ -n "$domain" && ! "$domain" =~ ^# ]]; then
+            # 如果是 DOMAIN-SUFFIX 规则，前面加上 *.
+            if [[ "$type" == "DOMAIN-SUFFIX" ]]; then
+              domain="*.$domain"
+            fi
+            # 写入到 YAML 文件
             echo "  - $domain" >> rules/Domain/Talkatone-domain.yaml
           fi
         done < rules/Domain/Talkatone-domain.list
@@ -74,8 +79,8 @@ jobs:
 
     - name: Clean up temporary files
       run: |
-        # 删除临时文件
-        rm -f rules/talkatone.list rules/Domain/Talkatone-domain.list rules/IP/Talkatone-ip.list rules/Domain/Talkatone-domain.yaml rules/IP/Talkatone-ip.yaml
+        # 删除临时文件，但保留 talkatone.list, Talkatone-domain.yaml 和 Talkatone-ip.yaml
+        rm -f rules/Domain/Talkatone-domain.list rules/IP/Talkatone-ip.list rules/Domain/Talkatone-domain.yaml rules/IP/Talkatone-ip.yaml
 
     - name: Commit and Push Changes
       run: |
