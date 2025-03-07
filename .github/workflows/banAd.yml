@@ -55,8 +55,8 @@ jobs:
 
     - name: Clean up the source files
       run: |
-        # 删除源文件
-        rm -f rules/Domain/qx.list rules/Domain/category-ads-all.list
+        # 删除源文件，保留 banAd.yaml 和 banAd.mrs
+        rm -f rules/Domain/qx.list rules/Domain/category-ads-all.list rules/Domain/banAd-domain.list
 
     - name: Commit and Push Changes
       run: |
