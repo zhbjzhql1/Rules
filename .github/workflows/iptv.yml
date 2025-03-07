@@ -38,7 +38,7 @@ jobs:
 
     - name: Extract DOMAIN rules from IPTV list
       run: |
-        # 提取 IPTV Mainland.list 中的 DOMAIN 和 DOMAIN-SUFFIX 规则，忽略注释行
+        # 提取 IPTV 规则中的 DOMAIN 和 DOMAIN-SUFFIX 规则，忽略注释行
         grep -E '^(DOMAIN-SUFFIX|DOMAIN),' rules/Domain/iptv.list | grep -v '^#' | sed 's/DOMAIN-SUFFIX,/.\//' | sed 's/DOMAIN,//' > rules/Domain/iptv-domain.list
 
     - name: Format extracted domains as YAML
@@ -50,7 +50,7 @@ jobs:
       run: |
         # 使用 mihomo 转换为 MRS 格式
         mihomo convert-ruleset domain yaml rules/Domain/iptv.yaml rules/Domain/iptv.mrs
-        rm -f rules/Domain/iptv.list rules/Domain/iptv-domain.list rules/Domain/iptv.yaml
+        rm -f rules/Domain/iptv.list rules/Domain/iptv-domain.list
 
     - name: Commit and Push Changes
       run: |
