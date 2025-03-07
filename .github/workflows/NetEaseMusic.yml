@@ -40,6 +40,7 @@ jobs:
       run: |
         # 提取域名规则并保存到 NetEaseMusic-domain.list
         grep '^DOMAIN-SUFFIX' rules/NetEaseMusic.list > rules/Domain/NetEaseMusic-domain.list
+        grep '^DOMAIN' rules/NetEaseMusic.list >> rules/Domain/NetEaseMusic-domain.list
         
         # 提取 IP 规则并保存到 NetEaseMusic-ip.list (去掉 no-resolve)
         grep '^IP-CIDR' rules/NetEaseMusic.list | sed 's/,no-resolve//' > rules/IP/NetEaseMusic-ip.list
@@ -50,10 +51,11 @@ jobs:
         echo "payload:" > rules/Domain/NetEaseMusic-domain.yaml
         while IFS=, read -r type domain; do
           if [[ -n "$domain" && ! "$domain" =~ ^# ]]; then
-            # 如果是 DOMAIN-SUFFIX 规则，前面加上 *
+            # 如果是 DOMAIN-SUFFIX 规则，前面加上 *.
             if [[ "$type" == "DOMAIN-SUFFIX" ]]; then
               domain="*.$domain"
             fi
+            # 写入到 YAML 文件
             echo "  - $domain" >> rules/Domain/NetEaseMusic-domain.yaml
           fi
         done < rules/Domain/NetEaseMusic-domain.list
