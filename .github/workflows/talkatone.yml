@@ -38,21 +38,21 @@ jobs:
 
     - name: Extract DOMAIN and IP rules from Talkatone list
       run: |
-        # 提取 DOMAIN 和 IP-CIDR 规则
+        # 提取 DOMAIN 和 DOMAIN-SUFFIX 规则
         grep -E 'DOMAIN|DOMAIN-SUFFIX' rules/talkatone.list | sed 's/,//g' > rules/Domain/Talkatone-domain.list
         grep -E 'IP-CIDR' rules/talkatone.list > rules/IP/Talkatone-ip.list
 
     - name: Convert Talkatone DOMAIN rules to YAML
       run: |
         # 将 DOMAIN 和 DOMAIN-SUFFIX 规则转换为 YAML 格式
-        echo "payload:" > rules/Domain/Talkatone-domain.yaml
+        echo 'payload:' > rules/Domain/Talkatone-domain.yaml
         while IFS=, read -r type domain; do
           if [[ -n "$domain" && ! "$domain" =~ ^# ]]; then
             # 如果是 DOMAIN-SUFFIX 类型，在域名前加上 "+."
             if [[ "$type" == "DOMAIN-SUFFIX" ]]; then
-              echo "  - \"+.$domain\"" >> rules/Domain/Talkatone-domain.yaml
+              echo "  - '+.$domain'" >> rules/Domain/Talkatone-domain.yaml
             else
-              echo "  - \"$domain\"" >> rules/Domain/Talkatone-domain.yaml
+              echo "  - '$domain'" >> rules/Domain/Talkatone-domain.yaml
             fi
           fi
         done < rules/Domain/Talkatone-domain.list
@@ -63,7 +63,7 @@ jobs:
     - name: Convert Talkatone IP rules to YAML
       run: |
         # 将 IP-CIDR 规则转换为 YAML 格式
-        echo "payload:" > rules/IP/Talkatone-ip.yaml
+        echo 'payload:' > rules/IP/Talkatone-ip.yaml
         while IFS=, read -r type ip cidr; do
           if [[ -n "$ip" && ! "$ip" =~ ^# && "$type" == "IP-CIDR" ]]; then
             echo "  - $ip" >> rules/IP/Talkatone-ip.yaml
