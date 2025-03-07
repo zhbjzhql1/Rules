@@ -76,8 +76,8 @@ jobs:
 
     - name: Clean up temporary files
       run: |
-        # 删除临时文件
-        rm -f rules/NetEaseMusic.list rules/Domain/NetEaseMusic-domain.list rules/IP/NetEaseMusic-ip.list rules/Domain/NetEaseMusic-domain.yaml rules/IP/NetEaseMusic-ip.yaml
+        # 删除临时文件，保留 NetEaseMusic-domain.yaml 和 NetEaseMusic-ip.yaml
+        rm -f rules/NetEaseMusic.list rules/Domain/NetEaseMusic-domain.list rules/IP/NetEaseMusic-ip.list rules/Domain/NetEaseMusic-domain.mrs rules/IP/NetEaseMusic-ip.mrs
 
     - name: Commit and Push Changes
       run: |
