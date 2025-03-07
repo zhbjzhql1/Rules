@@ -38,14 +38,23 @@ jobs:
 
     - name: Extract DOMAIN rules from direct.list
       run: |
-        # 提取 direct.list 中的 DOMAIN 和 DOMAIN-SUFFIX 规则
-        grep -Eo 'DOMAIN-SUFFIX,[^,]+' rules/Domain/direct.list | sed 's/DOMAIN-SUFFIX/,/' | sed 's/$/./' > rules/Domain/direct-domain.list
+        # 提取 DOMAIN-SUFFIX 和 DOMAIN 规则
+        grep -Eo 'DOMAIN-SUFFIX,[^,]+' rules/Domain/direct.list | sed 's/DOMAIN-SUFFIX,//' > rules/Domain/direct-domain.list
         grep -Eo 'DOMAIN,[^,]+' rules/Domain/direct.list | sed 's/DOMAIN,//' >> rules/Domain/direct-domain.list
 
     - name: Convert Direct Rules to YAML
       run: |
         echo "payload:" > rules/Domain/direct.yaml
-        sort -u rules/Domain/direct-domain.list | awk '{print "  - \047" $0 "\047"}' >> rules/Domain/direct.yaml
+        while IFS=, read -r type domain; do
+          if [[ -n "$domain" && ! "$domain" =~ ^# ]]; then
+            if [[ "$type" == "DOMAIN-SUFFIX" ]]; then
+              # 处理 DOMAIN-SUFFIX 规则，前面加上 "*."
+              domain="*.$domain"
+            fi
+            # 输出规则到 YAML 文件
+            echo "  - '$domain'" >> rules/Domain/direct.yaml
+          fi
+        done < rules/Domain/direct-domain.list
 
     - name: Convert Direct Rules to MRS
       run: |
