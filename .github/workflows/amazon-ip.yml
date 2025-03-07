@@ -43,7 +43,7 @@ jobs:
         while IFS=, read -r type ip cidr; do
           # 过滤空行和注释行
           if [[ -n "$ip" && ! "$ip" =~ ^# && "$type" == "IP-CIDR" ]]; then
-            echo "  - $ip" >> rules/IP/amazon-ip_combined.yaml
+            echo "  - '$ip'" >> rules/IP/amazon-ip_combined.yaml
           fi
         done < rules/IP/amazon-ip.list
 
@@ -52,6 +52,8 @@ jobs:
         # 使用 mihomo 转换为 MRS 格式
         mihomo convert-ruleset ipcidr yaml rules/IP/amazon-ip_combined.yaml rules/IP/amazon-ip.mrs
 
+    - name: Clean up temporary files
+      run: |
         # 清理临时文件
         rm -f rules/IP/amazon-ip.list rules/IP/amazon-ip_combined.yaml
 
