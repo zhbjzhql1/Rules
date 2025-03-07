@@ -39,7 +39,7 @@ jobs:
     - name: Extract DOMAIN and IP rules from Talkatone list
       run: |
         # 提取 DOMAIN 和 IP-CIDR 规则
-        grep -E 'DOMAIN|DOMAIN-SUFFIX' rules/talkatone.list > rules/Domain/Talkatone-domain.list
+        grep -E 'DOMAIN|DOMAIN-SUFFIX' rules/talkatone.list | sed 's/,//g' > rules/Domain/Talkatone-domain.list
         grep -E 'IP-CIDR' rules/talkatone.list > rules/IP/Talkatone-ip.list
 
     - name: Convert Talkatone DOMAIN rules to YAML
