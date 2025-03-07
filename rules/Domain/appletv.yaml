@@ -1,6 +1,4 @@
 payload:
-  - '# DOMAIN-SUFFIX: 1'
-  - '# DOMAIN: 6'
   - '*.tv.apple.com'
   - 'hls-amt.itunes.apple.com'
   - 'hls.itunes.apple.com'
