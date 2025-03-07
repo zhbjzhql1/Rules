@@ -38,9 +38,8 @@ jobs:
 
     - name: Extract DOMAIN rules from WeChat.list
       run: |
-        # 提取 WeChat.list 中的 DOMAIN 和 DOMAIN-SUFFIX 规则
-        grep -Eo 'DOMAIN-SUFFIX,[^,]+' rules/Domain/WeChat.list | sed 's/DOMAIN-SUFFIX,//' > rules/Domain/WeChat-domain.list
-        grep -Eo 'DOMAIN,[^,]+' rules/Domain/WeChat.list | sed 's/DOMAIN,//' >> rules/Domain/WeChat-domain.list
+        # 提取 WeChat.list 中的 DOMAIN 和 DOMAIN-SUFFIX 规则，忽略注释行
+        grep -E '^(DOMAIN-SUFFIX|DOMAIN),' rules/Domain/WeChat.list | grep -v '^#' | sed 's/DOMAIN-SUFFIX,/.\//' | sed 's/DOMAIN,//' > rules/Domain/WeChat-domain.list
 
     - name: Format extracted domains as YAML
       run: |
