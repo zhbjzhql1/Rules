@@ -36,11 +36,10 @@ jobs:
         # 下载 Google VPN 规则文件
         curl -sL "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/Domain/googleVPN.list" -o rules/Domain/googleVPN.list
 
-    - name: Extract DOMAIN rules from googleVPN.list
+    - name: Extract DOMAIN-SUFFIX rules from googleVPN.list
       run: |
-        # 提取 googleVPN.list 中的 DOMAIN 和 DOMAIN-SUFFIX 规则
-        grep -Eo 'DOMAIN-SUFFIX,[^,]+' rules/Domain/googleVPN.list | sed 's/DOMAIN-SUFFIX,//' > rules/Domain/googleVPN-domain.list
-        grep -Eo 'DOMAIN,[^,]+' rules/Domain/googleVPN.list | sed 's/DOMAIN,//' >> rules/Domain/googleVPN-domain.list
+        # 提取 googleVPN.list 中的 DOMAIN-SUFFIX 规则，并添加 *.
+        grep -Eo 'DOMAIN-SUFFIX,[^,]+' rules/Domain/googleVPN.list | sed 's/DOMAIN-SUFFIX,//' | awk '{print "*." $0}' > rules/Domain/googleVPN-domain.list
 
     - name: Convert Google VPN Rules to YAML
       run: |
