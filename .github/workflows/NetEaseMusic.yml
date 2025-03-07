@@ -50,6 +50,10 @@ jobs:
         echo "payload:" > rules/Domain/NetEaseMusic-domain.yaml
         while IFS=, read -r type domain; do
           if [[ -n "$domain" && ! "$domain" =~ ^# ]]; then
+            # 如果是 DOMAIN-SUFFIX 规则，前面加上 *
+            if [[ "$type" == "DOMAIN-SUFFIX" ]]; then
+              domain="*.$domain"
+            fi
             echo "  - $domain" >> rules/Domain/NetEaseMusic-domain.yaml
           fi
         done < rules/Domain/NetEaseMusic-domain.list
