@@ -70,15 +70,15 @@ jobs:
           fi
         done < rules/IP/Talkatone-ip.list
 
-    - name: Convert Talkatone DOMAIN rules to MRS
-      run: |
-        # 使用 mihomo 转换为 MRS 格式
-        mihomo convert-ruleset domain yaml rules/Domain/Talkatone-domain.yaml rules/Domain/Talkatone-domain.mrs
+    # - name: Convert Talkatone DOMAIN rules to MRS
+    #   run: |
+    #     # 使用 mihomo 转换为 MRS 格式
+    #     mihomo convert-ruleset domain yaml rules/Domain/Talkatone-domain.yaml rules/Domain/Talkatone-domain.mrs
 
-    - name: Convert Talkatone IP rules to MRS
-      run: |
-        # 使用 mihomo 转换为 MRS 格式
-        mihomo convert-ruleset ipcidr yaml rules/IP/Talkatone-ip.yaml rules/IP/Talkatone-ip.mrs
+    # - name: Convert Talkatone IP rules to MRS
+    #   run: |
+    #     # 使用 mihomo 转换为 MRS 格式
+    #     mihomo convert-ruleset ipcidr yaml rules/IP/Talkatone-ip.yaml rules/IP/Talkatone-ip.mrs
 
     - name: Clean up temporary files
       run: |
@@ -88,4 +88,4 @@ jobs:
     - name: Commit and Push Changes
       run: |
         git add .
-        git diff-index --quiet HEAD -- || (git commit -m "Updated Talkatone rules -> Talkatone-domain.mrs and Talkatone-ip.mrs" && git push)
+        git diff-index --quiet HEAD -- || (git commit -m "Updated Talkatone rules -> Talkatone-domain.yaml and Talkatone-ip.yaml" && git push)
