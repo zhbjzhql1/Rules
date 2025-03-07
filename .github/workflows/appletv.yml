@@ -38,8 +38,8 @@ jobs:
 
     - name: Extract DOMAIN and DOMAIN-SUFFIX rules from appletv.list
       run: |
-        # 提取 DOMAIN 和 DOMAIN-SUFFIX 规则，并处理成需要的格式
-        grep -E 'DOMAIN-SUFFIX|DOMAIN' rules/Domain/appletv.list | sed -E 's/DOMAIN-SUFFIX,/*./g; s/DOMAIN,//g' > rules/Domain/appletv-domain.list
+        # 提取 DOMAIN 和 DOMAIN-SUFFIX 规则，并过滤掉以 # 开头的注释行
+        grep -E '^(DOMAIN-SUFFIX|DOMAIN),' rules/Domain/appletv.list | sed -E 's/DOMAIN-SUFFIX,/*./g; s/DOMAIN,//g' > rules/Domain/appletv-domain.list
 
     - name: Convert AppleTV Rules to YAML
       run: |
