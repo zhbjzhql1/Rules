@@ -57,6 +57,9 @@ jobs:
           fi
         done < rules/Domain/Talkatone-domain.list
 
+        # 确保没有空行
+        sed -i '/^$/d' rules/Domain/Talkatone-domain.yaml
+
     - name: Convert Talkatone IP rules to YAML
       run: |
         # 将 IP-CIDR 规则转换为 YAML 格式
