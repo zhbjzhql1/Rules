@@ -75,7 +75,7 @@ jobs:
     - name: Clean up temporary files
       run: |
         # 删除临时文件，但保留 steamCDN-ip.yaml 和 steamCDN-ip.mrs
-        rm -f rules/Steam_CDN.list rules/Domain/Steam-domain.list rules/IP/Steam-ip.list rules/Domain/Steam-domain.yaml
+        rm -f rules/Steam_CDN.list rules/Domain/Steam-domain.list rules/IP/Steam-ip.list
 
     - name: Commit and Push Changes
       run: |
