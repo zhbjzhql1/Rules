@@ -41,7 +41,7 @@ jobs:
         # 将 IP 规则文件转换为 YAML 格式
         echo "payload:" > rules/IP/wechat-ip.yaml
         while IFS=, read -r type ip cidr; do
-          # 过滤空行和注释行
+          # 将每一行 IP 地址按格式写入 YAML
           if [[ -n "$ip" && ! "$ip" =~ ^# && "$type" == "IP-CIDR" ]]; then
             echo "  - '$ip'" >> rules/IP/wechat-ip.yaml
           fi
