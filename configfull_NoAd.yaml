@@ -43,10 +43,10 @@ proxy-providers:
       additional-prefix: "[机场名称3]"
       skip-cert-verify: true
       udp: true
-
+      
 # 用于下载订阅时指定UA
 global-ua: clash.meta
-
+    
 # 全局配置
 port: 7890
 socks-port: 7891
@@ -60,7 +60,7 @@ tcp-concurrent: true
 # interface-name: eth0  （路由器下根据情况指定出站接口）
 authentication:
 #  - name:passwd
-
+  
 geodata-mode: false
 # GEO 文件加载模式（standard：标准加载器/memconservative：专为内存受限 (小内存) 设备优化的加载器 (默认值)）
 geodata-loader: standard
@@ -71,7 +71,7 @@ geox-url:
   mmdb: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip-lite.metadb"
   geoip: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip-lite.dat"
   asn: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/GeoLite2-ASN.mmdb"
-
+  
 # 控制面板
 external-controller: 0.0.0.0:9090
 secret: ""
@@ -89,7 +89,7 @@ keep-alive-interval: 30
 profile:
   store-selected: true
   store-fake-ip: false
-
+  
 # 流量嗅探
 sniffer:
   enable: true
@@ -116,7 +116,7 @@ sniffer:
     # 向日葵服务
     - '+.oray.com'
     - '+.sunlogin.net'
-
+    
 # 代理模式
 tun:
   enable: true
@@ -128,7 +128,7 @@ tun:
   auto-route: true
   auto-redirect: true
   auto-detect-interface: true
-
+  
 # DNS模块
 dns:
   enable: true
@@ -189,16 +189,16 @@ dns:
     'rule-set:geolocation-!cn': 
       - "https://dns.cloudflare.com/dns-query"
       - "https://dns.google/dns-query"
-
+ 
 proxies: 
   - name: "🟢 直连"
     type: direct
-    udp: true      
+    udp: true        
 
 
 
 
-
+  
 # 策略组
 proxy-groups:
   - {name: 节点选择, type: select, proxies: [香港自动, 新加坡自动, 日本自动, 台湾自动, 美国自动, 自动选择, 香港节点, 新加坡节点, 日本节点, 台湾节点, 美国节点, 欧洲节点, 全部节点, 自建/家宽节点, 🟢 直连], icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/select.png"}
@@ -207,7 +207,7 @@ proxy-groups:
   - {name: GoogleVPN, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/googlevpn.png"}
   - {name: Google, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/google.png"}
   - {name: Meta, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/meta.png"}
-  - {name: AI, <<: *pr, include-all: true, exclude-filter: "(?i)(🟢 直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|traffic)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/ai.png"}
+  - {name: AI, <<: *pr, include-all: true, exclude-filter: "(?i)(拒绝|🟢 直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|traffic)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/ai.png"}
   - {name: GitHub, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/github.png"}
   - {name: OneDrive, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/onedrive.png"}
   - {name: Microsoft, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/microsoft.png"}
@@ -223,20 +223,20 @@ proxy-groups:
   - {name: Primevideo, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/primevideo.png"}
   - {name: AppleTV, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/appletv.png"}
   - {name: Apple, type: select, proxies: [全球直连, 节点选择], icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/apple.png"}
-  - {name: Emby,type: select, <<: *pr, include-all: true, exclude-filter: "(?i)(🟢 直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|traffic)", icon: https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/emby.png}
+  - {name: Emby,type: select, <<: *pr, include-all: true, exclude-filter: "(?i)(拒绝|🟢 直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|traffic)", icon: https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/emby.png}
   - {name: 哔哩哔哩, type: select, proxies: [全球直连,  香港自动, 新加坡自动, 日本自动, 台湾自动, 美国自动, 自动选择, 香港节点, 新加坡节点, 日本节点, 台湾节点, 美国节点, 全部节点, 自建/家宽节点, 节点选择], icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/bilibili.png"}
   - {name: 哔哩东南亚, type: select, proxies: [节点选择, 新加坡自动, 新加坡节点, 全部节点, 自建/家宽节点, 全球直连], icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/bilibilit.png"}
   - {name: 巴哈姆特, type: select, proxies: [台湾节点, 台湾自动], icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/bahamut.png"}
   - {name: Spotify, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/spotify.png"}
   - {name: 国内媒体, type: select, proxies: [全球直连,  香港自动, 新加坡自动, 日本自动, 台湾自动, 美国自动, 自动选择, 香港节点, 新加坡节点, 日本节点, 台湾节点, 美国节点, 全部节点, 自建/家宽节点, 节点选择], icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/Chinese_media.png"}
-  - {name: Global-TV,type: select, <<: *pr, include-all: true, exclude-filter: "(?i)(🟢 直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|traffic)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/global_tv.png"}
-  - {name: Global-Medial,type: select, <<: *pr, include-all: true, exclude-filter: "(?i)(🟢 直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|traffic)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/global_media.png"}
+  - {name: Global-TV,type: select, <<: *pr, include-all: true, exclude-filter: "(?i)(拒绝|🟢 直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|traffic)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/global_tv.png"}
+  - {name: Global-Medial,type: select, <<: *pr, include-all: true, exclude-filter: "(?i)(拒绝|🟢 直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|traffic)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/global_media.png"}
   - {name: 游戏平台, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/game.png"}
-  - {name: Speedtest,type: select, <<: *pr, include-all: true, exclude-filter: "(?i)(🟢 直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|traffic)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/speedtest.png"}
+  - {name: Speedtest,type: select, <<: *pr, include-all: true, exclude-filter: "(?i)(拒绝|🟢 直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|traffic)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/speedtest.png"}
   - {name: PayPal, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/paypal.png"}
   - {name: Wise, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/wise.png"}
   - {name: 国外电商, <<: *pr, icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/shopping.png"}
-  - {name: STEAM,type: select, <<: *pr, include-all: true, exclude-filter: "(?i)(🟢 直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|traffic)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/steam.png"}
+  - {name: STEAM,type: select, <<: *pr, include-all: true, exclude-filter: "(?i)(拒绝|🟢 直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|traffic)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/steam.png"}
   - {name: 全球直连, type: select, proxies: [🟢 直连, 节点选择], icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/direct.png"}
   - {name: Final, type: select, <<: *pr, include-all: true, exclude-filter: "(?i)(🟢 直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|traffic)", icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png"}
   - {name: 自建/家宽节点, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?i)(自建|CF|The_house)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/private_node.png"}
@@ -245,8 +245,7 @@ proxy-groups:
   - {name: 日本节点, type: select, include-all: true, filter: "(?i)(日本|🇯🇵|JP|Japan)" ,exclude-filter: "(?i)(直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|traffic)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/Japan.png"}
   - {name: 台湾节点, type: select, include-all: true, filter: "(?i)(台|🇹🇼|TW|Taiwan)" ,exclude-filter: "(?i)(直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|traffic)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/Taiwan_China.png"}
   - {name: 美国节点, type: select, include-all: true, filter: "(?i)(美|🇺🇲|US|America|United States)" ,exclude-filter: "(?i)(直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|russia|austria|plus|traffic|Australia)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/America.png"}
-  - {name: 欧洲节点, type: select, include-all: true, filter: "(?i)(🇦🇱|🇦🇩|🇦🇹|🇧🇾|🇧🇪|🇧🇦|🇧🇬|🇭🇷|🇨🇾|🇨🇿|🇩🇰|🇪🇪|🇫🇮|🇫🇷|🇩🇪|🇬🇷|🇭🇺|🇮🇸|🇮🇪|🇮🇹|🇽🇰|🇱🇻|🇱🇮|🇱🇹|🇱🇺|🇲🇹|🇲🇩|🇲🇨|🇲🇪|🇳🇱|🇲🇰|🇳🇴|🇵🇱|🇵🇹|🇷🇴|🇷🇺|🇸🇲|🇷🇸|🇸🇰|🇸🇮|🇪🇸|🇸🇪|🇨🇭|🇹🇷|🇺🇦|🇬🇧|🇻🇦)" ,exclude-filter: "(?i)(直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|
-austria|traffic)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/European.png"}
+  - {name: 欧洲节点, type: select, include-all: true, filter: "(?i)(🇦🇱|🇦🇩|🇦🇹|🇧🇾|🇧🇪|🇧🇦|🇧🇬|🇭🇷|🇨🇾|🇨🇿|🇩🇰|🇪🇪|🇫🇮|🇫🇷|🇩🇪|🇬🇷|🇭🇺|🇮🇸|🇮🇪|🇮🇹|🇽🇰|🇱🇻|🇱🇮|🇱🇹|🇱🇺|🇲🇹|🇲🇩|🇲🇨|🇲🇪|🇳🇱|🇲🇰|🇳🇴|🇵🇱|🇵🇹|🇷🇴|🇷🇺|🇸🇲|🇷🇸|🇸🇰|🇸🇮|🇪🇸|🇸🇪|🇨🇭|🇹🇷|🇺🇦|🇬🇧|🇻🇦)" ,exclude-filter: "(?i)(直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|austria|traffic)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/European.png"}
   - {name: 香港自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?i)(香港|hk|hongkong|Hong Kong)" ,exclude-filter: "(?i)(The_HK_automation|直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|Wcloud|porn|play|0倍|0\\.1倍|0\\.01倍|0\\.3X|0\\.2x|0\\.5x|3X|2x|1\\.5x|traffic|plus)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/automation2.png"}
   - {name: 新加坡自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?i)(新|🇸🇬|SG|Singapore)" ,exclude-filter: "(?i)(The_SG_automation|直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|Wcloud|porn|play|0倍|0\\.1倍|0\\.01倍|0\\.3X|0\\.2x|0\\.5x|3X|2x|1\\.5x|traffic|plus)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/automation2.png"}
   - {name: 日本自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?i)(日本|🇯🇵|JP|Japan)" ,exclude-filter: "(?i)(The_JP_automation|直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|Wcloud|porn|play|0倍|0\\.1倍|0\\.01倍|0\\.3X|0\\.2x|0\\.5x|3X|2x|1\\.5x|traffic|plus)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/automation2.png"}
@@ -254,7 +253,7 @@ austria|traffic)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/re
   - {name: 美国自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?i)(美|🇺🇲|US|America|united States)" ,exclude-filter: "(?i)(The_US_automation|直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|Wcloud|porn|play|0倍|0\\.1倍|0\\.01倍|0\\.3X|0\\.2x|0\\.5x|3X|2x|1\\.5x|russia|austria|plus|traffic|Australia)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/automation2.png"}
   - {name: 自动选择, type: url-test, include-all-providers: true, tolerance: 20, interval: 300, exclude-filter: "(?i)(拒绝|automation|直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|traffic|plus)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/automation2.png"}
   - {name: 全部节点, type: select, include-all-providers: true, tolerance: 20, interval: 300, exclude-filter: "(?i)(拒绝|直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|traffic)", icon: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/icon/all.png"}
-rules:
+rules: 
   - RULE-SET,wechat_domain,全球直连
   - RULE-SET,wechat_asn,全球直连,no-resolve
   - RULE-SET,speedtest_domain,Speedtest
@@ -361,7 +360,7 @@ rule-providers:
   steam_cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/steam%40cn.mrs" }
   steamcdn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/Domain/Steam-domain.mrs" }
   steam_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/steam.mrs" }
-  ai!cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-ai-chat-!cn.mrs" }
+  ai!cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-ai-chat-!cn.mrs }
   openai_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/openai.mrs" }
   youtube_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs" }
   google_domain: { <<: *domain, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/Domain/google.mrs" }
@@ -440,6 +439,6 @@ rule-providers:
   NetEaseMusic_ip: { <<: *ip, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/IP/NetEaseMusic-ip.mrs" }
   emby_ip: { <<: *ip, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/IP/emby-ip.mrs" }
 
-  google_asn_cn: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/asn/AS24424.mrs" }
-  discord_asn: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/asn/AS49544.mrs" }
-  wechat_asn: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/asn/AS132203.mrs" }
+  google_asn_cn: { <<: *ip, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/IP/AS24424.mrs" }
+  discord_asn: { <<: *ip, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/IP/AS49544.mrs" }
+  wechat_asn: { <<: *ip, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/IP/AS132203.mrs" }
