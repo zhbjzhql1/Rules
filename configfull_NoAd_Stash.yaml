@@ -182,25 +182,6 @@ dns:
   nameserver:
     - https://223.5.5.5/dns-query
     - https://doh.pub/dns-query 
-  nameserver-policy:
-"rule-set:bank_cn_domain": https://223.5.5.5/dns-query
-"rule-set:wechat_domain": https://doh.pub/dns-query
-"rule-set:NetEaseMusic_domain": https://223.5.5.5/dns-query
-"rule-set:ai_cn_domain": https://223.5.5.5/dns-query
-"rule-set:fcm_domain": https://223.5.5.5/dns-query
-"rule-set:alibaba_domain": https://223.5.5.5/dns-query
-"rule-set:direct_domain": https://223.5.5.5/dns-query
-"rule-set:media_cn_domain": https://223.5.5.5/dns-query
-"rule-set:xiaomi_domain": https://223.5.5.5/dns-query
-"rule-set:steam_cn_domain": https://223.5.5.5/dns-query
-"rule-set:pt_cn_domain": https://223.5.5.5/dns-query
-"rule-set:public-tracker_domain": https://223.5.5.5/dns-query
-"rule-set:115_domain": https://223.5.5.5/dns-query
-"rule-set:aliyun_domain": https://223.5.5.5/dns-query
-"rule-set:iptv_domain": https://223.5.5.5/dns-query
-"rule-set:private_domain": https://223.5.5.5/dns-query
-"rule-set:cn_domain": https://223.5.5.5/dns-query
-"rule-set:geolocation-!cn": https://dns.cloudflare.com/dns-query
  
 proxies: 
   - name: "🟢 直连"
