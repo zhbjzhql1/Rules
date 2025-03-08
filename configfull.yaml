@@ -193,9 +193,6 @@ dns:
 proxies: 
   - name: "🟢 直连"
     type: direct
-    udp: true
-  - name: "🚫 拒绝"
-    type: reject
     udp: true        
 
 
