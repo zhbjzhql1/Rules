@@ -38,7 +38,7 @@ jobs:
 
     - name: Extract DOMAIN rules from UBI.list
       run: |
-        # 提取 UBI.list 中的 DOMAIN 和 DOMAIN-SUFFIX 规则
+        # 提取 UBI.list 中的 DOMAIN 和 DOMAIN-SUFFIX 规则，替换为合适的格式
         grep -E '^(DOMAIN-SUFFIX|DOMAIN),' rules/Domain/ubi.list | grep -v '^#' | \
         sed 's/DOMAIN-SUFFIX,.*/\*.\\1/' | sed 's/DOMAIN,//' > rules/Domain/ubi-domain.list
 
@@ -54,7 +54,7 @@ jobs:
 
     - name: Clean up the source files
       run: |
-        # 删除源文件
+        # 删除源文件，只保留最终的 .yaml 和 .mrs 文件
         rm -f rules/Domain/ubi.list rules/Domain/ubi-domain.list
 
     - name: Commit and Push Changes
