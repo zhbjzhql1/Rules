@@ -11,7 +11,7 @@ proxy-providers:
       enable: true
       url: http://captive.apple.com/
       interval: 300
-    proxy: 节点选择
+    proxy: 🟢 直连
     url: "订阅链接1"
     override:
       additional-prefix: "[机场名称1]"
@@ -24,7 +24,7 @@ proxy-providers:
       enable: true
       url: http://captive.apple.com/
       interval: 300
-    proxy: 节点选择
+    proxy: 🟢 直连
     url: "订阅链接2"
     override:
       additional-prefix: "[机场名称2]"
@@ -37,7 +37,7 @@ proxy-providers:
       enable: true
       url: http://captive.apple.com/
       interval: 300
-    proxy: 节点选择
+    proxy: 🟢 直连
     url: "订阅链接3"
     override:
       additional-prefix: "[机场名称3]"
