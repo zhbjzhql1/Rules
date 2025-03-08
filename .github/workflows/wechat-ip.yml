@@ -1,0 +1,63 @@
+name: Sync and Compile WeChat IP Rules
+
+on:
+  schedule:
+    - cron: '0 18 * * *'  # 北京时间 02:00 执行
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  wechat_ip_rules:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Set up Git user
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Install mihomo
+      run: |
+        version=$(curl -sL https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/version.txt)
+        curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/mihomo-linux-amd64-${version}.gz" | \
+          gunzip -c > /usr/local/bin/mihomo && chmod +x /usr/local/bin/mihomo
+
+    - name: Fetch WeChat IP Rule
+      run: |
+        mkdir -p rules/IP  # 确保目录存在
+
+        # 下载 WeChat IP 规则文件
+        curl -sL "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/asn/AS132203.list" -o rules/IP/wechat-ip.list
+
+    - name: Convert WeChat IP Rules to YAML
+      run: |
+        # 将 IP 规则文件转换为 YAML 格式
+        echo "payload:" > rules/IP/wechat-ip.yaml
+        while IFS=, read -r type ip cidr; do
+          # 过滤空行和注释行
+          if [[ -n "$ip" && ! "$ip" =~ ^# && "$type" == "IP-CIDR" ]]; then
+            echo "  - '$ip'" >> rules/IP/wechat-ip.yaml
+          fi
+        done < rules/IP/wechat-ip.list
+
+    - name: Convert WeChat IP Rules to MRS
+      run: |
+        # 使用 mihomo 转换为 MRS 格式
+        mihomo convert-ruleset ipcidr yaml rules/IP/wechat-ip.yaml rules/IP/wechat-ip.mrs
+
+    - name: Clean up temporary files
+      run: |
+        # 删除原始列表文件，但保留 wechat-ip.yaml 和 wechat-ip.mrs
+        rm -f rules/IP/wechat-ip.list
+
+    - name: Commit and Push Changes
+      run: |
+        git add .
+        git diff-index --quiet HEAD -- || (git commit -m "Updated WeChat IP rules -> wechat-ip.mrs" && git push)
