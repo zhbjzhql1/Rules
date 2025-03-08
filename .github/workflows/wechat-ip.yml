@@ -38,14 +38,11 @@ jobs:
 
     - name: Convert WeChat IP Rules to YAML
       run: |
-        # 将 IP 规则文件转换为 YAML 格式
+        # 直接把内容按格式写入 YAML
         echo "payload:" > rules/IP/wechat-ip.yaml
-        while IFS=, read -r type ip cidr; do
-          # 将每一行 IP 地址按格式写入 YAML
-          if [[ -n "$ip" && ! "$ip" =~ ^# && "$type" == "IP-CIDR" ]]; then
-            echo "  - '$ip'" >> rules/IP/wechat-ip.yaml
-          fi
-        done < rules/IP/wechat-ip.list
+        cat rules/IP/wechat-ip.list | while read line; do
+          echo "  - '$line'" >> rules/IP/wechat-ip.yaml
+        done
 
     - name: Convert WeChat IP Rules to MRS
       run: |
