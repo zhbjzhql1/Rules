@@ -178,10 +178,10 @@ dns:
     - 119.29.29.29
   proxy-server-nameserver:
     - quic://dns.alidns.com/dns-query
-    - quic://doh.pub/dns-query 
+    - https://doh.pub/dns-query
   nameserver:
     - quic://dns.alidns.com/dns-query
-    - quic://doh.pub/dns-query 
+    - https://doh.pub/dns-query 
  
 proxies: 
   - name: "🟢 直连"
