@@ -39,16 +39,16 @@ jobs:
 
     - name: Convert Emby IP Rules to YAML
       run: |
-        echo "payload:" > rules/IP/emby_ip.yaml
-        cat rules/IP/emby_ip.list rules/IP/emby.list | grep '^IP-CIDR' | awk -F, '{print "  - "$2}' >> rules/IP/emby_ip.yaml
+        echo "payload:" > rules/IP/emby-ip.yaml
+        cat rules/IP/emby_ip.list rules/IP/emby.list | grep '^IP-CIDR' | awk -F, '{print "  - "$2}' >> rules/IP/emby-ip.yaml
 
     - name: Convert Emby IP Rules to MRS
       run: |
         # 使用 mihomo 转换为 MRS 格式
-        mihomo convert-ruleset ipcidr yaml rules/IP/emby_ip.yaml rules/IP/emby-ip.mrs
+        mihomo convert-ruleset ipcidr yaml rules/IP/emby-ip.yaml rules/IP/emby-ip.mrs
         
-        # 清理临时文件，但保留 emby_ip.list 和 emby_ip.yaml
-        rm -f rules/IP/emby.list
+        # 清理临时文件，删除 emby_ip.list 和 emby.list，但保留 emby-ip.yaml
+        rm -f rules/IP/emby.list rules/IP/emby_ip.list
 
     - name: Commit and Push Changes
       run: |
