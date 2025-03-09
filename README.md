@@ -1,4 +1,4 @@
-# 置顶
+# 置顶/Precautions
 
 > [!Caution]
 > 禁止任何形式的转载或发布至🇨🇳大陆平台
@@ -23,9 +23,10 @@
 
 - 订阅更新默认走🟢 直连,如需要可手动改成节点选择
 
+- 考虑到部分机场热门地区节点有高低倍率之分，根据普遍情况设置了自动选择组（仅保留标准节点）和手动组（全部节点）
 
-# Precautions
-本项目的订阅转换模板/yaml文件是参考 ACL4SSR，Aethersailor，qichiyu等规则修改而来，基于作者个人理解做出的修改，另外我的更新不固定建议每2-3周下载一次配置文件替换，以获得最佳体验/也可配合Substore一同使用达到如同使用订阅链接的效果(每次更新订阅即会自动拉取配置文件更新，无需手动下载上传)，同时感谢各位的大力支持
+- 本项目的订阅转换模板/yaml文件是参考 ACL4SSR，Aethersailor等规则修改而来，基于作者个人理解做出的修改，另外我的更新不固定建议每2-3周下载一次配置文件替换，以获得最佳体验/也可配合Substore一同使用达到如同使用订阅链接的效果(每次更新订阅即会自动拉取配置文件更新，无需手动下载上传)，同时感谢各位的大力支持
+
 #### Substore部署使用教程，高级玩法请将Substore更新至最新版本，注意更新前请先备份以防止配置丢失
 [Substore结合教程](https://github.com/Lanlan13-14/Rules/blob/main/Others/Substore.md)
 
@@ -104,8 +105,6 @@ Openclash
 
 •[Aethersailor/Custom_OpenClash_Rules](https://github.com/Aethersailor/Custom_OpenClash_Rules)
 
-•[qichiyuhub/rule](https://github.com/qichiyuhub/rule)
-
 •[8680/GOODBYEADS](https://github.com/8680/GOODBYEADS)
 
 •[666OS/YYDS](https://github.com/666OS/YYDS)
@@ -122,4 +121,4 @@ Openclash
 请不要成为一只“吸取帮助的吸血鬼（help vampire）‘。
 另外不可转载至国内平台
 -------------------------------------------------
-考虑到部分机场节点有高低倍率之分，根据普遍情况设置了自动选择组（仅保留标准节点）和手动组（全部节点）
+
