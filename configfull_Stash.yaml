@@ -270,14 +270,14 @@ rules:
   - RULE-SET,alibaba_domain,全球直连
   - RULE-SET,115_domain,全球直连
   - RULE-SET,aliyun_domain,全球直连
-  - RULE-SET,fcm_domain,FCM
+  - RULE-SET,github_domain,GitHub
+  - RULE-SET,gitbook_domain,GitHub
   - RULE-SET,googlevpn_domain,GoogleVPN
   - RULE-SET,youtube_domain,YouTube
+  - RULE-SET,fcm_domain,FCM
   - RULE-SET,google_domain,Google
   - RULE-SET,google_asn_cn,Google,no-resolve
   - RULE-SET,google_ip,Google,no-resolve
-  - RULE-SET,github_domain,GitHub
-  - RULE-SET,gitbook_domain,GitHub
   - RULE-SET,onedrive_domain,OneDrive
   - RULE-SET,microsoft_domain,Microsoft
   - RULE-SET,telegram_domain,Telegram
