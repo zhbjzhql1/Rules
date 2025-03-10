@@ -51,35 +51,6 @@ Stash专用➡️
 [configfull_NoAd_stash.yaml](https://github.com/Lanlan13-14/Rules/blob/main/configfull_NoAd_Stash.yaml)
 
 
-## 客户端推荐
-•Windows/MacOS/Linux
-
-Clash-verge-rev（若出现DNS泄漏请打开严格路由）
-(https://github.com/clash-verge-rev/clash-verge-rev)
-
-Mihomo-Party（若出现DNS泄漏请打开严格路由）
-(https://github.com/xishang0128/mihomo-party)
-
-•Android 
-FlClash
-(https://github.com/chen08209/FlClash)
-
-•iOS
-Stash
-(https://apps.apple.com/app/stash/id1596063349?platform=iphone&l=zh-CN)
-
-•鸿蒙
-ClashNEXT
-(https://github.com/xiaobaigroup/hapapp)
-
-
-•Openwrt
-
-Nikki
-(https://github.com/nikkinikki-org/OpenWrt-nikki)
-
-Openclash
-(https://github.com/vernesong/OpenClash)
 
 <h2 id="c">🚫 广告拦截效果</h2>
 
