@@ -12,6 +12,7 @@ payload:
   - '*.stash.wiki'
   - '*.yichafen.com'
   - '*.zyyme.com'
+  - 'digvps.com'
   - 'dl.openwrt.ai'
   - 'wkdaily.cpolar.top'
   - 'www.techxiaofei.com'
