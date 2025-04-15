@@ -12,7 +12,7 @@ proxy-providers:
       url: http://captive.apple.com/
       interval: 300
     proxy: 🟢 直连
-    url: "http://192.168.200.254:12580/clash/proxies?nc=CN"
+    url: "订阅链接"
     override:
       additional-prefix: "[机场名称1]"
       skip-cert-verify: true
@@ -25,7 +25,7 @@ proxy-providers:
       url: http://captive.apple.com/
       interval: 300
     proxy: 🟢 直连
-    url: "http://107.173.140.25:12581/clash/proxies?nc=CN"
+    url: "订阅链接"
     override:
       additional-prefix: "[机场名称2]"
       skip-cert-verify: true
@@ -38,7 +38,7 @@ proxy-providers:
       url: http://captive.apple.com/
       interval: 300
     proxy: 🟢 直连
-    url: "https://clash.huiwg.cn/clash/proxies?nc=CN"
+    url: "订阅链接"
     override:
       additional-prefix: "[机场名称3]"
       skip-cert-verify: true
@@ -51,7 +51,7 @@ proxy-providers:
       url: http://captive.apple.com/
       interval: 300
     proxy: 🟢 直连
-    url: "https://proxy.crazygeeky.com/clash/proxies?nc=CN"
+    url: "订阅链接"
     override:
       additional-prefix: "[机场名称3]"
       skip-cert-verify: true
